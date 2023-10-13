@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-
+    <SignUp />
   </div>
 </template>
 
 <script>
-
+import SignUp from './views/SignUp.vue';
 export default {
-  name: 'App',
+  components: {
+    SignUp,
+  },
 }
 
 </script>
