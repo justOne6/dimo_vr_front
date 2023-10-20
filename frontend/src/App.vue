@@ -1,26 +1,20 @@
 <template>
-  <div id="app">
+  <v-main>
     <SignUp />
-  </div>
+  </v-main>
 </template>
 
 <script>
 import SignUp from './views/SignUp.vue';
+
 export default {
+
   components: {
     SignUp,
   },
-}
 
+  data: () => ({
+    //
+  }),
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
