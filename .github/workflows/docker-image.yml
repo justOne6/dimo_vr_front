@@ -9,7 +9,7 @@ on:
       - "v*"
 
 env:
-  IMAGE_NAME: dimo_vr_front
+  IMAGE_NAME: dimovr_front
   DOCKERFILE: prod.Dockerfile
   REGISTRY: ghcr.io
 
