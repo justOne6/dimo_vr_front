@@ -5,15 +5,12 @@
 </template>
 
 <script>
-//import SignUp from "./views/SignUp.vue";
 
 export default {
   components: {
-    //SignUp,
   },
 
   data: () => ({
-    //
   }),
 };
 </script>
