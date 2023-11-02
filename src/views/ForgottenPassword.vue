@@ -2,18 +2,14 @@
     <div class="main">
         <DimoVR />
         <div class="inputs">
-            <p class="create">Create Account</p>
-            <input class="input" type="text" placeholder="Name" />
+            <p style="margin-bottom: 5%">Enter the email address associated with your account and we’ll send you a link to
+                reset your
+                password.</p>
             <input class="input" type="text" placeholder="Email" />
-            <input class="input" type="text" placeholder="Password" />
 
         </div>
         <div class="signup">
-            <v-btn class="signup_button"><span>SIGN UP</span></v-btn>
-        </div>
-        <div style="margin: 2% auto; width: fit-content">
-            <a href="/sign-in" style="color: #2A6A8A; font-weight: bold; text-decoration: none;">Already have an account
-                ?</a>
+            <v-btn class="signup_button"><span>CONTINUE</span></v-btn>
         </div>
     </div>
 </template>
@@ -43,7 +39,19 @@ body {
 
 .main {
     font-family: 'Raleway', sans-serif;
+    margin-top: 8%;
     margin-bottom: auto;
+}
+
+.dimo {
+    color: var(--lightOrange);
+    font-weight: bold;
+}
+
+.title {
+    font-size: 48px;
+    margin: 0 auto !important;
+    width: fit-content;
 }
 
 .create {
@@ -54,7 +62,7 @@ body {
 }
 
 .input {
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     margin-bottom: 10%;
     background-color: #E6E6E6;
@@ -82,6 +90,6 @@ span.signup_button {
     display: flex;
     flex-direction: column;
     width: 25%;
-    margin: 2px auto !important;
+    margin: 5% auto 3% auto;
 }
 </style>

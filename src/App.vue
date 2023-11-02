@@ -14,3 +14,13 @@ export default {
   }),
 };
 </script>
+
+<style>
+body {
+  margin: 0 !important;
+}
+
+.v-main__wrap {
+  margin-top: 0 !important;
+}
+</style>
