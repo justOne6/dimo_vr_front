@@ -6,12 +6,12 @@
       <input class="input" type="text" placeholder="Email" />
       <input class="input" type="text" placeholder="Password" />
     </div>
+    <div class="signup">
+      <v-btn class="signup_button"><span>SIGN IN</span></v-btn>
+    </div>
     <div style="margin: 2% auto; width: fit-content">
       <a href="/forgotten-password" style="color: #2A6A8A; font-weight: bold; text-decoration: none;">Forgot password
         ?</a>
-    </div>
-    <div class="signup">
-      <v-btn class="signup_button"><span>SIGN IN</span></v-btn>
     </div>
   </div>
 </template>
@@ -50,7 +50,7 @@ body {
   color: #2a6a8a !important;
   font-weight: bold;
   font-size: 32px;
-  margin: 5% auto 10% auto;
+  margin: 0 auto 10% auto !important;
 }
 
 .input {
@@ -82,6 +82,6 @@ span.signin_button {
   display: flex;
   flex-direction: column;
   width: 25%;
-  margin: 0 auto;
+  margin: 0 auto !important;
 }
 </style>
