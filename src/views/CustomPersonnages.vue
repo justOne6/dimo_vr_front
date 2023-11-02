@@ -2,7 +2,9 @@
   <div class="main">
     <DimoVR />
     <p class="custom">Custom your characters</p>
-    <canvas ref="gameCanvas" width="500" height="500"></canvas>
+    <div class="container">
+      <canvas ref="gameCanvas" class="canvas"></canvas>
+    </div>
   </div>
 </template>
 
@@ -22,7 +24,6 @@ export default {
 
       context.fillStyle = "black";
       context.fillRect(50, 50, 100, 100);
-
     },
   },
 };
@@ -43,8 +44,18 @@ body {
   color: #2a6a8a !important;
   font-weight: bold;
   font-size: 32px;
-   margin: 0 auto;
-    width: fit-content;
-    border-radius: 5px;
+  margin: 0 auto;
+  width: fit-content;
+  border-radius: 5px;
+}
+.canvas {
+  width: 500px;
+  height: 500px;
+}
+.container {
+  border: 5px solid #bde0fe;
+  background-repeat: no-repeat;
+  background-color: #fef9ef;
+  justify-content: center;
 }
 </style>
