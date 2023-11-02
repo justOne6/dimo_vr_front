@@ -7,12 +7,12 @@
                 <p class="welcome">Welcome Nom Prénom</p>
             </div>
         </div>
-        <div class="left" style="background-color:red; width: fit-content; padding: 2%">
+        <div class="left" style="border: solid 1px red; width: fit-content; padding: 2%; margin-top: -200px">
             <p class="edits">Home</p>
             <p class="edits">Personal informations</p>
             <p class="edits">Security and confidentiality</p>
             <p class="edits">Contact and share</p>
-            <v-divider :thickness="7"></v-divider>
+            <v-divider style="color:black; height: 2px"></v-divider>
             <p class="edits">About</p>
         </div>
 
@@ -50,6 +50,7 @@ body {
 
 .edits {
     margin: 10% auto;
+    font-size: 18px;
 }
 
 .dimo {
