@@ -1,19 +1,24 @@
 <template>
     <div class="main">
-        <div class="title">
-            <span style="color: #FB8500" class="dimo">Dimo</span>
-            <span style="color: #FFA800;font-weight: bold">VR</span>
+        <div class="right">
+            <div class="title">
+                <span style="color: #FB8500" class="dimo">Dimo</span>
+                <span style="color: #FFA800;font-weight: bold">VR</span>
+            </div>
+            <div class="inputs">
+                <p class="create">Manage Account</p>
+                <p class="welcome">Welcome Nom Prénom</p>
+            </div>
         </div>
-        <div class="inputs">
-            <p class="create">Create Account</p>
-            <input class="input" type="text" placeholder="Name" />
-            <input class="input" type="text" placeholder="Email" />
-            <input class="input" type="text" placeholder="Password" />
+        <div class="left" style="background-color:red; width: fit-content; padding: 2%">
+            <p class="edits">Home</p>
+            <p class="edits">Personal informations</p>
+            <p class="edits">Security and confidentiality</p>
+            <p class="edits">Contact and share</p>
+            <v-divider :thickness="7"></v-divider>
+            <p class="edits">About</p>
+        </div>
 
-        </div>
-        <div class="signup">
-            <v-btn class="signup_button"><span>SIGN UP</span></v-btn>
-        </div>
     </div>
 </template>
 
@@ -44,6 +49,10 @@ body {
     margin-bottom: auto;
 }
 
+.edits {
+    margin: 10% auto;
+}
+
 .dimo {
     color: var(--lightOrange);
     font-weight: bold;
@@ -59,6 +68,12 @@ body {
     color: #2A6A8A !important;
     font-weight: bold;
     font-size: 32px;
+    margin: 5% auto 10% auto;
+}
+
+.welcome {
+    color: #2A6A8A !important;
+    font-size: 24px;
     margin: 5% auto 10% auto;
 }
 

@@ -1,16 +1,22 @@
 <template>
   <v-main>
-    <SignUp />
+    <ManageAccount />
+    <!--<ForgottenPassword />-->
+    <!--<SignUp />-->
   </v-main>
 </template>
 
 <script>
-import SignUp from './views/SignUp.vue';
+import ManageAccount from './views/ManageAccount.vue'
+//import ForgottenPassword from './views/ForgottenPassword.vue';
+//import SignUp from './views/SignUp.vue';
 
 export default {
 
   components: {
-    SignUp,
+    ManageAccount,
+    //SignUp,
+    //ForgottenPassword,
   },
 
   data: () => ({
