@@ -1,13 +1,14 @@
 <template>
   <div class="main">
-    <div class="title">
-      <span style="color: #fb8500" class="dimo">Dimo</span>
-      <span style="color: #ffa800; font-weight: bold">VR</span>
-    </div>
+    <DimoVR />
     <div class="inputs">
       <p class="create">Sign In</p>
       <input class="input" type="text" placeholder="Email" />
       <input class="input" type="text" placeholder="Password" />
+    </div>
+    <div style="margin: 2% auto; width: fit-content">
+      <a href="/forgotten-password" style="color: #2A6A8A; font-weight: bold; text-decoration: none;">Forgot password
+        ?</a>
     </div>
     <div class="signup">
       <v-btn class="signup_button"><span>SIGN IN</span></v-btn>
@@ -17,7 +18,11 @@
 
 <script>
 import { generalColors } from "../../globalVars";
+import DimoVR from "@/components/DimoVR.vue";
 export default {
+  components: {
+    DimoVR,
+  },
   data() {
     return {
       medimuBlue: generalColors.mediumBlue,
@@ -39,17 +44,6 @@ body {
   font-family: "Raleway", sans-serif;
   margin-top: 8%;
   margin-bottom: auto;
-}
-
-.dimo {
-  color: var(--lightOrange);
-  font-weight: bold;
-}
-
-.title {
-  font-size: 48px;
-  margin: 0 auto !important;
-  width: fit-content;
 }
 
 .create {

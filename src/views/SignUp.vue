@@ -1,9 +1,6 @@
 <template>
     <div class="main">
-        <div class="title">
-            <span style="color: #FB8500" class="dimo">Dimo</span>
-            <span style="color: #FFA800;font-weight: bold">VR</span>
-        </div>
+        <DimoVR />
         <div class="inputs">
             <p class="create">Create Account</p>
             <input class="input" type="text" placeholder="Name" />
@@ -14,12 +11,18 @@
         <div class="signup">
             <v-btn class="signup_button"><span>SIGN UP</span></v-btn>
         </div>
+        <div style="margin: 2% auto; width: fit-content">
+            <a href="/sign-in" style="color: #2A6A8A; font-weight: bold; text-decoration: none;">Already have an account
+                ?</a>
+        </div>
     </div>
 </template>
 
 <script>
 import { generalColors } from '../../globalVars'
+import DimoVR from "@/components/DimoVR.vue";
 export default {
+    components: { DimoVR },
     data() {
         return {
             medimuBlue: generalColors.mediumBlue,
@@ -40,19 +43,7 @@ body {
 
 .main {
     font-family: 'Raleway', sans-serif;
-    margin-top: 8%;
     margin-bottom: auto;
-}
-
-.dimo {
-    color: var(--lightOrange);
-    font-weight: bold;
-}
-
-.title {
-    font-size: 48px;
-    margin: 0 auto !important;
-    width: fit-content;
 }
 
 .create {
@@ -63,7 +54,7 @@ body {
 }
 
 .input {
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     margin-bottom: 10%;
     background-color: #E6E6E6;
@@ -91,6 +82,6 @@ span.signup_button {
     display: flex;
     flex-direction: column;
     width: 25%;
-    margin: 0 auto;
+    margin: 2px auto !important;
 }
 </style>

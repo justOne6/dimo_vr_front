@@ -1,10 +1,7 @@
 <template>
     <div class="main">
         <div class="right">
-            <div class="title">
-                <span style="color: #FB8500" class="dimo">Dimo</span>
-                <span style="color: #FFA800;font-weight: bold">VR</span>
-            </div>
+            <DimoVR />
             <div class="inputs">
                 <p class="create">Manage Account</p>
                 <p class="welcome">Welcome Nom Prénom</p>
@@ -24,7 +21,9 @@
 
 <script>
 import { generalColors } from '../../globalVars'
+import DimoVR from "@/components/DimoVR.vue";
 export default {
+    components: { DimoVR },
     data() {
         return {
             medimuBlue: generalColors.mediumBlue,
