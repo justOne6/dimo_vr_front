@@ -4,6 +4,7 @@ import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import ManageAccount from "../views/ManageAccount";
 import ForgottenPassword from "../views/ForgottenPassword";
+import CustomPersonnages from "../views/CustomPersonnages";
 
 Vue.use(VueRouter);
 
@@ -12,6 +13,8 @@ const routes = [
   { path: "/", component: SignUp },
   { path: "/manage-account", component: ManageAccount },
   { path: "/forgotten-password", component: ForgottenPassword },
+  { path: "/custom", component: CustomPersonnages },
+
 ];
 
 const router = new VueRouter({
