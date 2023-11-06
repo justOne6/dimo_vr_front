@@ -2,7 +2,6 @@
 
 This frontend project is based on VueJS and related to DimoVR project.
 Link to the backend of application : https://github.com/justOne6/dimo_vr_backend
-
 ## Project setup
 
 ### Run in docker
