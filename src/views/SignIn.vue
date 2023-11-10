@@ -1,24 +1,33 @@
 <template>
   <div class="main">
     <DimoVR />
+    <div v-if="loginSuccess" class="success-message">
+      Connexion réussie! Vous pouvez maintenant accéder à votre tableau de bord.
+    </div>
     <div class="inputs">
       <p class="create">Sign In</p>
-      <input class="input" type="text" placeholder="Email" v-model="email" />
-      <input
+      <v-text-field
         class="input"
-        type="password"
-        placeholder="Password"
+        label="Username"
+        v-model="username"
+      ></v-text-field>
+      <v-text-field
+        class="input"
+        label="Password"
         v-model="password"
-      />
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showPassword ? 'text' : 'password'"
+        @click:append="showPassword = !showPassword"
+      ></v-text-field>
     </div>
-    <div class="signup">
+    <div class="signin">
       <v-btn class="signin_button" @click="signIn"><span>SIGN IN</span></v-btn>
     </div>
     <div style="margin: 2% auto; width: fit-content">
-      <a
-        href="/forgotten-password"
+      <router-link
+        to="/forgotten-password"
         style="color: #2a6a8a; font-weight: bold; text-decoration: none"
-        >Forgot password ?</a
+        >Forgot password?</router-link
       >
     </div>
   </div>
@@ -40,35 +49,59 @@ export default {
       mediumGrey: generalColors.mediumGrey,
       boldOrange: generalColors.boldOrange,
       lightOrange: generalColors.lightOrange,
-      email: "",
+      username: "",
       password: "",
+      showPassword: false,
+      loginSuccess: false,
     };
   },
   methods: {
     signIn() {
       const loginData = {
-        username: this.email,
+        username: this.username,
         password: this.password,
       };
 
       axios
-        .post("http://127.0.0.1:8000/api/login_check", loginData)
+        .post("http://127.0.0.1:8000/api/login_check", loginData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
-          if (response.data.token) {
-            // Stock jeton JWT dans le localStorage
-            localStorage.setItem("jwtToken", response.data.token);
-            // router.push("/dashboard");
+          console.log("Login response:", response);
 
-            console.log(
-              "Connexion réussie, jeton JWT stocké:",
-              response.data.token
-            );
+          if (response.status === 200) {
+            const token = response.data.token;
+
+            localStorage.setItem("token", token);
+
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+            this.$router.push("/dashboard");
+
+            console.log("Login successful");
           } else {
-            console.error("Le serveur n'a pas renvoyé de jeton.");
+            console.error(
+              "Login failed. Server response does not indicate success."
+            );
           }
         })
         .catch((error) => {
-          console.error("Erreur de connexion:", error);
+          console.error("Erreur lors de l'inscription:", error);
+
+          if (error.response) {
+            console.error("Réponse du serveur:", error.response.data);
+            console.error("Statut du serveur:", error.response.status);
+            console.error("En-têtes du serveur:", error.response.headers);
+          } else if (error.request) {
+            console.error("Pas de réponse du serveur lors de l'inscription");
+          } else {
+            console.error(
+              "Erreur lors de l'envoi de la requête:",
+              error.message
+            );
+          }
         });
     },
   },

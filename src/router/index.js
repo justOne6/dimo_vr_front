@@ -5,12 +5,14 @@ import SignUp from "../views/SignUp.vue";
 import ManageAccount from "../views/ManageAccount";
 import ForgottenPassword from "../views/ForgottenPassword";
 import CustomPersonnages from "../views/CustomPersonnages";
+import Dashboard from "../views/DashboardHome";
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: "/sign-in", component: SignIn },
   { path: "/", component: SignUp },
+  { path: "/dashboard", component: Dashboard },
   { path: "/manage-account", component: ManageAccount },
   { path: "/forgotten-password", component: ForgottenPassword },
   { path: "/custom", component: CustomPersonnages },
