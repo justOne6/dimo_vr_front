@@ -5,6 +5,9 @@
       Inscription réussie! Vous pouvez maintenant
       <router-link to="/sign-in">vous connecter</router-link>.
     </div>
+    <div v-if="registrationError" class="error-message">
+      {{ registrationError }}
+    </div>
     <div class="inputs">
       <p class="create">Create Account</p>
       <v-text-field class="input" label="Name" v-model="name"></v-text-field>
@@ -57,6 +60,7 @@ export default {
       password: "",
       showPassword: false,
       registrationSuccess: false,
+      registrationError: null,
     };
   },
   methods: {
@@ -65,16 +69,13 @@ export default {
         username: this.name,
         email: this.email,
         password: this.password,
-        _registrationSuccess: false,
       };
 
       axios
         .post("http://127.0.0.1:8000/api/register", userData)
         .then((response) => {
           if (response.status === 201) {
-            // User registered successfully
             console.log("Inscription réussie:", response.data);
-            // Display success message
             this.registrationSuccess = true;
           } else {
             console.error(
@@ -87,19 +88,19 @@ export default {
           console.error("Erreur lors de l'inscription:", error);
 
           if (error.response) {
-            console.error("Réponse du serveur:", error.response.data);
-            console.error("Statut du serveur:", error.response.status);
-            console.error("En-têtes du serveur:", error.response.headers);
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.error("Pas de réponse du serveur lors de l'inscription");
+            if (error.response.status === 500) {
+              this.registrationError =
+                "Le nom d'utilisateur existe déjà. Veuillez choisir un autre.";
+            } else {
+              this.registrationError = error.response.data.message;
+            }
           } else {
-            // Something happened in setting up the request that triggered an Error
-            console.error(
-              "Erreur lors de l'envoi de la requête:",
-              error.message
-            );
+            this.registrationError = "Erreur lors de l'inscription.";
           }
+
+          setTimeout(() => {
+            this.registrationError = null;
+          }, 5000);
         });
     },
   },
@@ -153,5 +154,13 @@ span.signup_button {
   flex-direction: column;
   width: 25%;
   margin: 2px auto !important;
+}
+.error-message {
+  background-color: #f44336;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
 }
 </style>

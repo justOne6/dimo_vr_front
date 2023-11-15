@@ -1,18 +1,20 @@
 <template>
-  <div class="main">
-    <DimoVR />
-    <p class="custom">Custom your characters</p>
-    <div class="container">
-      <canvas ref="gameCanvas" class="canvas"></canvas>
+  <div>
+    <Navbar />
+    <div class="main">
+      <p class="custom">Custom your characters</p>
+      <div class="container">
+        <canvas ref="gameCanvas" class="canvas"></canvas>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import DimoVR from "@/components/DimoVR.vue";
+import Navbar from "@/components/Navbar.vue";
 
 export default {
-  components: { DimoVR },
+  components: { Navbar },
 
   mounted() {
     this.drawCharacters();

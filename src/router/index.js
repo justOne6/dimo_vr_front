@@ -12,11 +12,59 @@ Vue.use(VueRouter);
 const routes = [
   { path: "/sign-in", component: SignIn },
   { path: "/", component: SignUp },
-  { path: "/dashboard", component: Dashboard },
-  { path: "/manage-account", component: ManageAccount },
-  { path: "/forgotten-password", component: ForgottenPassword },
-  { path: "/custom", component: CustomPersonnages },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: Dashboard,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("token");
 
+      if (token) {
+        next();
+      } else {
+        next("/");
+      }
+    },
+  },
+  {
+    path: "/manage-account",
+    component: ManageAccount,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        next();
+      } else {
+        next("/");
+      }
+    },
+  },
+  {
+    path: "/forgotten-password",
+    component: ForgottenPassword,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        next();
+      } else {
+        next("/");
+      }
+    },
+  },
+  {
+    path: "/custom",
+    component: CustomPersonnages,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        next();
+      } else {
+        next("/");
+      }
+    },
+  },
 ];
 
 const router = new VueRouter({

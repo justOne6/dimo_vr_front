@@ -2,7 +2,13 @@
   <div class="main">
     <DimoVR />
     <div v-if="loginSuccess" class="success-message">
-      Connexion réussie! Vous pouvez maintenant accéder à votre tableau de bord.
+      <p class="success-text">
+        Connexion réussie! Vous pouvez maintenant accéder à votre tableau de
+        bord.
+      </p>
+    </div>
+    <div v-if="loginError" class="error-message">
+      {{ loginError }}
     </div>
     <div class="inputs">
       <p class="create">Sign In</p>
@@ -53,6 +59,7 @@ export default {
       password: "",
       showPassword: false,
       loginSuccess: false,
+      loginError: null,
     };
   },
   methods: {
@@ -88,19 +95,14 @@ export default {
           }
         })
         .catch((error) => {
-          console.error("Erreur lors de l'inscription:", error);
+          console.error("Erreur lors de la connexion:", error);
 
-          if (error.response) {
-            console.error("Réponse du serveur:", error.response.data);
-            console.error("Statut du serveur:", error.response.status);
-            console.error("En-têtes du serveur:", error.response.headers);
-          } else if (error.request) {
-            console.error("Pas de réponse du serveur lors de l'inscription");
+          if (error.response && error.response.status === 401) {
+            // Authentication failed, set loginError
+            this.loginError =
+              "Nom d'utilisateur ou mot de passe incorrect. Veuillez réessayer !";
           } else {
-            console.error(
-              "Erreur lors de l'envoi de la requête:",
-              error.message
-            );
+            this.loginError = "Erreur lors de la connexion.";
           }
         });
     },
@@ -156,5 +158,28 @@ span.signin_button {
   flex-direction: column;
   width: 25%;
   margin: 0 auto !important;
+}
+
+.success-message {
+  background-color: #4caf50;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.success-text {
+  font-family: "Raleway", sans-serif;
+  color: white;
+  font-size: 18px;
+}
+
+.error-message {
+  background-color: #d9534f;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+  color: white;
 }
 </style>
