@@ -1,17 +1,19 @@
 <template>
-  <div class="main">
-    <div class="right">
-      <DimoVR />
+  <div>
+    <Navbar />
+    <div class="main">
+      <div class="right"></div>
+      <h1 class="title">Hello, {{ username }}</h1>
     </div>
-    <h1 class="title">Helooo</h1>
   </div>
 </template>
 
 <script>
 import { generalColors } from "../../globalVars";
-import DimoVR from "@/components/DimoVR.vue";
+import Navbar from "@/components/Navbar.vue";
+
 export default {
-  components: { DimoVR },
+  components: { Navbar },
   data() {
     return {
       medimuBlue: generalColors.mediumBlue,
@@ -19,35 +21,31 @@ export default {
       mediumGrey: generalColors.mediumGrey,
       boldOrange: generalColors.boldOrange,
       lightOrange: generalColors.lightOrange,
+      username: "",
     };
+  },
+  mounted() {
+    this.fetchUserData();
+  },
+  methods: {
+    fetchUserData() {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        const [, payloadBase64] = token.split(".");
+        const payload = JSON.parse(atob(payloadBase64));
+
+        if (payload && payload.username) {
+          this.username = payload.username;
+        } else {
+          console.error("Token payload does not contain the username.");
+        }
+      } else {
+        console.error("No token found.");
+      }
+    },
   },
 };
 </script>
 
-<style>
-body {
-  background-color: #f0f0f0;
-}
-
-.main {
-  font-family: "Raleway", sans-serif;
-  margin-top: 8%;
-  margin-bottom: auto;
-}
-
-.edits {
-  margin: 10% auto;
-  font-size: 18px;
-}
-
-.dimo {
-  color: var(--lightOrange);
-  font-weight: bold;
-}
-
-.title {
-  font-size: 48px;
-  margin: 0 auto !important;
-  width: fit-content;
-}
-</style>
+<style></style>
