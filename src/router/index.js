@@ -54,7 +54,7 @@ const routes = [
   },
   {
     path: "/custom",
-    component: CustomPersonnages,
+    component: CustomCharacter,
     beforeEnter: (to, from, next) => {
       const token = localStorage.getItem("token");
 
