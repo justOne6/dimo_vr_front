@@ -4,7 +4,7 @@ import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
 import ManageAccount from "../views/ManageAccount";
 import ForgottenPassword from "../views/ForgottenPassword";
-import CustomPersonnages from "../views/CustomPersonnages";
+import CustomCharacter from "../views/CustomCharacter.vue";
 import Dashboard from "../views/DashboardHome";
 
 Vue.use(VueRouter);
