@@ -4,13 +4,13 @@
     <div class="main">
       <div class="inputs">
         <p style="margin-bottom: 5%">
-          Enter the email address associated with your account and we’ll send
-          you a link to reset your password.
+          Change password
         </p>
-        <input class="input" type="text" placeholder="Email" />
+        <input class="input" type="text" placeholder="Old password" />
+        <input class="input" type="text" placeholder="New password" />
       </div>
       <div class="signup">
-        <v-btn class="signup_button"><span>CONTINUE</span></v-btn>
+        <v-btn class="signup_button"><span>Confirm</span></v-btn>
       </div>
     </div>
   </div>
