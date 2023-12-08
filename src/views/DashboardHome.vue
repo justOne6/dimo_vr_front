@@ -3,7 +3,7 @@
     <Navbar />
     <div class="main">
       <div class="right"></div>
-      <h1 class="title">Hello, {{ username }}</h1>
+      <h1 class="inputs">Hello, {{ username }}</h1>
     </div>
   </div>
 </template>

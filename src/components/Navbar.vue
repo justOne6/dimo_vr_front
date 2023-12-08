@@ -5,10 +5,11 @@
       <DimoVR class="logo" />
     </div>
     <div class="links">
-      <router-link to="/dashboard">Dashboard</router-link>
-      <router-link to="/manage-account">Manage Account</router-link>
-      <router-link to="/custom">Custom</router-link>
-      <router-link to="/forgotten-password">Forgotten Password</router-link>
+      <router-link to="/dashboard" :class="{ 'active-link': $route.path === '/dashboard' }">Dashboard</router-link>
+      <router-link to="/manage-account" :class="{ 'active-link': $route.path === '/manage-account' }">Manage
+        Account</router-link>
+      <router-link to="/custom" :class="{ 'active-link': $route.path === '/custom' }">Custom</router-link>
+      <!--<router-link to="/forgotten-password">Forgotten Password</router-link>-->
     </div>
     <div class="logout" @click="logOut">Log Out</div>
   </nav>
@@ -33,6 +34,10 @@ export default {
 </script>
 
 <style scoped>
+.active-link {
+  font-weight: bold;
+}
+
 .navbar {
   background-color: #2a6a8a;
   font-family: "Raleway", sans-serif;
@@ -45,7 +50,8 @@ export default {
 }
 
 .logo-container {
-  margin-right: 20px; /* Espacement à droite du logo */
+  margin-right: 20px;
+  /* Espacement à droite du logo */
 }
 
 .logo {
