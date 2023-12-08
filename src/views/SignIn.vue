@@ -36,10 +36,17 @@
         >Forgot password?</router-link
       >
     </div>
+    <div>
+      <v-btn @click="signInWithGoogle" color="red" dark>
+        <v-icon left>mdi-google</v-icon> Sign In with Google
+      </v-btn>
+    </div>
   </div>
 </template>
 
 <script>
+/* global gapi */
+
 import { generalColors } from "../../globalVars";
 import DimoVR from "@/components/DimoVR.vue";
 import axios from "axios";
@@ -63,6 +70,42 @@ export default {
     };
   },
   methods: {
+    signInWithGoogle() {
+      const script = document.createElement("script");
+      script.src = "https://apis.google.com/js/platform.js";
+      script.onload = () => {
+        gapi.load("auth2", () => {
+          gapi.auth2
+            .init({
+              client_id: "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",
+            })
+            .then(() => {
+              const auth2 = gapi.auth2.getAuthInstance();
+              auth2.signIn().then((googleUser) => {
+                const googleToken = googleUser.getAuthResponse().id_token;
+                this.handleGoogleSignIn(googleToken);
+              });
+            })
+            .catch((error) => {
+              console.error("Error initializing Google Sign-In:", error);
+            });
+        });
+      };
+      document.head.appendChild(script);
+    },
+
+    handleGoogleSignIn(googleToken) {
+      console.log("hellOOOOoos");
+      axios
+        .get("http://127.0.0.1:8000/connect/google", { token: googleToken })
+        .then((response) => {
+          console.log("Backend response:", response);
+        })
+        .catch((error) => {
+          console.error("Error during Google sign-in:", error);
+        });
+    },
+
     signIn() {
       const loginData = {
         username: this.username,
@@ -98,7 +141,6 @@ export default {
           console.error("Erreur lors de la connexion:", error);
 
           if (error.response && error.response.status === 401) {
-            // Authentication failed, set loginError
             this.loginError =
               "Nom d'utilisateur ou mot de passe incorrect. Veuillez réessayer !";
           } else {
