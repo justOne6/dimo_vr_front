@@ -10,31 +10,19 @@
     <div v-if="loginError" class="error-message">
       {{ loginError }}
     </div>
-    <div class="inputs">
+    <div>
       <p class="create">Sign In</p>
-      <v-text-field
-        class="input"
-        label="Username"
-        v-model="username"
-      ></v-text-field>
-      <v-text-field
-        class="input"
-        label="Password"
-        v-model="password"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="showPassword ? 'text' : 'password'"
-        @click:append="showPassword = !showPassword"
-      ></v-text-field>
+      <v-text-field class="input" label="Username" v-model="username"></v-text-field>
+      <v-text-field class="input" label="Password" v-model="password"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+        @click:append="showPassword = !showPassword"></v-text-field>
     </div>
     <div class="signin">
       <v-btn class="signin_button" @click="signIn"><span>SIGN IN</span></v-btn>
     </div>
     <div style="margin: 2% auto; width: fit-content">
-      <router-link
-        to="/forgotten-password"
-        style="color: #2a6a8a; font-weight: bold; text-decoration: none"
-        >Forgot password?</router-link
-      >
+      <router-link to="/forgotten-password" style="color: #2a6a8a; font-weight: bold; text-decoration: none">Forgot
+        password?</router-link>
     </div>
     <div>
       <v-btn @click="signInWithGoogle" color="red" dark>
@@ -193,13 +181,6 @@ body {
 
 span.signin_button {
   font-size: 20px;
-}
-
-.inputs {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  margin: 0 auto !important;
 }
 
 .success-message {

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Navbar />
     <div class="main">
+      <DimoVR />
       <div class="inputs">
         <p style="margin-bottom: 5%">
           Enter the email address associated with your account and we’ll send
@@ -18,10 +18,10 @@
 
 <script>
 import { generalColors } from "../../globalVars";
-import Navbar from "@/components/Navbar.vue";
+import DimoVR from "@/components/DimoVR.vue";
 
 export default {
-  components: { Navbar },
+  components: { DimoVR },
   data() {
     return {
       medimuBlue: generalColors.mediumBlue,
@@ -39,11 +39,7 @@ body {
   background-color: #f0f0f0;
 }
 
-.main {
-  font-family: "Raleway", sans-serif;
-  margin-top: 8%;
-  margin-bottom: auto;
-}
+
 
 .dimo {
   color: var(--lightOrange);
@@ -87,11 +83,19 @@ body {
 span.signup_button {
   font-size: 20px;
 }
+</style>
 
+<style scoped>
 .inputs {
   display: flex;
   flex-direction: column;
   width: 25%;
   margin: 5% auto 3% auto;
+}
+
+.main {
+  font-family: "Raleway", sans-serif;
+  margin: 2vh auto auto auto;
+  width: 40vw;
 }
 </style>

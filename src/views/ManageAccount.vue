@@ -6,31 +6,28 @@
         <p>Manage your account {{ username }} !</p>
       </div>
       <div class="container">
-        <div style="
-          width: fit-content;
-          margin-right: 20px;
-          width: 30vw;
-        ">
+        <div class="sections" :class="{ 'with-border': personalInfo || showSecurity || showContact }" style="width: 30vw">
           <p class="edits">Home</p>
           <v-divider style="color: black; height: 2px"></v-divider>
           <p class="edits" @click="togglePersonal" :class="{ 'font-bold': personalInfo }">Personal informations</p>
           <v-divider style="color: black; height: 2px"></v-divider>
           <p class="edits" @click="toggleSecurity" :class="{ 'font-bold': showSecurity }">Security and confidentiality</p>
           <v-divider style="color: black; height: 2px"></v-divider>
-          <p class="edits">Contact and share</p>
-          <v-divider style="color: black; height: 2px"></v-divider>
+          <p class="edits" @click="toggleContact" :class="{ 'font-bold': showContact }">Contact and share</p>
+          <v-divider style=" color: black; height: 2px"></v-divider>
           <p class="edits">About</p>
         </div>
-        <div class="personal" v-if="personalInfo">
+        <div class="personal" v-if="personalInfo" style="width: 30vw; margin: auto 0;">
           <div class="username">
             Your username :
-            <a style="font-weight: bold">{{ username }}</a>
+            <a style="font-weight: bold">{{ username }}</a><br />
             <v-btn class="edit_button" @click="toggleUsername" v-if="showEditUsername">EDIT</v-btn><br />
-            <div v-if="!showEditUsername" style="margin-top: 10px">
-              <input v-model="newUsername" placeholder="Your new username" class="input " /><br />
-              <v-btn class="button" @click="saveUsername">SAVE</v-btn>
+            <div v-if="!showEditUsername">
+              <input v-model="newUsername" placeholder="Your new username" class="input " />
+              <v-btn class="button" @click="saveUsername">SAVE USERNAME</v-btn>
             </div>
           </div><br />
+          <v-divider style="color: black; height: 2px"></v-divider><br />
           <div class="username">
             Your email address :
             <!--<a style="font-weight: bold">{{ email }}</a>-->
@@ -38,19 +35,26 @@
             <v-btn class="edit_button" @click="toggleEmail" v-if="showEditEmail">EDIT</v-btn><br />
             <div v-if="!showEditEmail" style="margin-top: 10px">
               <input v-model="newEmail" placeholder="Your new email" class="input " /><br />
-              <v-btn class="button" @click="saveEmail">SAVE</v-btn>
+              <v-btn class="button" @click="saveEmail">SAVE EMAIL</v-btn>
             </div>
           </div>
         </div>
-        <div class="security" v-if="showSecurity">
-          <p style="font-weight: bold">Password : </p><br />
+        <div class="security" v-if="showSecurity" style="width: 30vw; margin: auto 0;">
+          <p style="font-weight: bold">Change your password</p><br />
           <input placeholder="Current password" class="input " /><br />
           <input placeholder="New password" class="input " /><br />
-          <input placeholder="Confirm password" class="input " />
+          <input placeholder="Confirm password" class="input " /><br />
           <v-btn class="button"><span>SAVE</span></v-btn>
         </div>
-        <div class="contact">
-
+        <div class="contact" v-if="showContact" style="width: 30vw; margin: auto 0;">
+          <p style="font-weight: bold">Contact form</p><br />
+          <input placeholder="Receiver's email" class="input" /><br />
+          <input placeholder="Message" class="input" style="height: 30vh !important" /><br />
+          <v-btn @click="sendForm" class="button">SEND</v-btn><br /><br />
+          <div v-if="messageSent" class="success" :class="{ 'hidden': !messageSent }"
+            style="color:green; font-weight: bold">
+            Message successfully sent !
+          </div>
         </div>
       </div>
     </div>
@@ -67,9 +71,11 @@ export default {
       showEditUsername: true, //used to show the "edit password" button
       showEditEmail: true,
       showSecurity: false,
+      showContact: false,
       editPassword: false, //used to know whether we can edit the password or not
       newUsername: "", //used to change the username
       personalInfo: false, //toggle to show the "Personal Informations" section
+      messageSent: false,
     };
   },
   mounted() {
@@ -95,9 +101,30 @@ export default {
         console.error("No token found.");
       }
     },
+    //When message is sent to user
+    sendForm() {
+      this.messageSent = true;
+      setTimeout(() => {
+        this.messageSent = false;
+      }, 3000);
+    },
+    //Show the "Security" section
     toggleSecurity() {
       this.showSecurity = !this.showSecurity;
       this.personalInfo = false;
+      this.showContact = false;
+    },
+    //Show the "Contact" section
+    toggleContact() {
+      this.showContact = !this.showContact;
+      this.showSecurity = false;
+      this.personalInfo = false;
+    },
+    //Show the "Personal Informations" section
+    togglePersonal() {
+      this.personalInfo = !this.personalInfo;
+      this.showSecurity = false;
+      this.showContact = false;
     },
     togglePassword() {
       this.editPassword = true;
@@ -109,11 +136,6 @@ export default {
     toggleEmail() {
       this.newEmail = this.email;
       this.showEditEmail = false;
-    },
-    //Show the "Personal Informations" section
-    togglePersonal() {
-      this.personalInfo = !this.personalInfo;
-      this.showSecurity = false;
     },
     saveUsername() {
       this.username = this.newUsername;
@@ -145,6 +167,7 @@ export default {
 .font-bold {
   font-weight: bold;
   background-color: var(--mediumBlue);
+  color: white;
 }
 
 .container {
@@ -164,7 +187,6 @@ body {
 
 .edits {
   font-size: 18px;
-  //border: solid 1px black;
   padding: 40px 0;
 }
 
@@ -217,5 +239,26 @@ span.signup_button {
   font-weight: bold;
   font-size: 32px;
   margin-bottom: 10px !important;
+}
+
+.sections {
+  width: fit-content;
+  margin-right: 20px;
+  width: 30vw;
+}
+
+.with-border {
+  border-right: solid 1px rgba(0, 0, 0, 0.12);
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+  opacity: 1;
+  transition: opacity 5s ease-in-out, background-color 1s ease-in-out;
+}
+
+.success.hidden {
+  opacity: 0;
 }
 </style>

@@ -8,33 +8,20 @@
     <div v-if="registrationError" class="error-message">
       {{ registrationError }}
     </div>
-    <div class="inputs">
+    <div>
       <p class="create">Create Account</p>
-      <v-text-field class="input" label="Name" v-model="name"></v-text-field>
-      <v-text-field
-        class="input"
-        label="Email"
-        v-model="email"
-        type="email"
-      ></v-text-field>
-      <v-text-field
-        class="input"
-        label="Password"
-        v-model="password"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="showPassword ? 'text' : 'password'"
-        @click:append="showPassword = !showPassword"
-      ></v-text-field>
-    </div>
+      <v-text-field class="input" label="Name" v-model="name" style="margin: 0 !important; width: 30vw"></v-text-field>
+      <v-text-field class="input" label="Email" v-model="email" type="email"
+        style="margin: 0 !important; width: 30vw"></v-text-field>
+      <v-text-field class="input" style="margin: 0 !important; width: 30vw" label="Password" v-model="password"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+        @click:append="showPassword = !showPassword"></v-text-field>
+    </div><br />
     <div class="signup">
       <v-btn class="signup_button" @click="signUp"><span>SIGN UP</span></v-btn>
     </div>
     <div style="margin: 2% auto; width: fit-content">
-      <a
-        href="/sign-in"
-        style="color: #2a6a8a; font-weight: bold; text-decoration: none"
-        >Already have an account?</a
-      >
+      <a href="/sign-in" style="color: #2a6a8a; font-weight: bold; text-decoration: none">Already have an account?</a>
     </div>
   </div>
 </template>
@@ -149,12 +136,6 @@ span.signup_button {
   font-size: 20px;
 }
 
-.inputs {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  margin: 2px auto !important;
-}
 .error-message {
   background-color: #f44336;
   color: white;

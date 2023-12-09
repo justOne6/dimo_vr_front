@@ -4,33 +4,38 @@ Copy code
     <Navbar />
     <div class="main">
       <p class="inputs">Custom your character</p>
-      <div class="container">
-        <div class="center-container">
-          <div class="hair-container">
-            <button class="button_arrow" @click="changeHairLeft">&#9664;</button>
-            <div class="hair">
-              <component :is="currentHairComponent" :color="hairColor" />
-              <div class="hair_color">
-                <label for="hairColor">Hair Color :</label>
-                <input id="hairColor" v-model="hairColor" type="color" />
+      <div class="main-container">
+        <div class="character">
+          <div class="center-container" style="width: 20vw">
+            <div class="hair-container">
+              <button class="button_arrow" @click="changeHairLeft">&#9664;</button>
+              <div class="hair">
+                <component :is="currentHairComponent" :color="hairColor" />
               </div>
+              <button class="button_arrow" @click="changeHairRight">&#9654;</button>
             </div>
-            <button class="button_arrow" @click="changeHairRight">&#9654;</button>
-          </div>
-          <div class="skin">
+            <div class="skin">
 
-            <Body :colorBody="headColor" :colorHead="bodyColor" />
-            <div class="head_color">
-              <label for="headColor">Head Color :</label>
-              <input id="headColor" v-model="headColor" type="color" />
+              <Body :colorBody="headColor" :colorHead="bodyColor" />
             </div>
-            <div class="body_color">
-              <label for="bodyColor">Body Color :</label>
-              <input id="bodyColor" v-model="bodyColor" type="color" />
-            </div>
+            <button class="button" @click="validate">Valider</button>
           </div>
-          <button class="button" @click="validate">Valider</button>
         </div>
+        <div class="colors" style="width: 20vw; margin: auto 0 auto 10%;">
+          <div class="hair_color" style="margin-bottom: 15%">
+            <label for="hairColor">Hair Color :</label>
+            <input id="hairColor" v-model="hairColor" type="color" />
+          </div>
+          <div class="head_color" style="margin-bottom: 15%">
+            <label for="headColor">Head Color :</label>
+            <input id="headColor" v-model="headColor" type="color" />
+          </div>
+          <div class="body_color">
+            <label for="bodyColor">Body Color :</label>
+            <input id="bodyColor" v-model="bodyColor" type="color" />
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -107,9 +112,15 @@ export default {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-top: 90px !important;
 }
 
-.container {
+.main-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.character {
   display: flex;
   justify-content: center;
 }
