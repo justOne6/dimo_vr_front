@@ -1,67 +1,50 @@
 <template>
-  <div class="main">
-    <DimoVR />
-    <div v-if="loginSuccess" class="success-message">
-      <p class="success-text">
-        Connexion réussie! Vous pouvez maintenant accéder à votre tableau de
-        bord.
-      </p>
-    </div>
-    <div v-if="loginError" class="error-message">
-      {{ loginError }}
-    </div>
-    <div class="inputs">
-      <p class="create">Sign In</p>
-      <v-text-field
-        class="input"
-        label="Username"
-        v-model="username"
-      ></v-text-field>
-      <v-text-field
-        class="input"
-        label="Password"
-        v-model="password"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="showPassword ? 'text' : 'password'"
-        @click:append="showPassword = !showPassword"
-      ></v-text-field>
-    </div>
-    <div class="signin">
-      <v-btn class="signin_button" @click="signIn"><span>SIGN IN</span></v-btn>
-    </div>
-    <div style="margin: 2% auto; width: fit-content">
-      <router-link
-        to="/forgotten-password"
-        style="color: #2a6a8a; font-weight: bold; text-decoration: none"
-        >Forgot password?</router-link
-      >
-    </div>
-    <div>
-      <v-btn @click="signInWithGoogle" color="red" dark>
-        <v-icon left>mdi-google</v-icon> Sign In with Google
-      </v-btn>
+  <div>
+    <Navbar />
+    <div class="main">
+      <div v-if="loginSuccess" class="success-message">
+        <p class="success-text">
+          Connexion réussie! Vous pouvez maintenant accéder à votre tableau de
+          bord.
+        </p>
+      </div>
+      <div v-if="loginError" class="error-message">
+        {{ loginError }}
+      </div>
+      <div>
+        <p class="create">Sign In</p>
+        <v-text-field outlined clearable class="input" label="Username" v-model="username"></v-text-field>
+        <v-text-field outlined clearable class="input" label="Password" v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"></v-text-field>
+      </div>
+      <div class="signin">
+        <v-btn class="signin_button" @click="signIn"><span>SIGN IN</span></v-btn>
+      </div>
+      <div style="margin: 2% auto; width: fit-content">
+        <router-link to="/forgotten-password" style="color: #2a6a8a; font-weight: bold; text-decoration: none">Forgot
+          password?</router-link>
+      </div>
+      <div style="margin-top: 20px !important">
+        <v-btn @click="signInWithGoogle" color="red" dark>
+          <v-icon left>mdi-google</v-icon> Sign In with Google
+        </v-btn>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 /* global gapi */
-
-import { generalColors } from "../../globalVars";
-import DimoVR from "@/components/DimoVR.vue";
+import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
 
 export default {
   components: {
-    DimoVR,
+    Navbar,
   },
   data() {
     return {
-      medimuBlue: generalColors.mediumBlue,
-      darkBlue: generalColors.darkBlue,
-      mediumGrey: generalColors.mediumGrey,
-      boldOrange: generalColors.boldOrange,
-      lightOrange: generalColors.lightOrange,
       username: "",
       password: "",
       showPassword: false,
@@ -157,25 +140,11 @@ body {
   background-color: #f0f0f0;
 }
 
-.main {
-  font-family: "Raleway", sans-serif;
-  margin-top: 8%;
-  margin-bottom: auto;
-}
-
 .create {
   color: #2a6a8a !important;
   font-weight: bold;
   font-size: 32px;
   margin: 0 auto 10% auto !important;
-}
-
-.input {
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 10%;
-  background-color: #e6e6e6;
-  font-size: 16px;
 }
 
 .signin {
@@ -185,21 +154,17 @@ body {
 }
 
 .signin_button {
+  padding: 30%;
   color: white !important;
   font-weight: bold;
-  padding: 2% 20% !important;
-  background-color: #219ebc !important;
+  background-color: var(--mediumBlue) !important;
+  width: 20vw;
+  font-size: 30px;
+  ;
 }
 
 span.signin_button {
   font-size: 20px;
-}
-
-.inputs {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  margin: 0 auto !important;
 }
 
 .success-message {
@@ -223,5 +188,21 @@ span.signin_button {
   margin-top: 20px;
   text-align: center;
   color: white;
+}
+</style>
+
+<style scoped>
+.main {
+  font-family: "Raleway", sans-serif;
+  margin: 75px auto 0 auto !important;
+  /* the navbar's height is 63px */
+}
+
+.input {
+  border-radius: 5px;
+  margin-bottom: 35px !important;
+  font-size: 16px;
+  background-color: #E6E6E6;
+  height: 55px !important
 }
 </style>
