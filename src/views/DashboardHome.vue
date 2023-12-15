@@ -3,24 +3,18 @@
     <Navbar />
     <div class="main">
       <div class="right"></div>
-      <h1 class="title">Hello, {{ username }}</h1>
+      <h1 class="inputs">Hello, {{ username }}</h1>
     </div>
   </div>
 </template>
 
 <script>
-import { generalColors } from "../../globalVars";
 import Navbar from "@/components/Navbar.vue";
 
 export default {
   components: { Navbar },
   data() {
     return {
-      medimuBlue: generalColors.mediumBlue,
-      darkBlue: generalColors.darkBlue,
-      mediumGrey: generalColors.mediumGrey,
-      boldOrange: generalColors.boldOrange,
-      lightOrange: generalColors.lightOrange,
       username: "",
     };
   },
@@ -48,4 +42,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.main {
+  margin-top: 80px !important;
+}
+</style>

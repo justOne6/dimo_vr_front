@@ -1,26 +1,27 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <nav class="navbar">
-    <div class="logo-container">
-      <DimoVR class="logo" />
+    <router-link to="/"><img src="../assets/Dimo.png" style="width: 35px !important;" /></router-link>
+    <span class="dimo" style="margin-left: 10px">Dimo</span>
+    <span class="vr">VR</span>
+    <div class="links" v-if="$route.path !== '/' && $route.path !== '/sign-in' && $route.path !== '/forgotten-password'">
+      <router-link to="/dashboard" :class="{ 'active-link': $route.path === '/dashboard' }">Dashboard</router-link>
+      <router-link to="/manage-account"
+        :class="{ 'active-link': $route.path === '/manage-account' }">Account</router-link>
+      <router-link to="/custom" :class="{ 'active-link': $route.path === '/custom' }">Custom</router-link>
+      <!--<router-link to="/forgotten-password">Forgotten Password</router-link>-->
     </div>
-    <div class="links">
-      <router-link to="/dashboard">Dashboard</router-link>
-      <router-link to="/manage-account">Manage Account</router-link>
-      <router-link to="/custom">Custom</router-link>
-      <router-link to="/forgotten-password">Forgotten Password</router-link>
-    </div>
-    <div class="logout" @click="logOut">Log Out</div>
+    <div class="logout" @click="logOut"
+      v-if="$route.path !== '/' && $route.path !== '/sign-in' && $route.path !== '/forgotten-password'"><img
+        src="../assets/logout.png" style="width: 15px !important; margin-right:8px" />Log Out</div>
   </nav>
 </template>
 
 <script>
-import DimoVR from "@/components/DimoVR.vue";
 import axios from "axios";
 
 export default {
   components: {
-    DimoVR,
   },
   methods: {
     logOut() {
@@ -33,35 +34,56 @@ export default {
 </script>
 
 <style scoped>
+.active-link {
+  font-weight: bold;
+}
+
+.dimo {
+  color: var(--boldOrange);
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.vr {
+  font-weight: bold;
+  font-size: 26px;
+  display: inline-block;
+  background: linear-gradient(to bottom, var(--lightOrange), white);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .navbar {
-  background-color: #2a6a8a;
+  background-color: var(--darkBlue);
   font-family: "Raleway", sans-serif;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.logo-container {
-  margin-right: 20px; /* Espacement à droite du logo */
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .logo {
   font-size: 20px;
   font-weight: bold;
+  margin: auto 0 !important;
 }
 
 .links {
-  display: flex;
-  gap: 20px;
+  width: fit-content;
+  margin-left: 10px;
+  border-left: solid 1px white;
 }
 
 .links a {
   color: white;
   text-decoration: none;
   font-size: 16px;
+  padding: 10px;
 }
 
 .links a:hover {
@@ -74,11 +96,12 @@ export default {
   padding: 10px 20px;
   color: white !important;
   font-weight: bold;
-  background-color: #d9534f !important;
+  background-color: var(--lightRed) !important;
   border-radius: 5px;
+  margin-left: auto !important;
 }
 
 .logout:hover {
-  background-color: #c9302c !important;
+  background-color: var(--mediumRed) !important;
 }
 </style>
