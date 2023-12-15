@@ -1,47 +1,43 @@
 <template>
-  <div class="main">
-    <DimoVR />
-    <div v-if="registrationSuccess" class="success-message">
-      Inscription réussie! Vous pouvez maintenant
-      <router-link to="/sign-in">vous connecter</router-link>.
-    </div>
-    <div v-if="registrationError" class="error-message">
-      {{ registrationError }}
-    </div>
-    <div>
-      <p class="create">Create Account</p>
-      <v-text-field class="input" label="Name" v-model="name" style="margin: 0 !important; width: 30vw"></v-text-field>
-      <v-text-field class="input" label="Email" v-model="email" type="email"
-        style="margin: 0 !important; width: 30vw"></v-text-field>
-      <v-text-field class="input" style="margin: 0 !important; width: 30vw" label="Password" v-model="password"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-        @click:append="showPassword = !showPassword"></v-text-field>
-    </div><br />
-    <div class="signup">
-      <v-btn class="signup_button" @click="signUp"><span>SIGN UP</span></v-btn>
-    </div>
-    <div style="margin: 2% auto; width: fit-content">
-      <a href="/sign-in" style="color: #2a6a8a; font-weight: bold; text-decoration: none">Already have an account?</a>
+  <div>
+    <Navbar />
+    <div class="main">
+      <div v-if="registrationSuccess" class="success-message">
+        Inscription réussie! Vous pouvez maintenant
+        <router-link to="/sign-in">vous connecter</router-link>.
+      </div>
+      <div v-if="registrationError" class="error-message">
+        {{ registrationError }}
+      </div>
+      <div>
+        <p class="create">Create Account</p>
+        <v-text-field outlined clearable class="input" label="Name" v-model="name"></v-text-field>
+        <v-text-field outlined clearable class="input" label="Email" v-model="email" type="email"></v-text-field>
+        <v-text-field outlined clearable class="input" label="Password" v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"></v-text-field>
+      </div><br />
+      <div class="signup">
+        <v-btn class="signup_button" @click="signUp"><span>SIGN UP</span></v-btn>
+      </div>
+      <div style="margin: 2% auto; width: fit-content">
+        <a href="/sign-in" style="color: var(--nightBlue); font-weight: bold; text-decoration: none">Already have an
+          account?</a>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { generalColors } from "../../globalVars";
-import DimoVR from "@/components/DimoVR.vue";
+import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
 
 export default {
   components: {
-    DimoVR,
+    Navbar,
   },
   data() {
     return {
-      medimuBlue: generalColors.mediumBlue,
-      darkBlue: generalColors.darkBlue,
-      mediumGrey: generalColors.mediumGrey,
-      boldOrange: generalColors.boldOrange,
-      lightOrange: generalColors.lightOrange,
       name: "",
       email: "",
       password: "",
@@ -96,27 +92,14 @@ export default {
 
 <style>
 body {
-  background-color: #f0f0f0;
-}
-
-.main {
-  font-family: "Raleway", sans-serif;
-  margin-bottom: auto;
+  background-color: var(--lightGrey);
 }
 
 .create {
-  color: #2a6a8a !important;
+  color: var(--nightBlue) !important;
   font-weight: bold;
   font-size: 32px;
   margin: 5% auto 10% auto;
-}
-
-.input {
-  padding: 5px;
-  border-radius: 5px;
-  margin-bottom: 10%;
-  background-color: #e6e6e6;
-  font-size: 16px;
 }
 
 .signup {
@@ -129,7 +112,9 @@ body {
   padding: 30%;
   color: white !important;
   font-weight: bold;
-  background-color: #219ebc !important;
+  background-color: var(--mediumBlue) !important;
+  width: 20vw;
+  font-size: 30px;
 }
 
 span.signup_button {
@@ -143,5 +128,21 @@ span.signup_button {
   border-radius: 5px;
   margin-top: 20px;
   text-align: center;
+}
+</style>
+
+<style scoped>
+.input {
+  border-radius: 5px;
+  margin-bottom: 35px !important;
+  font-size: 16px;
+  background-color: #E6E6E6;
+  height: 55px !important
+}
+
+.main {
+  font-family: "Raleway", sans-serif;
+  margin: 75px auto 0 auto !important;
+  /* the navbar's height is 63px */
 }
 </style>

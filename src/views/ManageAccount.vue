@@ -7,21 +7,26 @@
       </div>
       <div class="container">
         <div class="sections" :class="{ 'with-border': personalInfo || showSecurity || showContact }" style="width: 30vw">
-          <p class="edits">Home</p>
+          <p class="edits"><i class="mdi mdi-home" />&nbsp;Home</p>
           <v-divider style="color: black; height: 2px"></v-divider>
-          <p class="edits" @click="togglePersonal" :class="{ 'font-bold': personalInfo }">Personal informations</p>
+          <p class="edits" @click="togglePersonal" :class="{ 'font-bold': personalInfo }"><i
+              class="mdi mdi-account" />&nbsp;Personal informations</p>
           <v-divider style="color: black; height: 2px"></v-divider>
-          <p class="edits" @click="toggleSecurity" :class="{ 'font-bold': showSecurity }">Security and confidentiality</p>
+
+          <p class="edits" @click="toggleSecurity" :class="{ 'font-bold': showSecurity }"><i
+              class="mdi mdi-lock" />&nbsp;Security and confidentiality</p>
           <v-divider style="color: black; height: 2px"></v-divider>
-          <p class="edits" @click="toggleContact" :class="{ 'font-bold': showContact }">Contact and share</p>
+          <p class="edits" @click="toggleContact" :class="{ 'font-bold': showContact }"><i
+              class="mdi mdi-phone" />&nbsp;Contact and share</p>
           <v-divider style=" color: black; height: 2px"></v-divider>
-          <p class="edits">About</p>
+          <p class="edits"><i class="mdi mdi-information" />&nbsp;About</p>
         </div>
         <div class="personal" v-if="personalInfo" style="width: 30vw; margin: auto 0;">
           <div class="username">
             Your username :
             <a style="font-weight: bold">{{ username }}</a><br />
-            <v-btn class="edit_button" @click="toggleUsername" v-if="showEditUsername">EDIT</v-btn><br />
+            <v-btn style="margin-top: 10px" class="edit_button" @click="toggleUsername"
+              v-if="showEditUsername">EDIT</v-btn><br />
             <div v-if="!showEditUsername">
               <input v-model="newUsername" placeholder="Your new username" class="input " />
               <v-btn class="button" @click="saveUsername">SAVE USERNAME</v-btn>
@@ -32,7 +37,8 @@
             Your email address :
             <!--<a style="font-weight: bold">{{ email }}</a>-->
             <a style="font-weight: bold">your email</a>
-            <v-btn class="edit_button" @click="toggleEmail" v-if="showEditEmail">EDIT</v-btn><br />
+            <v-btn style="margin-top: 10px" class="edit_button" @click="toggleEmail"
+              v-if="showEditEmail">EDIT</v-btn><br />
             <div v-if="!showEditEmail" style="margin-top: 10px">
               <input v-model="newEmail" placeholder="Your new email" class="input " /><br />
               <v-btn class="button" @click="saveEmail">SAVE EMAIL</v-btn>
@@ -195,23 +201,13 @@ body {
   color: white;
 }
 
-.dimo {
-  color: var(--lightOrange);
-  font-weight: bold;
-}
-
-.title {
-  font-size: 48px;
-  margin: 0 auto !important;
-  width: fit-content;
-}
-
 .input {
-  padding: 10px;
   border-radius: 5px;
-  margin-bottom: 10%;
-  background-color: #e6e6e6;
+  margin-bottom: 35px !important;
   font-size: 16px;
+  background-color: #E6E6E6;
+  height: 55px !important;
+  padding: 10px;
 }
 
 .signup {
@@ -260,5 +256,11 @@ span.signup_button {
 
 .success.hidden {
   opacity: 0;
+}
+</style>
+
+<style scoped>
+.main {
+  margin-top: 80px !important;
 }
 </style>

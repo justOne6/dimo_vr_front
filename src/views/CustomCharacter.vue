@@ -112,7 +112,6 @@ export default {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 90px !important;
 }
 
 .main-container {
@@ -172,5 +171,11 @@ export default {
 
 .button_arrow:hover {
   background-color: #ffc966;
+}
+</style>
+
+<style scoped>
+.main {
+  margin-top: 80px !important;
 }
 </style>

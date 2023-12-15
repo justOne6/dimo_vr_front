@@ -42,7 +42,7 @@ const routes = [
   {
     path: "/forgotten-password",
     component: ForgottenPassword,
-    beforeEnter: (to, from, next) => {
+    /*beforeEnter: (to, from, next) => {
       const token = localStorage.getItem("token");
 
       if (token) {
@@ -50,7 +50,7 @@ const routes = [
       } else {
         next("/");
       }
-    },
+    },*/
   },
   {
     path: "/custom",

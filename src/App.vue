@@ -27,10 +27,13 @@ body {
 :root {
   --lightBlue: #B6D0E2;
   --mediumBlue: #219EBC;
-  --darkBlue: #023047;
+  --darkBlue: #2a6a8a;
+  --nightBlue: #10415a;
   --mediumGrey: #E6E6E6;
   --boldOrange: #FB8500;
   --lightOrange: #FFA800;
   --lightGrey: #F0F0F0;
+  --lightRed: #d9534f;
+  --mediumRed: #c9302c;
 }
 </style>
