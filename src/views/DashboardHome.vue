@@ -117,7 +117,7 @@ export default {
       this.activeRoom = roomNumber;
     },
     openCreateRoomModal() {
-      console.log("Open Create Room Modal clicked!");
+     // console.log("Open Create Room Modal clicked!");
       this.createRoomModalOpen = true;
     },
     closeCreateRoomModal() {
@@ -125,49 +125,15 @@ export default {
     },
     async submitCreateRoom() {
       try {
-        console.log("Sending request to create room...");
+       // console.log("Sending request to create room...");
 
-        // Retrieve the token
         let token = localStorage.getItem("token");
 
-        // Check if the token is available
         if (!token) {
           console.error("Token not found. Unable to make the request.");
           return;
         }
 
-        // Check if the token is expired
-        const [, payloadBase64] = token.split(".");
-        const payload = JSON.parse(atob(payloadBase64));
-        const tokenExpiration = payload.exp * 1000; // Convert to milliseconds
-        const currentTimestamp = Date.now();
-
-        if (currentTimestamp > tokenExpiration) {
-          console.log("Token is expired. Attempting to refresh...");
-
-          // Attempt to refresh the token
-          try {
-            const refreshResponse = await axios.post(
-              "http://your-auth-server/refresh-token-endpoint",
-              {
-                refreshToken: localStorage.getItem("refreshToken"),
-              }
-            );
-
-            // If refresh is successful, update the token
-            token = refreshResponse.data.accessToken;
-            localStorage.setItem("token", token);
-
-            console.log("Token refreshed successfully. New token:", token);
-          } catch (refreshError) {
-            console.error("Token refresh failed:", refreshError);
-
-            // You might need to prompt the user to log in again
-            return;
-          }
-        }
-
-        // Proceed with the request using the refreshed or existing token
         const response = await axios.post(
           "http://127.0.0.1:8000/api/lobbies",
           {
@@ -176,12 +142,12 @@ export default {
           {
             headers: {
               Authorization: `Bearer ${token}`,
-              "Content-Type": "application/ld+json", // Set the correct content type here
+              "Content-Type": "application/ld+json",
             },
           }
         );
 
-        console.log("Request successful. Response:", response);
+       // console.log("Request successful. Response:", response);
 
         const newRoom = response.data;
 
