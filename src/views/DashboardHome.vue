@@ -188,10 +188,14 @@ export default {
     },
     openCreateRoomModal() {
 <<<<<<< HEAD
+<<<<<<< HEAD
       // console.log("Open Create Room Modal clicked!");
 =======
       console.log("Open Create Room Modal clicked!");
 >>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
+=======
+     // console.log("Open Create Room Modal clicked!");
+>>>>>>> 30dd1b3 (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
       this.createRoomModalOpen = true;
     },
     closeCreateRoomModal() {
@@ -200,21 +204,28 @@ export default {
     async submitCreateRoom() {
       try {
 <<<<<<< HEAD
+<<<<<<< HEAD
         let token = localStorage.getItem("token");
 
 =======
         console.log("Sending request to create room...");
+=======
+       // console.log("Sending request to create room...");
+>>>>>>> 30dd1b3 (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
 
-        // Retrieve the token
         let token = localStorage.getItem("token");
 
+<<<<<<< HEAD
         // Check if the token is available
 >>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
+=======
+>>>>>>> 30dd1b3 (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
         if (!token) {
           console.error("Token not found. Unable to make the request.");
           return;
         }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
         // Check if the token is expired
@@ -250,6 +261,8 @@ export default {
 
         // Proceed with the request using the refreshed or existing token
 >>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
+=======
+>>>>>>> 30dd1b3 (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
         const response = await axios.post(
           "http://127.0.0.1:8000/api/lobbies",
           {
@@ -259,14 +272,19 @@ export default {
             headers: {
               Authorization: `Bearer ${token}`,
 <<<<<<< HEAD
+<<<<<<< HEAD
               "Content-Type": "application/ld+json",
 =======
               "Content-Type": "application/ld+json", // Set the correct content type here
 >>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
+=======
+              "Content-Type": "application/ld+json",
+>>>>>>> 30dd1b3 (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
             },
           }
         );
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         const newRoom = response.data;
 
@@ -284,6 +302,9 @@ export default {
         this.roomNumbers = existingRooms;
 =======
         console.log("Request successful. Response:", response);
+=======
+       // console.log("Request successful. Response:", response);
+>>>>>>> 30dd1b3 (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
 
         const newRoom = response.data;
 
