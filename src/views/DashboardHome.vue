@@ -16,14 +16,14 @@
         v-if="active"
         style="display: flex; flex-direction: column; margin-left: 10px"
       >
-        <div
+        <router-link
           v-for="roomNumber in roomNumbers"
           :key="roomNumber"
+          :to="{ name: 'classroom', params: { label: roomNumber } }"
           class="room"
-          @click="toggleRoom(roomNumber)"
         >
           {{ roomNumber }}
-        </div>
+        </router-link>
       </div>
     </div>
 
@@ -43,7 +43,7 @@
               v-model="newRoomLabel"
               type="text"
               id="label"
-              placeholder="Enter room name"
+              placeholder="Enter Class Name"
               required
             />
           </div>
@@ -73,13 +73,25 @@ export default {
       activeRoom: "",
     };
   },
-  mounted() {
+  async mounted() {
     this.fetchUserData();
     this.fetchRoomNumbers();
+    await this.fetchRoomNumbers();
   },
   methods: {
     toggle() {
       this.active = !this.active;
+    },
+    getUserId() {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const [, payloadBase64] = token.split(".");
+        const payload = JSON.parse(atob(payloadBase64));
+        if (payload && payload.userId) {
+          return payload.userId;
+        }
+      }
+      return null;
     },
     fetchUserData() {
       const token = localStorage.getItem("token");
@@ -99,13 +111,41 @@ export default {
     },
     async fetchRoomNumbers() {
       try {
-        const response = await axios.get("endpoint");
-        this.roomNumbers = response.data;
+        const userId = localStorage.getItem("user_id");
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/lobbies?user_id=${userId}`"
+        );
+        console.log("Fetched room numbers:", response.data);
+
+        const fetchedRoomNumbers = response.data["hydra:member"];
+
+        this.roomNumbers = Array.isArray(fetchedRoomNumbers)
+          ? fetchedRoomNumbers.map((lobby) => lobby.label)
+          : [];
+
+        // Use Promise.all to wait for all subscriptions to complete
+        await Promise.all(
+          fetchedRoomNumbers.map((lobby) =>
+            this.subscribeToLobby(lobby.id, userId, "add")
+          )
+        );
       } catch (error) {
         console.error("Error fetching room numbers:", error);
       }
     },
 
+    async subscribeToLobby(lobbyId, userId, action) {
+      try {
+        const response = await axios.post("/api/subscribeLobby", {
+          lobby_id: lobbyId,
+          user_id: userId,
+          action: action,
+        });
+        console.log("Subscription request successful. Response:", response);
+      } catch (error) {
+        console.error("Error subscribing to lobby:", error);
+      }
+    },
     toggleRoom(roomNumber) {
       if (this.activeRoom === roomNumber) {
         this.activeRoom = "";
@@ -117,7 +157,7 @@ export default {
       this.activeRoom = roomNumber;
     },
     openCreateRoomModal() {
-     // console.log("Open Create Room Modal clicked!");
+      // console.log("Open Create Room Modal clicked!");
       this.createRoomModalOpen = true;
     },
     closeCreateRoomModal() {
@@ -125,8 +165,6 @@ export default {
     },
     async submitCreateRoom() {
       try {
-       // console.log("Sending request to create room...");
-
         let token = localStorage.getItem("token");
 
         if (!token) {
@@ -147,13 +185,20 @@ export default {
           }
         );
 
-       // console.log("Request successful. Response:", response);
-
         const newRoom = response.data;
 
-        const newRoomLabel = newRoom.label;
+        // Retrieve existing rooms from local storage
+        const existingRooms =
+          JSON.parse(localStorage.getItem("userRooms")) || [];
 
-        this.roomNumbers.push(newRoomLabel);
+        // Add the new room to the array
+        existingRooms.push(newRoom.label);
+
+        // Store the updated array back to local storage
+        localStorage.setItem("userRooms", JSON.stringify(existingRooms));
+
+        // Update the component's roomNumbers with the stored rooms
+        this.roomNumbers = existingRooms;
 
         this.closeCreateRoomModal();
       } catch (error) {
@@ -193,25 +238,48 @@ export default {
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  background-color: var(--lightBlue);
+  margin: 5% auto;
+  padding: 40px; /* Increased padding for more space */
+  border: 1px solid var(--darkBlue);
+  width: 70%;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: "Raleway", sans-serif;
 }
 
 .close {
-  color: #aaa;
+  color: var(--darkBlue);
   float: right;
   font-size: 28px;
   font-weight: bold;
+  margin-top: -10px; /* Adjusted margin for better alignment */
 }
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: #555;
   text-decoration: none;
   cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 20px; /* Increased margin between form elements */
+}
+
+/* Adjusted spacing for the submit button */
+button[type="submit"] {
+  padding: 15px 20px;
+  border-radius: 5px;
+  background-color: var(--darkBlue);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--mediumBlue);
 }
 
 .pick {
@@ -234,11 +302,15 @@ export default {
   border-radius: 0;
   margin-bottom: 10px;
   border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .room:hover {
   background-color: var(--lightOrange);
   color: white;
+  text-decoration: underline;
 }
 
 .container {
