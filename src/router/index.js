@@ -6,6 +6,7 @@ import ManageAccount from "../views/ManageAccount";
 import ForgottenPassword from "../views/ForgottenPassword";
 import CustomCharacter from "../views/CustomCharacter.vue";
 import Dashboard from "../views/DashboardHome";
+import ClassRoom from "../views/ClassRoom";
 
 Vue.use(VueRouter);
 
@@ -55,6 +56,21 @@ const routes = [
   {
     path: "/custom",
     component: CustomCharacter,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        next();
+      } else {
+        next("/");
+      }
+    },
+  },
+
+  {
+    path: "/classroom/:label",
+    name: "classroom",
+    component: ClassRoom,
     beforeEnter: (to, from, next) => {
       const token = localStorage.getItem("token");
 
