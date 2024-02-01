@@ -2,17 +2,15 @@
   <div>
     <Navbar />
     <div class="main">
-      <div>
-        <p class="create">Lost password ?</p>
-        <p>Your email</p>
-        <v-text-field outlined class="input" type="text" placeholder="Email"></v-text-field>
-        <p>New password</p>
-        <v-text-field outlined class="input" type="text" placeholder="Password"></v-text-field>
-        <p>Confirm new password</p>
-        <v-text-field outlined class="input" type="text" placeholder="Password"></v-text-field>
+      <div class="inputs">
+        <p style="margin-bottom: 5%">
+          Change password
+        </p>
+        <input class="input" type="text" placeholder="Old password" />
+        <input class="input" type="text" placeholder="New password" />
       </div>
       <div class="signup">
-        <v-btn class="signup_button"><span>RESET PASSWORD</span></v-btn>
+        <v-btn class="signup_button"><span>Confirm</span></v-btn>
       </div>
     </div>
   </div>
