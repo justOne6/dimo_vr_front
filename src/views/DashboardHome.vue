@@ -16,7 +16,6 @@
         v-if="active"
         style="display: flex; flex-direction: column; margin-left: 10px"
       >
-<<<<<<< HEAD
         <router-link
           v-for="roomNumber in roomNumbers"
           :key="roomNumber"
@@ -25,16 +24,6 @@
         >
           {{ roomNumber }}
         </router-link>
-=======
-        <div
-          v-for="roomNumber in roomNumbers"
-          :key="roomNumber"
-          class="room"
-          @click="toggleRoom(roomNumber)"
-        >
-          {{ roomNumber }}
-        </div>
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
       </div>
     </div>
 
@@ -54,11 +43,7 @@
               v-model="newRoomLabel"
               type="text"
               id="label"
-<<<<<<< HEAD
               placeholder="Enter Class Name"
-=======
-              placeholder="Enter room name"
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
               required
             />
           </div>
@@ -91,16 +76,12 @@ export default {
   async mounted() {
     this.fetchUserData();
     this.fetchRoomNumbers();
-<<<<<<< HEAD
     await this.fetchRoomNumbers();
-=======
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
   },
   methods: {
     toggle() {
       this.active = !this.active;
     },
-<<<<<<< HEAD
     getUserId() {
       const token = localStorage.getItem("token");
       if (token) {
@@ -112,8 +93,6 @@ export default {
       }
       return null;
     },
-=======
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
     fetchUserData() {
       const token = localStorage.getItem("token");
 
@@ -132,7 +111,6 @@ export default {
     },
     async fetchRoomNumbers() {
       try {
-<<<<<<< HEAD
         const userId = localStorage.getItem("user_id");
         const response = await axios.get(
           "http://127.0.0.1:8000/api/lobbies?user_id=${userId}`"
@@ -167,15 +145,7 @@ export default {
       } catch (error) {
         console.error("Error subscribing to lobby:", error);
       }
-=======
-        const response = await axios.get("endpoint");
-        this.roomNumbers = response.data;
-      } catch (error) {
-        console.error("Error fetching room numbers:", error);
-      }
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
     },
-
     toggleRoom(roomNumber) {
       if (this.activeRoom === roomNumber) {
         this.activeRoom = "";
@@ -187,11 +157,7 @@ export default {
       this.activeRoom = roomNumber;
     },
     openCreateRoomModal() {
-<<<<<<< HEAD
       // console.log("Open Create Room Modal clicked!");
-=======
-      console.log("Open Create Room Modal clicked!");
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
       this.createRoomModalOpen = true;
     },
     closeCreateRoomModal() {
@@ -199,57 +165,13 @@ export default {
     },
     async submitCreateRoom() {
       try {
-<<<<<<< HEAD
         let token = localStorage.getItem("token");
 
-=======
-        console.log("Sending request to create room...");
-
-        // Retrieve the token
-        let token = localStorage.getItem("token");
-
-        // Check if the token is available
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
         if (!token) {
           console.error("Token not found. Unable to make the request.");
           return;
         }
 
-<<<<<<< HEAD
-=======
-        // Check if the token is expired
-        const [, payloadBase64] = token.split(".");
-        const payload = JSON.parse(atob(payloadBase64));
-        const tokenExpiration = payload.exp * 1000; // Convert to milliseconds
-        const currentTimestamp = Date.now();
-
-        if (currentTimestamp > tokenExpiration) {
-          console.log("Token is expired. Attempting to refresh...");
-
-          // Attempt to refresh the token
-          try {
-            const refreshResponse = await axios.post(
-              "http://your-auth-server/refresh-token-endpoint",
-              {
-                refreshToken: localStorage.getItem("refreshToken"),
-              }
-            );
-
-            // If refresh is successful, update the token
-            token = refreshResponse.data.accessToken;
-            localStorage.setItem("token", token);
-
-            console.log("Token refreshed successfully. New token:", token);
-          } catch (refreshError) {
-            console.error("Token refresh failed:", refreshError);
-
-            // You might need to prompt the user to log in again
-            return;
-          }
-        }
-
-        // Proceed with the request using the refreshed or existing token
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
         const response = await axios.post(
           "http://127.0.0.1:8000/api/lobbies",
           {
@@ -258,16 +180,11 @@ export default {
           {
             headers: {
               Authorization: `Bearer ${token}`,
-<<<<<<< HEAD
               "Content-Type": "application/ld+json",
-=======
-              "Content-Type": "application/ld+json", // Set the correct content type here
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
             },
           }
         );
 
-<<<<<<< HEAD
         const newRoom = response.data;
 
         // Retrieve existing rooms from local storage
@@ -282,15 +199,6 @@ export default {
 
         // Update the component's roomNumbers with the stored rooms
         this.roomNumbers = existingRooms;
-=======
-        console.log("Request successful. Response:", response);
-
-        const newRoom = response.data;
-
-        const newRoomLabel = newRoom.label;
-
-        this.roomNumbers.push(newRoomLabel);
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
 
         this.closeCreateRoomModal();
       } catch (error) {
@@ -330,7 +238,6 @@ export default {
 }
 
 .modal-content {
-<<<<<<< HEAD
   background-color: var(--lightBlue);
   margin: 5% auto;
   padding: 40px; /* Increased padding for more space */
@@ -348,34 +255,15 @@ export default {
   font-size: 28px;
   font-weight: bold;
   margin-top: -10px; /* Adjusted margin for better alignment */
-=======
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
 }
 
 .close:hover,
 .close:focus {
-<<<<<<< HEAD
   color: #555;
-=======
-  color: black;
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
   text-decoration: none;
   cursor: pointer;
 }
 
-<<<<<<< HEAD
 .form-group {
   margin-bottom: 20px; /* Increased margin between form elements */
 }
@@ -394,8 +282,6 @@ button[type="submit"]:hover {
   background-color: var(--mediumBlue);
 }
 
-=======
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
 .pick {
   padding: 30px 40px;
   border-radius: 0;
@@ -416,21 +302,15 @@ button[type="submit"]:hover {
   border-radius: 0;
   margin-bottom: 10px;
   border: none;
-<<<<<<< HEAD
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-=======
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
 }
 
 .room:hover {
   background-color: var(--lightOrange);
   color: white;
-<<<<<<< HEAD
   text-decoration: underline;
-=======
->>>>>>> 65dfaad (fixed the roomNumber loop dynamic + endpoints for creating classroom and joining a classroom added and functionnal)
 }
 
 .container {

@@ -11,18 +11,48 @@
       </div>
       <div>
         <p class="create">Create Account</p>
-        <v-text-field outlined clearable class="input" label="Name" v-model="name"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Email" v-model="email" type="email"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Password" v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"></v-text-field>
-      </div><br />
+        <v-text-field
+          outlined
+          clearable
+          class="input"
+          label="Name"
+          v-model="name"
+        ></v-text-field>
+        <v-text-field
+          outlined
+          clearable
+          class="input"
+          label="Email"
+          v-model="email"
+          type="email"
+        ></v-text-field>
+        <v-text-field
+          outlined
+          clearable
+          class="input"
+          label="Password"
+          v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"
+        ></v-text-field>
+      </div>
+      <br />
       <div class="signup">
-        <v-btn class="signup_button" @click="signUp"><span>SIGN UP</span></v-btn>
+        <v-btn class="signup_button" @click="signUp"
+          ><span>SIGN UP</span></v-btn
+        >
       </div>
       <div style="margin: 2% auto; width: fit-content">
-        <a href="/sign-in" style="color: var(--nightBlue); font-weight: bold; text-decoration: none">Already have an
-          account?</a>
+        <a
+          href="/sign-in"
+          style="
+            color: var(--nightBlue);
+            font-weight: bold;
+            text-decoration: none;
+          "
+          >Already have an account?</a
+        >
       </div>
     </div>
   </div>
@@ -55,9 +85,10 @@ export default {
       };
 
       axios
-        .post("http://127.0.0.1:8000/api/register", userData)
+        .post("http://127.0.0.1:8080/api/register", userData)
         .then((response) => {
           if (response.status === 201) {
+            console.log("kjrjzrjzerjzerjze");
             console.log("Inscription réussie:", response.data);
             this.registrationSuccess = true;
           } else {
@@ -72,12 +103,14 @@ export default {
 
           if (error.response) {
             if (error.response.status === 500) {
+              console.log("jejahjha");
               this.registrationError =
                 "Le nom d'utilisateur existe déjà. Veuillez choisir un autre.";
             } else {
               this.registrationError = error.response.data.message;
             }
           } else {
+            console.log("jarhhaheajhejahejhaejah");
             this.registrationError = "Erreur lors de l'inscription.";
           }
 
@@ -136,8 +169,8 @@ span.signup_button {
   border-radius: 5px;
   margin-bottom: 35px !important;
   font-size: 16px;
-  background-color: #E6E6E6;
-  height: 55px !important
+  background-color: #e6e6e6;
+  height: 55px !important;
 }
 
 .main {
