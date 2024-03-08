@@ -13,17 +13,35 @@
       </div>
       <div>
         <p class="create">Sign In</p>
-        <v-text-field outlined clearable class="input" label="Username" v-model="username"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Password" v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"></v-text-field>
+        <v-text-field
+          outlined
+          clearable
+          class="input"
+          label="Username"
+          v-model="username"
+        ></v-text-field>
+        <v-text-field
+          outlined
+          clearable
+          class="input"
+          label="Password"
+          v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"
+        ></v-text-field>
       </div>
       <div class="signin">
-        <v-btn class="signin_button" @click="signIn"><span>SIGN IN</span></v-btn>
+        <v-btn class="signin_button" @click="signIn"
+          ><span>SIGN IN</span></v-btn
+        >
       </div>
       <div style="margin: 2% auto; width: fit-content">
-        <router-link to="/forgotten-password" style="color: #2a6a8a; font-weight: bold; text-decoration: none">Forgot
-          password?</router-link>
+        <router-link
+          to="/forgotten-password"
+          style="color: #2a6a8a; font-weight: bold; text-decoration: none"
+          >Forgot password?</router-link
+        >
       </div>
       <div style="margin-top: 20px !important">
         <v-btn @click="signInWithGoogle" color="red" dark>
@@ -80,7 +98,7 @@ export default {
     handleGoogleSignIn(googleToken) {
       console.log("hellOOOOoos");
       axios
-        .get("http://127.0.0.1:8000/connect/google", { token: googleToken })
+        .get("http://127.0.0.1:8080/connect/google", { token: googleToken })
         .then((response) => {
           console.log("Backend response:", response);
         })
@@ -96,7 +114,7 @@ export default {
       };
 
       axios
-        .post("http://127.0.0.1:8000/api/login_check", loginData, {
+        .post("http://127.0.0.1:8080/api/login_check", loginData, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -127,6 +145,7 @@ export default {
             this.loginError =
               "Nom d'utilisateur ou mot de passe incorrect. Veuillez réessayer !";
           } else {
+            console.log("zaejaeaheah");
             this.loginError = "Erreur lors de la connexion.";
           }
         });
@@ -160,7 +179,6 @@ body {
   background-color: var(--mediumBlue) !important;
   width: 20vw;
   font-size: 30px;
-  ;
 }
 
 span.signin_button {
@@ -202,7 +220,7 @@ span.signin_button {
   border-radius: 5px;
   margin-bottom: 35px !important;
   font-size: 16px;
-  background-color: #E6E6E6;
-  height: 55px !important
+  background-color: #e6e6e6;
+  height: 55px !important;
 }
 </style>
