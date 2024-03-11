@@ -16,7 +16,14 @@
           clearable
           class="input"
           label="Name"
-          v-model="name"
+          v-model="firstname"
+        ></v-text-field>
+        <v-text-field
+            outlined
+            clearable
+            class="input"
+            label="Name"
+            v-model="lastname"
         ></v-text-field>
         <v-text-field
           outlined
@@ -68,7 +75,8 @@ export default {
   },
   data() {
     return {
-      name: "",
+      lastname: "",
+      firstname:"",
       email: "",
       password: "",
       showPassword: false,
@@ -79,39 +87,26 @@ export default {
   methods: {
     signUp() {
       const userData = {
-        username: this.name,
+        lastname: this.lastname,
+        firstname: this.firstname,
         email: this.email,
         password: this.password,
       };
 
       axios
-        .post("http://127.0.0.1:8080/api/register", userData)
-        .then((response) => {
-          if (response.status === 201) {
-            console.log("kjrjzrjzerjzerjze");
-            console.log("Inscription réussie:", response.data);
+        .post(`${process.env.VUE_APP_API_URI}/auth/register`, userData)
+        .then((response) => { //@todo revoir la gestion des erreurs ici ce n'est opti
+          if (response.status === 200) {
             this.registrationSuccess = true;
-          } else {
-            console.error(
-              "Le serveur a renvoyé un statut différent de 201. Statut:",
-              response.status
-            );
           }
         })
         .catch((error) => {
-          console.error("Erreur lors de l'inscription:", error);
-
+          console.info("Error while registering new user: ", error?.response?.data.message)
           if (error.response) {
             if (error.response.status === 500) {
               console.log("jejahjha");
-              this.registrationError =
-                "Le nom d'utilisateur existe déjà. Veuillez choisir un autre.";
-            } else {
-              this.registrationError = error.response.data.message;
+              this.registrationError = error?.response?.data.message;
             }
-          } else {
-            console.log("jarhhaheajhejahejhaejah");
-            this.registrationError = "Erreur lors de l'inscription.";
           }
 
           setTimeout(() => {
