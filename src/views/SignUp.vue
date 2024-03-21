@@ -98,6 +98,16 @@ export default {
         .then((response) => { //@todo revoir la gestion des erreurs ici ce n'est opti
           if (response.status === 200) {
             this.registrationSuccess = true;
+
+            const token = response.data.token;
+
+            localStorage.setItem("token", token);
+
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+            this.$router.push("/dashboard");
+
+            console.log("Login successful");
           }
         })
         .catch((error) => {
