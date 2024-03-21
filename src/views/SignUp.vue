@@ -98,13 +98,22 @@ export default {
         .then((response) => { //@todo revoir la gestion des erreurs ici ce n'est opti
           if (response.status === 200) {
             this.registrationSuccess = true;
+
+            const token = response.data.token;
+
+            localStorage.setItem("token", token);
+
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+            this.$router.push("/dashboard");
+
+            console.log("Login successful");
           }
         })
         .catch((error) => {
-          console.info("Error while registering new user: ", error?.response?.data.message)
+          console.error("Error while registering new user: ", error)
           if (error.response) {
             if (error.response.status === 500) {
-              console.log("jejahjha");
               this.registrationError = error?.response?.data.message;
             }
           }

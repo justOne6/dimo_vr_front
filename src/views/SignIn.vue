@@ -17,8 +17,8 @@
           outlined
           clearable
           class="input"
-          label="Username"
-          v-model="username"
+          label="email"
+          v-model="email"
         ></v-text-field>
         <v-text-field
           outlined
@@ -43,17 +43,11 @@
           >Forgot password?</router-link
         >
       </div>
-      <div style="margin-top: 20px !important">
-        <v-btn @click="signInWithGoogle" color="red" dark>
-          <v-icon left>mdi-google</v-icon> Sign In with Google
-        </v-btn>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-/* global gapi */
 import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
 
@@ -63,7 +57,7 @@ export default {
   },
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
       showPassword: false,
       loginSuccess: false,
@@ -71,50 +65,14 @@ export default {
     };
   },
   methods: {
-    signInWithGoogle() {
-      const script = document.createElement("script");
-      script.src = "https://apis.google.com/js/platform.js";
-      script.onload = () => {
-        gapi.load("auth2", () => {
-          gapi.auth2
-            .init({
-              client_id: "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",
-            })
-            .then(() => {
-              const auth2 = gapi.auth2.getAuthInstance();
-              auth2.signIn().then((googleUser) => {
-                const googleToken = googleUser.getAuthResponse().id_token;
-                this.handleGoogleSignIn(googleToken);
-              });
-            })
-            .catch((error) => {
-              console.error("Error initializing Google Sign-In:", error);
-            });
-        });
-      };
-      document.head.appendChild(script);
-    },
-
-    handleGoogleSignIn(googleToken) {
-      console.log("hellOOOOoos");
-      axios
-        .get("http://127.0.0.1:8080/connect/google", { token: googleToken })
-        .then((response) => {
-          console.log("Backend response:", response);
-        })
-        .catch((error) => {
-          console.error("Error during Google sign-in:", error);
-        });
-    },
-
     signIn() {
       const loginData = {
-        username: this.username,
+        email: this.email,
         password: this.password,
       };
 
       axios
-        .post("http://127.0.0.1:8080/api/login_check", loginData, {
+        .post(`${process.env.VUE_APP_API_URI}/auth/authenticate`, loginData, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -145,7 +103,6 @@ export default {
             this.loginError =
               "Nom d'utilisateur ou mot de passe incorrect. Veuillez réessayer !";
           } else {
-            console.log("zaejaeaheah");
             this.loginError = "Erreur lors de la connexion.";
           }
         });
