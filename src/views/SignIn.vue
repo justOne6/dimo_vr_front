@@ -17,8 +17,8 @@
           outlined
           clearable
           class="input"
-          label="Username"
-          v-model="username"
+          label="email"
+          v-model="email"
         ></v-text-field>
         <v-text-field
           outlined
@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
       showPassword: false,
       loginSuccess: false,
@@ -109,12 +109,12 @@ export default {
 
     signIn() {
       const loginData = {
-        username: this.username,
+        email: this.email,
         password: this.password,
       };
 
       axios
-        .post("http://127.0.0.1:8080/api/login_check", loginData, {
+        .post(`${process.env.VUE_APP_API_URI}/auth/authenticate`, loginData, {
           headers: {
             "Content-Type": "application/json",
           },

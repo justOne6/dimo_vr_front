@@ -101,10 +101,9 @@ export default {
           }
         })
         .catch((error) => {
-          console.info("Error while registering new user: ", error?.response?.data.message)
+          console.error("Error while registering new user: ", error)
           if (error.response) {
             if (error.response.status === 500) {
-              console.log("jejahjha");
               this.registrationError = error?.response?.data.message;
             }
           }
