@@ -3,7 +3,7 @@
     <Navbar />
     <div class="main">
       <div class="right"></div>
-      <h1 class="inputs">Hello, {{ username }}</h1>
+      <h1 class="inputs">Hello, {{ email }}</h1>
     </div>
     <div class="container">
       <div>
@@ -63,7 +63,7 @@ export default {
   components: { Navbar },
   data() {
     return {
-      username: "",
+      email: "",
       active: false,
       roomNumbers: [],
       createRoomModalOpen: false,
@@ -99,11 +99,11 @@ export default {
       if (token) {
         const [, payloadBase64] = token.split(".");
         const payload = JSON.parse(atob(payloadBase64));
-
-        if (payload && payload.username) {
-          this.username = payload.username;
+        console.log("Token payload:", payload);
+        if (payload && payload.sub) {
+          this.email = payload.sub;
         } else {
-          console.error("Token payload does not contain the username.");
+          console.error("Token payload does not contain the email.");
         }
       } else {
         console.error("No token found.");
