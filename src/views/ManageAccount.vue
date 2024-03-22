@@ -187,7 +187,7 @@ body {
 }
 
 .main {
-  font-family: "Raleway", sans-serif;
+  font-family: "Fredoka", sans-serif;
   margin-top: 8px !important;
   margin-bottom: auto;
 }
@@ -233,7 +233,6 @@ span.signup_button {
   height: fit-content !important;
   padding: 0 !important;
   color: var(--nightPurple) !important;
-  font-weight: bold;
   font-size: 32px;
   margin-bottom: 10px !important;
 }
