@@ -11,55 +11,23 @@
       </div>
       <div>
         <p class="create">Create Account</p>
-        <v-text-field
-          outlined
-          clearable
-          class="input"
-          label="Name"
-          v-model="firstname"
-        ></v-text-field>
-        <v-text-field
-            outlined
-            clearable
-            class="input"
-            label="Name"
-            v-model="lastname"
-        ></v-text-field>
-        <v-text-field
-          outlined
-          clearable
-          class="input"
-          label="Email"
-          v-model="email"
-          type="email"
-        ></v-text-field>
-        <v-text-field
-          outlined
-          clearable
-          class="input"
-          label="Password"
-          v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
-        ></v-text-field>
+        <v-text-field outlined clearable class="input" label="First Name" v-model="firstname"></v-text-field>
+        <v-text-field outlined clearable class="input" label="Last Name" v-model="lastname"></v-text-field>
+        <v-text-field outlined clearable class="input" label="Email" v-model="email" type="email"></v-text-field>
+        <v-text-field outlined clearable class="input" label="Password" v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"></v-text-field>
       </div>
       <br />
       <div class="signup">
-        <v-btn class="signup_button" @click="signUp"
-          ><span>SIGN UP</span></v-btn
-        >
+        <v-btn class="signup_button" @click="signUp"><span>SIGN UP</span></v-btn>
       </div>
       <div style="margin: 2% auto; width: fit-content">
-        <a
-          href="/sign-in"
-          style="
-            color: var(--nightBlue);
+        <a href="/sign-in" style="
+            color: var(--nightPurple);
             font-weight: bold;
             text-decoration: none;
-          "
-          >Already have an account?</a
-        >
+          ">Already have an account?</a>
       </div>
     </div>
   </div>
@@ -76,7 +44,7 @@ export default {
   data() {
     return {
       lastname: "",
-      firstname:"",
+      firstname: "",
       email: "",
       password: "",
       showPassword: false,
@@ -133,7 +101,7 @@ body {
 }
 
 .create {
-  color: var(--nightBlue) !important;
+  color: var(--nightPurple) !important;
   font-weight: bold;
   font-size: 32px;
   margin: 5% auto 10% auto;
@@ -149,7 +117,7 @@ body {
   padding: 30%;
   color: white !important;
   font-weight: bold;
-  background-color: var(--mediumBlue) !important;
+  background-color: var(--bluePurple) !important;
   width: 20vw;
   font-size: 30px;
 }
@@ -178,7 +146,7 @@ span.signup_button {
 }
 
 .main {
-  font-family: "Raleway", sans-serif;
+  font-family: "Fredoka", sans-serif;
   margin: 75px auto 0 auto !important;
   /* the navbar's height is 63px */
 }

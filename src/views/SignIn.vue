@@ -13,35 +13,18 @@
       </div>
       <div>
         <p class="create">Sign In</p>
-        <v-text-field
-          outlined
-          clearable
-          class="input"
-          label="email"
-          v-model="email"
-        ></v-text-field>
-        <v-text-field
-          outlined
-          clearable
-          class="input"
-          label="Password"
-          v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"
-        ></v-text-field>
+        <v-text-field outlined clearable class="input" label="Email" v-model="email"></v-text-field>
+        <v-text-field outlined clearable class="input" label="Password" v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword"></v-text-field>
       </div>
       <div class="signin">
-        <v-btn class="signin_button" @click="signIn"
-          ><span>SIGN IN</span></v-btn
-        >
+        <v-btn class="signin_button" @click="signIn"><span>SIGN IN</span></v-btn>
       </div>
       <div style="margin: 2% auto; width: fit-content">
-        <router-link
-          to="/forgotten-password"
-          style="color: #2a6a8a; font-weight: bold; text-decoration: none"
-          >Forgot password?</router-link
-        >
+        <router-link to="/forgotten-password"
+          style="color: var(--nightPurple); font-weight: bold; text-decoration: none">Forgot
+          password?</router-link>
       </div>
     </div>
   </div>
@@ -117,7 +100,7 @@ body {
 }
 
 .create {
-  color: #2a6a8a !important;
+  color: var(--nightPurple) !important;
   font-weight: bold;
   font-size: 32px;
   margin: 0 auto 10% auto !important;
@@ -133,7 +116,7 @@ body {
   padding: 30%;
   color: white !important;
   font-weight: bold;
-  background-color: var(--mediumBlue) !important;
+  background-color: var(--bluePurple) !important;
   width: 20vw;
   font-size: 30px;
 }
@@ -151,7 +134,7 @@ span.signin_button {
 }
 
 .success-text {
-  font-family: "Raleway", sans-serif;
+  font-family: "Fredoka", sans-serif;
   color: white;
   font-size: 18px;
 }

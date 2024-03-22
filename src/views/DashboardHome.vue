@@ -12,26 +12,15 @@
           Create a room
         </button>
       </div>
-      <div
-        v-if="active"
-        style="display: flex; flex-direction: column; margin-left: 10px"
-      >
-        <router-link
-          v-for="roomNumber in roomNumbers"
-          :key="roomNumber"
-          :to="{ name: 'classroom', params: { label: roomNumber } }"
-          class="room"
-        >
+      <div v-if="active" style="display: flex; flex-direction: column; margin-left: 10px">
+        <router-link v-for="roomNumber in roomNumbers" :key="roomNumber"
+          :to="{ name: 'classroom', params: { label: roomNumber } }" class="room">
           {{ roomNumber }}
         </router-link>
       </div>
     </div>
 
-    <div
-      v-if="createRoomModalOpen"
-      class="modal"
-      style="display: flex; flex-direction: column; margin-left: 10px"
-    >
+    <div v-if="createRoomModalOpen" class="modal" style="display: flex; flex-direction: column; margin-left: 10px">
       <div class="modal-content">
         <span class="close" @click="closeCreateRoomModal">&times;</span>
         <h2>Create a Class Room</h2>
@@ -39,13 +28,7 @@
         <form @submit.prevent="submitCreateRoom">
           <div class="form-group">
             <label for="label">Classroom Name:</label>
-            <input
-              v-model="newRoomLabel"
-              type="text"
-              id="label"
-              placeholder="Enter Class Name"
-              required
-            />
+            <input v-model="newRoomLabel" type="text" id="label" placeholder="Enter Class Name" required />
           </div>
 
           <button type="submit">Create Room</button>
@@ -222,8 +205,9 @@ export default {
 <style scoped>
 .main {
   margin-top: 80px !important;
-  font-family: "Raleway", sans-serif !important;
+  font-family: "Fredoka", sans-serif !important;
 }
+
 .modal {
   display: none;
   position: fixed;
@@ -233,14 +217,14 @@ export default {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
-  background-color: var(--lightBlue);
+  background-color: var(--lightPurple);
   margin: 5% auto;
-  padding: 40px; /* Increased padding for more space */
+  padding: 40px;
+  /* Increased padding for more space */
   border: 1px solid var(--darkBlue);
   width: 70%;
   max-width: 800px;
@@ -254,7 +238,8 @@ export default {
   float: right;
   font-size: 28px;
   font-weight: bold;
-  margin-top: -10px; /* Adjusted margin for better alignment */
+  margin-top: -10px;
+  /* Adjusted margin for better alignment */
 }
 
 .close:hover,
@@ -265,14 +250,15 @@ export default {
 }
 
 .form-group {
-  margin-bottom: 20px; /* Increased margin between form elements */
+  margin-bottom: 20px;
+  /* Increased margin between form elements */
 }
 
 /* Adjusted spacing for the submit button */
 button[type="submit"] {
   padding: 15px 20px;
   border-radius: 5px;
-  background-color: var(--darkBlue);
+  background-color: var(--nightPurple);
   color: white;
   border: none;
   cursor: pointer;
@@ -285,14 +271,14 @@ button[type="submit"]:hover {
 .pick {
   padding: 30px 40px;
   border-radius: 0;
-  background-color: var(--darkBlue);
+  background-color: var(--darkPurple);
   color: white;
   border: none;
   margin-right: 10px;
 }
 
 .pick:hover {
-  background-color: var(--mediumBlue);
+  background-color: var(--nightPurple);
   color: white;
 }
 
@@ -321,7 +307,7 @@ button[type="submit"]:hover {
   font-family: Raleway, sans-serif;
 }
 
-.room + .room {
+.room+.room {
   margin-top: 10px;
 }
 </style>

@@ -35,5 +35,9 @@ body {
   --lightGrey: #F0F0F0;
   --lightRed: #d9534f;
   --mediumRed: #c9302c;
+  --nightPurple: #8E68E6;
+  --bluePurple: #5271FF;
+  --darkPurple: #2E1042;
+  --lightPurple: #E1CCFF;
 }
 </style>
