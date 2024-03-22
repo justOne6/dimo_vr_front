@@ -105,7 +105,7 @@ export default {
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-            this.$router.push("/dashboard");
+            this.$router.push("/");
 
             console.log("Login successful");
           }

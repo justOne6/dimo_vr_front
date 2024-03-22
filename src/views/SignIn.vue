@@ -43,6 +43,17 @@
           >Forgot password?</router-link
         >
       </div>
+      <div style="margin: 2% auto; width: fit-content">
+        <a
+            href="/sign-up"
+            style="
+            color: var(--nightBlue);
+            font-weight: bold;
+            text-decoration: none;
+          "
+        >Create a new account?</a
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -87,7 +98,7 @@ export default {
 
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-            this.$router.push("/dashboard");
+            this.$router.push("/");
 
             console.log("Login successful");
           } else {

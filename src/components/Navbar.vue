@@ -4,15 +4,15 @@
     <router-link to="/"><img src="../assets/Dimo.png" style="width: 35px !important;" /></router-link>
     <span class="dimo" style="margin-left: 10px">Dimo</span>
     <span class="vr">VR</span>
-    <div class="links" v-if="$route.path !== '/' && $route.path !== '/sign-in' && $route.path !== '/forgotten-password'">
-      <router-link to="/dashboard" :class="{ 'active-link': $route.path === '/dashboard' }">Dashboard</router-link>
+    <div class="links" v-if="$route.path !== '/sign-in' && $route.path !== '/forgotten-password'">
+      <router-link to="/" :class="{ 'active-link': $route.path === '/dashboard' }">Dashboard</router-link>
       <router-link to="/manage-account"
         :class="{ 'active-link': $route.path === '/manage-account' }">Account</router-link>
       <router-link to="/custom" :class="{ 'active-link': $route.path === '/custom' }">Custom</router-link>
       <!--<router-link to="/forgotten-password">Forgotten Password</router-link>-->
     </div>
     <div class="logout" @click="logOut"
-      v-if="$route.path !== '/' && $route.path !== '/sign-in' && $route.path !== '/forgotten-password'"><img
+      v-if="$route.path !== '/sign-in' && $route.path !== '/forgotten-password'"><img
         src="../assets/logout.png" style="width: 15px !important; margin-right:8px" />Log Out</div>
   </nav>
 </template>
