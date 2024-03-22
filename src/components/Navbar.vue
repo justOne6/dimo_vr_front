@@ -4,7 +4,8 @@
     <router-link to="/"><img src="../assets/Dimo.png" style="width: 35px !important;" /></router-link>
     <span class="dimo" style="margin-left: 10px">Dimo</span>
     <span class="vr">VR</span>
-    <div class="links" v-if="$route.path !== '/' && $route.path !== '/sign-in' && $route.path !== '/forgotten-password'">
+    <div class="links"
+      v-if="$route.path !== '/' && $route.path !== '/sign-in' && $route.path !== '/forgotten-password'">
       <router-link to="/dashboard" :class="{ 'active-link': $route.path === '/dashboard' }">Dashboard</router-link>
       <router-link to="/manage-account"
         :class="{ 'active-link': $route.path === '/manage-account' }">Account</router-link>
@@ -39,7 +40,7 @@ export default {
 }
 
 .dimo {
-  color: var(--boldOrange);
+  color: var(--darkPurple);
   font-weight: bold;
   font-size: 26px;
 }
@@ -48,15 +49,15 @@ export default {
   font-weight: bold;
   font-size: 26px;
   display: inline-block;
-  background: linear-gradient(to bottom, var(--lightOrange), white);
+  background: linear-gradient(to bottom, var(--nightPurple), white);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .navbar {
-  background-color: var(--darkBlue);
-  font-family: "Raleway", sans-serif;
+  background-color: #F0F0F0;
+  font-family: "Fredoka", sans-serif;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -80,7 +81,7 @@ export default {
 }
 
 .links a {
-  color: white;
+  color: var(--darkPurple);
   text-decoration: none;
   font-size: 16px;
   padding: 10px;
