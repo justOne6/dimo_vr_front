@@ -3,7 +3,7 @@
     <Navbar />
     <div class="main">
       <div class="right"></div>
-      <h1 class="inputs">Hello, {{ username }}</h1>
+      <h1 class="inputs">Hello, {{ email }}</h1>
     </div>
     <div class="container">
       <div>
@@ -46,7 +46,7 @@ export default {
   components: { Navbar },
   data() {
     return {
-      username: "",
+      email: "",
       active: false,
       roomNumbers: [],
       createRoomModalOpen: false,
@@ -82,11 +82,11 @@ export default {
       if (token) {
         const [, payloadBase64] = token.split(".");
         const payload = JSON.parse(atob(payloadBase64));
-
-        if (payload && payload.username) {
-          this.username = payload.username;
+        console.log("Token payload:", payload);
+        if (payload && payload.sub) {
+          this.email = payload.sub;
         } else {
-          console.error("Token payload does not contain the username.");
+          console.error("Token payload does not contain the email.");
         }
       } else {
         console.error("No token found.");
@@ -96,7 +96,7 @@ export default {
       try {
         const userId = localStorage.getItem("user_id");
         const response = await axios.get(
-          "http://127.0.0.1:8000/api/lobbies?user_id=${userId}`"
+            `${process.env.VUE_APP_API_URI}/api/findAllLobbiesForCurrentUser`
         );
         console.log("Fetched room numbers:", response.data);
 
@@ -156,7 +156,7 @@ export default {
         }
 
         const response = await axios.post(
-          "http://127.0.0.1:8000/api/lobbies",
+            `${process.env.VUE_APP_API_URI}/createNewLobby`,
           {
             label: this.newRoomLabel,
           },
@@ -186,16 +186,6 @@ export default {
         this.closeCreateRoomModal();
       } catch (error) {
         console.error("Error creating room:", error);
-
-        if (error.response) {
-          console.error("Response data:", error.response.data);
-          console.error("Response status:", error.response.status);
-          console.error("Response headers:", error.response.headers);
-        } else if (error.request) {
-          console.error("No response received. Request:", error.request);
-        } else {
-          console.error("Error setting up the request:", error.message);
-        }
       }
     },
   },
