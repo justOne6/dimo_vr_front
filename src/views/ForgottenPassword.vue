@@ -34,7 +34,7 @@ body {
 }
 
 .create {
-  color: #2a6a8a !important;
+  color: var(--nightPurple) !important;
   font-weight: bold;
   font-size: 32px;
   margin: 5% auto 10% auto;
@@ -50,7 +50,7 @@ body {
   padding: 30%;
   color: white !important;
   font-weight: bold;
-  background-color: #219ebc !important;
+  background-color: var(--bluePurple) !important;
 }
 
 span.signup_button {

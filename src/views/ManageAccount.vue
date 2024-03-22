@@ -6,7 +6,8 @@
         <p>Manage your account {{ username }} !</p>
       </div>
       <div class="container">
-        <div class="sections" :class="{ 'with-border': personalInfo || showSecurity || showContact }" style="width: 30vw">
+        <div class="sections" :class="{ 'with-border': personalInfo || showSecurity || showContact }"
+          style="width: 30vw">
           <p class="edits"><i class="mdi mdi-home" />&nbsp;Home</p>
           <v-divider style="color: black; height: 2px"></v-divider>
           <p class="edits" @click="togglePersonal" :class="{ 'font-bold': personalInfo }"><i
@@ -160,7 +161,7 @@ export default {
   color: white !important;
   font-weight: bold;
   padding: 2% 20% !important;
-  background-color: var(--mediumBlue) !important;
+  background-color: var(--nightPurple) !important;
 }
 
 .edit_button {
@@ -172,7 +173,7 @@ export default {
 
 .font-bold {
   font-weight: bold;
-  background-color: var(--mediumBlue);
+  background-color: var(--nightPurple);
   color: white;
 }
 
@@ -197,7 +198,7 @@ body {
 }
 
 .edits:hover {
-  background-color: var(--lightBlue);
+  background-color: var(--lightPurple);
   color: white;
 }
 
@@ -231,7 +232,7 @@ span.signup_button {
   width: 100% !important;
   height: fit-content !important;
   padding: 0 !important;
-  color: #2a6a8a !important;
+  color: var(--nightPurple) !important;
   font-weight: bold;
   font-size: 32px;
   margin-bottom: 10px !important;

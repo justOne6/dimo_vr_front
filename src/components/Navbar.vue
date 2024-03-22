@@ -39,7 +39,7 @@ export default {
 }
 
 .dimo {
-  color: var(--boldOrange);
+  color: var(--darkPurple);
   font-weight: bold;
   font-size: 26px;
 }
@@ -48,15 +48,15 @@ export default {
   font-weight: bold;
   font-size: 26px;
   display: inline-block;
-  background: linear-gradient(to bottom, var(--lightOrange), white);
+  background: linear-gradient(to bottom, var(--nightPurple), white);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .navbar {
-  background-color: var(--darkBlue);
-  font-family: "Raleway", sans-serif;
+  background-color: #F0F0F0;
+  font-family: "Fredoka", sans-serif;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -80,7 +80,7 @@ export default {
 }
 
 .links a {
-  color: white;
+  color: var(--darkPurple);
   text-decoration: none;
   font-size: 16px;
   padding: 10px;
