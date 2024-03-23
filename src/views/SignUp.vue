@@ -9,7 +9,7 @@
       <div v-if="registrationError" class="error-message">
         {{ registrationError }}
       </div>
-      <div>
+      <div style="margin-top:20px">
         <p class="create">Create Account</p>
         <v-text-field outlined clearable class="input" label="First Name" v-model="firstname"></v-text-field>
         <v-text-field outlined clearable class="input" label="Last Name" v-model="lastname"></v-text-field>
@@ -104,7 +104,7 @@ body {
   color: var(--nightPurple) !important;
   font-weight: bold;
   font-size: 32px;
-  margin: 5% auto 10% auto;
+  margin: 5% auto 30px auto;
 }
 
 .signup {
@@ -139,7 +139,7 @@ span.signup_button {
 <style scoped>
 .input {
   border-radius: 5px;
-  margin-bottom: 35px !important;
+  margin-bottom: 20px !important;
   font-size: 16px;
   background-color: #e6e6e6;
   height: 55px !important;
