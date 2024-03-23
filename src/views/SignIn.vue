@@ -11,7 +11,7 @@
       <div v-if="loginError" class="error-message">
         {{ loginError }}
       </div>
-      <div>
+      <div style="margin-top:20px">
         <p class="create">Sign In</p>
         <v-text-field outlined clearable class="input" label="Email" v-model="email"></v-text-field>
         <v-text-field outlined clearable class="input" label="Password" v-model="password"
@@ -27,15 +27,11 @@
           password?</router-link>
       </div>
       <div style="margin: 2% auto; width: fit-content">
-        <a
-            href="/sign-up"
-            style="
+        <a href="/sign-up" style="
             color: var(--nightBlue);
             font-weight: bold;
             text-decoration: none;
-          "
-        >Create a new account?</a
-        >
+          ">Create a new account?</a>
       </div>
     </div>
   </div>
@@ -121,15 +117,8 @@ body {
   background-color: #f0f0f0;
 }
 
-.create {
-  color: var(--nightPurple) !important;
-  font-weight: bold;
-  font-size: 32px;
-  margin: 0 auto 10% auto !important;
-}
-
 .signin {
-  margin: 0 auto;
+  margin: 20px auto;
   width: fit-content;
   border-radius: 5px;
 }
@@ -173,14 +162,14 @@ span.signin_button {
 
 <style scoped>
 .main {
-  font-family: "Raleway", sans-serif;
+  font-family: "Fredoka", sans-serif;
   margin: 75px auto 0 auto !important;
   /* the navbar's height is 63px */
 }
 
 .input {
   border-radius: 5px;
-  margin-bottom: 35px !important;
+  margin-bottom: 20px !important;
   font-size: 16px;
   background-color: #e6e6e6;
   height: 55px !important;

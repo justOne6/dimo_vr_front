@@ -27,7 +27,7 @@
 
         <form @submit.prevent="submitCreateRoom">
           <div class="form-group">
-            <label for="label">Classroom Name:</label>
+            <label for="label">Classroom Name : </label>
             <input v-model="newRoomLabel" type="text" id="label" placeholder="Enter Class Name" required />
           </div>
 
@@ -72,7 +72,7 @@ export default {
       try {
         const userId = localStorage.getItem("user_id");
         const response = await axios.get(
-            `${process.env.VUE_APP_API_URI}/api/findAllLobbiesForCurrentUser`
+          `${process.env.VUE_APP_API_URI}/api/findAllLobbiesForCurrentUser`
         );
         console.log("Fetched room numbers:", response.data);
 
@@ -132,7 +132,7 @@ export default {
         }
 
         const response = await axios.post(
-            `${process.env.VUE_APP_API_URI}/createNewLobby`,
+          `${process.env.VUE_APP_API_URI}/createNewLobby`,
           {
             label: this.newRoomLabel,
           },
@@ -191,16 +191,16 @@ export default {
   margin: 5% auto;
   padding: 40px;
   /* Increased padding for more space */
-  border: 1px solid var(--darkBlue);
+  border: 1px solid var(--darkPurple);
   width: 70%;
   max-width: 800px;
   max-height: 80vh;
   overflow-y: auto;
-  font-family: "Raleway", sans-serif;
+  font-family: "Fredoka", sans-serif;
 }
 
 .close {
-  color: var(--darkBlue);
+  color: var(--darkPurple);
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -224,14 +224,14 @@ export default {
 button[type="submit"] {
   padding: 15px 20px;
   border-radius: 5px;
-  background-color: var(--nightPurple);
+  background-color: var(--darkPurple);
   color: white;
   border: none;
   cursor: pointer;
 }
 
 button[type="submit"]:hover {
-  background-color: var(--mediumBlue);
+  background-color: var(--nightPurple);
 }
 
 .pick {
@@ -270,7 +270,7 @@ button[type="submit"]:hover {
   justify-content: center;
   display: flex;
   padding: 0 auto !important;
-  font-family: Raleway, sans-serif;
+  font-family: 'Fredoka', sans-serif;
 }
 
 .room+.room {

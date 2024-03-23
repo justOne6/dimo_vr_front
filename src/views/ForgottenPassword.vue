@@ -33,13 +33,6 @@ body {
   background-color: #f0f0f0;
 }
 
-.create {
-  color: var(--nightPurple) !important;
-  font-weight: bold;
-  font-size: 32px;
-  margin: 5% auto 10% auto;
-}
-
 .signup {
   margin: 0 auto;
   width: fit-content;
@@ -77,7 +70,7 @@ span.signup_button {
 }
 
 .main {
-  font-family: "Raleway", sans-serif;
+  font-family: "Fredoka", sans-serif;
   margin: 75px auto 0 auto !important;
   width: 30vw !important;
   /* the navbar's height is 63px */

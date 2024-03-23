@@ -4,16 +4,32 @@
     <router-link to="/"><img src="../assets/Dimo.png" style="width: 35px !important;" /></router-link>
     <span class="dimo" style="margin-left: 10px">Dimo</span>
     <span class="vr">VR</span>
-    <div class="links" v-if="$route.path !== '/sign-in' && $route.path !== '/forgotten-password'">
-      <router-link to="/" :class="{ 'active-link': $route.path === '/dashboard' }">Dashboard</router-link>
+    <div class="links"
+      v-if="$route.path !== '/sign-in' && $route.path !== '/forgotten-password' && $route.path !== '/sign-up'">
+      <router-link to="/" :class="{ 'active-link': $route.path === '/dashboard' }"><span class="material-icons">
+          home
+        </span></router-link>
       <router-link to="/manage-account"
         :class="{ 'active-link': $route.path === '/manage-account' }">Account</router-link>
       <router-link to="/custom" :class="{ 'active-link': $route.path === '/custom' }">Custom</router-link>
       <!--<router-link to="/forgotten-password">Forgotten Password</router-link>-->
     </div>
-    <div class="logout" @click="logOut"
-      v-if="$route.path !== '/sign-in' && $route.path !== '/forgotten-password'"><img
-        src="../assets/logout.png" style="width: 15px !important; margin-right:8px" />Log Out</div>
+    <div style="display: flex; flex-direction: row; align-items: center; margin-left: auto !important;"
+      v-if="$route.path !== '/sign-in' && $route.path !== '/sign-up' && $route.path !== '/forgotten-password'">
+      <button @click="clickProfile">
+        <span class="material-icons" style="color: var(--darkPurple)">
+          account_circle
+        </span>
+      </button>
+    </div>
+    <div v-if="this.profileClicked"
+      style="background-color: white; color: black; position: absolute; right: 10px; margin-top: 18vh; width: fit-content">
+      <li class="profile">Edit profile</li>
+      <li class="profile" @click="logOut">Log Out</li>
+    </div>
+
+    <div></div>
+
   </nav>
 </template>
 
@@ -23,12 +39,21 @@ import axios from "axios";
 export default {
   components: {
   },
+  data() {
+    return {
+      profileClicked: false,
+    }
+  },
   methods: {
     logOut() {
       localStorage.removeItem("token");
       delete axios.defaults.headers.common["Authorization"];
       this.$router.push("/sign-in");
     },
+    clickProfile() {
+      this.profileClicked = !this.profileClicked;
+      console.log("this.profileChecked : " + this.profileClicked)
+    }
   },
 };
 </script>
@@ -40,8 +65,18 @@ export default {
 
 .dimo {
   color: var(--darkPurple);
-  font-weight: bold;
+  /*font-weight: bold;*/
   font-size: 26px;
+}
+
+.profile {
+  list-style-type: none;
+  padding: 15px 30px;
+  cursor: pointer;
+}
+
+.profile:hover {
+  background-color: var(--lightPurple);
 }
 
 .vr {
@@ -77,6 +112,9 @@ export default {
   width: fit-content;
   margin-left: 10px;
   border-left: solid 1px white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .links a {
