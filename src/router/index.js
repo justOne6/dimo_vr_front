@@ -7,6 +7,8 @@ import ForgottenPassword from "../views/ForgottenPassword";
 import CustomCharacter from "../views/CustomCharacter.vue";
 import Dashboard from "../views/DashboardHome";
 import ClassRoom from "../views/ClassRoom";
+import NewProgramForm from "@/views/NewProgramForm.vue";
+import NewSubjectForm from "@/views/NewSubjectForm.vue";
 
 Vue.use(VueRouter);
 
@@ -50,6 +52,16 @@ const routes = [
     name: "classroom",
     component: ClassRoom,
     beforeEnter: redirectToSignInIfNotAuthenticated,
+  },
+  {
+    path: "/create-program",
+    name: "new-program",
+    component: NewProgramForm,
+  },
+  {
+    path: "/create-subject",
+    name: "new-subject",
+    component: NewSubjectForm,
   },
 ];
 
