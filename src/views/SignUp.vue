@@ -97,7 +97,7 @@ export default {
 
 <style>
 body {
-  background-color: var(--lightGrey);
+  background-color: var(--background);
 }
 
 .create {
@@ -146,7 +146,7 @@ span.signup_button {
 }
 
 .main {
-  font-family: "Fredoka", sans-serif;
+  font-family: "Fredoka One", sans-serif;
   margin: 75px auto 0 auto !important;
   /* the navbar's height is 63px */
 }

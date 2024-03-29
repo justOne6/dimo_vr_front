@@ -91,7 +91,7 @@ export default {
 
 .navbar {
   background-color: #F0F0F0;
-  font-family: "Fredoka", sans-serif;
+  font-family: "Fredoka One", sans-serif;
   padding: 10px;
   display: flex;
   align-items: center;

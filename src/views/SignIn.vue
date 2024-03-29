@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div class="main">
       <div v-if="loginSuccess" class="success-message">
         <p class="success-text">
@@ -11,15 +10,23 @@
       <div v-if="loginError" class="error-message">
         {{ loginError }}
       </div>
-      <div style="margin-top:20px">
-        <p class="create">Sign In</p>
-        <v-text-field outlined clearable class="input" label="Email" v-model="email"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Password" v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"></v-text-field>
+      <div style="margin-top:2px">
+        <p style="font-size: 40px; color: var(--blue)">WELCOME TO DIMOVR</p>
+        <p style="font-size: 30px; margin: 40px 0; font-weight: normal">Sign In</p>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
+          <p style="font-size: 20px; color: var(--blue); font-weight: normal;">Email</p>
+          <v-text-field outlined clearable background-color=var(--input) label="Enter text..." style="width: 20vw"
+            v-model="email"></v-text-field>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
+          <p style="font-size: 20px; color: var(--blue)">Password</p>
+          <v-text-field outlined clearable background-color=var(--input) label="Enter password"
+            style="width: 20vw; margin: auto" v-model="password" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword"></v-text-field>
+        </div>
       </div>
       <div class="signin">
-        <v-btn class="signin_button" @click="signIn"><span>SIGN IN</span></v-btn>
+        <v-btn class="signin_button" @click="signIn"><span>LOGIN</span></v-btn>
       </div>
       <div style="margin: 2% auto; width: fit-content">
         <router-link to="/forgotten-password"
@@ -38,13 +45,10 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
 
 export default {
-  components: {
-    Navbar,
-  },
+  components: {},
   data() {
     return {
       email: "",
@@ -103,7 +107,7 @@ export default {
 
 <style>
 body {
-  background-color: #f0f0f0;
+  background-color: var(--background);
 }
 
 .signin {
@@ -116,9 +120,9 @@ body {
   padding: 30%;
   color: white !important;
   font-weight: bold;
-  background-color: var(--bluePurple) !important;
-  width: 20vw;
-  font-size: 30px;
+  background-color: var(--button) !important;
+  width: 22vw;
+  font-size: 20px !important;
 }
 
 span.signin_button {
@@ -134,7 +138,7 @@ span.signin_button {
 }
 
 .success-text {
-  font-family: "Fredoka", sans-serif;
+  font-family: "Fredoka One", sans-serif;
   color: white;
   font-size: 18px;
 }
@@ -147,12 +151,21 @@ span.signin_button {
   text-align: center;
   color: white;
 }
+
+/* Placeholder */
+.theme--light.v-label {
+  color: grey !important;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 13px;
+}
 </style>
 
 <style scoped>
 .main {
-  font-family: "Fredoka", sans-serif;
-  margin: 75px auto 0 auto !important;
+  font-family: "Fredoka One", sans-serif;
+  margin: 10px auto 0 auto !important;
+  background: var(--background);
   /* the navbar's height is 63px */
 }
 

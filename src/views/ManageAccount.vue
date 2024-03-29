@@ -183,11 +183,11 @@ export default {
 }
 
 body {
-  background-color: var(--lightGrey);
+  background-color: var(--background);
 }
 
 .main {
-  font-family: "Fredoka", sans-serif;
+  font-family: "Fredoka One", sans-serif;
   margin-top: 8px !important;
   margin-bottom: auto;
 }

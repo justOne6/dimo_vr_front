@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div class="main">
       <div class="right"></div>
       <h1 class="inputs">Hello {{ email }} !</h1>
@@ -39,11 +38,10 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
 
 export default {
-  components: { Navbar },
+  components: {},
   data() {
     return {
       email: "",
@@ -195,7 +193,7 @@ export default {
 <style scoped>
 .main {
   margin-top: 80px !important;
-  font-family: "Fredoka", sans-serif !important;
+  font-family: "Fredoka One", sans-serif !important;
 }
 
 .modal {
@@ -220,7 +218,7 @@ export default {
   max-width: 800px;
   max-height: 80vh;
   overflow-y: auto;
-  font-family: "Fredoka", sans-serif;
+  font-family: "Fredoka One", sans-serif;
 }
 
 .close {
@@ -273,7 +271,7 @@ button[type="submit"]:hover {
 }
 
 .room {
-  background-color: var(--mediumGrey);
+  background-color: var(--background);
   padding: 30px 40px;
   border-radius: 0;
   margin-bottom: 10px;
@@ -294,7 +292,7 @@ button[type="submit"]:hover {
   justify-content: center;
   display: flex;
   padding: 0 auto !important;
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Fredoka One', sans-serif;
 }
 
 .room+.room {
