@@ -7,6 +7,7 @@ import ForgottenPassword from "../views/ForgottenPassword";
 import CustomCharacter from "../views/CustomCharacter.vue";
 import Dashboard from "../views/DashboardHome";
 import ClassRoom from "../views/ClassRoom";
+import Quizz from "../views/QuizzCustom";
 
 Vue.use(VueRouter);
 
@@ -50,7 +51,12 @@ const routes = [
     name: "classroom",
     component: ClassRoom,
     beforeEnter: redirectToSignInIfNotAuthenticated,
-  }
+  },
+  {
+    path: "/quizz",
+    component: Quizz,
+    beforeEnter: redirectToSignInIfNotAuthenticated,
+  },
 ];
 
 const router = new VueRouter({
