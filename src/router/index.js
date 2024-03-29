@@ -50,7 +50,7 @@ const routes = [
     name: "classroom",
     component: ClassRoom,
     beforeEnter: redirectToSignInIfNotAuthenticated,
-  },
+  }
 ];
 
 const router = new VueRouter({

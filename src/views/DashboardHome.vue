@@ -3,7 +3,7 @@
     <Navbar />
     <div class="main">
       <div class="right"></div>
-      <h1 class="inputs">Hello {{ email }} !</h1>
+      <h1 class="inputs">Hello, {{ user.firstname }}</h1>
     </div>
     <div class="container">
       <div>
@@ -46,7 +46,7 @@ export default {
   components: { Navbar },
   data() {
     return {
-      email: "",
+      user: [],
       active: false,
       roomNumbers: [],
       createRoomModalOpen: false,
@@ -58,39 +58,15 @@ export default {
   },
   async mounted() {
     this.fetchUserData();
-    this.fetchRoomNumbers();
     await this.fetchRoomNumbers();
   },
   methods: {
     toggle() {
       this.active = !this.active;
     },
-    getUserId() {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const [, payloadBase64] = token.split(".");
-        const payload = JSON.parse(atob(payloadBase64));
-        if (payload && payload.userId) {
-          return payload.userId;
-        }
-      }
-      return null;
-    },
     fetchUserData() {
-      const token = localStorage.getItem("token");
-
-      if (token) {
-        const [, payloadBase64] = token.split(".");
-        const payload = JSON.parse(atob(payloadBase64));
-        console.log("Token payload:", payload);
-        if (payload && payload.sub) {
-          this.email = payload.sub;
-        } else {
-          console.error("Token payload does not contain the email.");
-        }
-      } else {
-        console.error("No token found.");
-      }
+      // get the user from the local storage
+      this.user = JSON.parse(localStorage.getItem("user"));
     },
     async fetchRoomNumbers() {
       try {
