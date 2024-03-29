@@ -6,11 +6,13 @@ import router from "./router/index";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
+import store from './store'
 
 Vue.config.productionTip = false;
 
 new Vue({
   router,
   render: (h) => h(App),
-  vuetify,
+  store,
+  vuetify
 }).$mount("#app");
