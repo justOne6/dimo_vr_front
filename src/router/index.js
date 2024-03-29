@@ -2,11 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import SignIn from "../views/SignIn.vue";
 import SignUp from "../views/SignUp.vue";
-import ManageAccount from "../views/ManageAccount";
-import ForgottenPassword from "../views/ForgottenPassword";
-import CustomCharacter from "../views/CustomCharacter.vue";
-import Dashboard from "../views/DashboardHome";
-import ClassRoom from "../views/ClassRoom";
+import ManageAccount from "../views/ex-views/ManageAccount.vue";
+import ForgottenPassword from "../views/ex-views/ForgottenPassword.vue";
+import CustomCharacter from "../views/ex-views/CustomCharacter.vue";
+import Dashboard from "../views/ex-views/DashboardHome.vue";
+import ClassRoom from "../views/ex-views/ClassRoom.vue";
 
 Vue.use(VueRouter);
 
