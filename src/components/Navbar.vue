@@ -1,80 +1,54 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <nav class="navbar">
-    <router-link to="/"
-      ><img src="../assets/Dimo.png" style="width: 35px !important"
-    /></router-link>
+    <router-link to="/"><img src="../assets/Dimo.png" style="width: 35px !important" /></router-link>
     <span class="dimo" style="margin-left: 10px">Dimo</span>
     <span class="vr">VR</span>
-    <div
-      class="links"
-      v-if="
-        $route.path !== '/sign-in' &&
-        $route.path !== '/forgotten-password' &&
-        $route.path !== '/sign-up'
-      "
-    >
-      <router-link
-        to="/"
-        :class="{ 'active-link': $route.path === '/dashboard' }"
-        ><span class="material-icons"> home </span></router-link
-      >
-      <router-link
-        to="/manage-account"
-        :class="{ 'active-link': $route.path === '/manage-account' }"
-        >Account</router-link
-      >
-      <router-link
-        to="/custom"
-        :class="{ 'active-link': $route.path === '/custom' }"
-        >Custom</router-link
-      >
-      <router-link
-        to="/quizz"
-        :class="{ 'active-link': $route.path === '/quizz' }"
-        >Quizz</router-link
-      >
+    <div class="links" v-if="$route.path !== '/sign-in' &&
+      $route.path !== '/forgotten-password' &&
+      $route.path !== '/sign-up'
+      ">
+      <router-link to="/" :class="{ 'active-link': $route.path === '/dashboard' }"><span class="material-icons"> home
+        </span></router-link>
+      <router-link to="/manage-account"
+        :class="{ 'active-link': $route.path === '/manage-account' }">Account</router-link>
+      <router-link to="/custom" :class="{ 'active-link': $route.path === '/custom' }">Custom</router-link>
+      <router-link to="/quizz" :class="{ 'active-link': $route.path === '/quizz' }">Quizz</router-link>
 
       <!--<router-link to="/forgotten-password">Forgotten Password</router-link>-->
     </div>
-    <div
-      style="
+    <div style="
         display: flex;
         flex-direction: row;
         align-items: center;
         margin-left: auto !important;
-      "
-      v-if="
-        $route.path !== '/sign-in' &&
-        $route.path !== '/sign-up' &&
-        $route.path !== '/forgotten-password'
-      "
-    >
+      " v-if="$route.path !== '/sign-in' &&
+      $route.path !== '/sign-up' &&
+      $route.path !== '/forgotten-password'
+      ">
       <button @click="clickProfile">
         <span class="material-icons" style="color: var(--darkPurple)">
           account_circle
         </span>
       </button>
     </div>
-    <div
-      v-if="this.profileClicked"
-      style="
+    <div v-if="this.profileClicked" style="
         background-color: white;
         color: black;
         position: absolute;
         right: 10px;
         margin-top: 18vh;
         width: fit-content;
-      "
-    >
+      ">
       <li class="profile">Edit profile</li>
-    <div v-if="this.profileClicked"
-      style="background-color: white; color: black; position: absolute; right: 10px; margin-top: 18vh; width: fit-content">
-      <li class="profile" @click="editProfile">Edit profile</li>
-      <li class="profile" @click="logOut">Log Out</li>
-    </div>
+      <div v-if="this.profileClicked"
+        style="background-color: white; color: black; position: absolute; right: 10px; margin-top: 18vh; width: fit-content">
+        <li class="profile" @click="editProfile">Edit profile</li>
+        <li class="profile" @click="logOut">Log Out</li>
+      </div>
 
-    <div></div>
+      <div></div>
+    </div>
   </nav>
 </template>
 
