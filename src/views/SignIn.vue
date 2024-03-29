@@ -139,7 +139,7 @@ body {
   border-radius: 5px;
   font-size: 20px !important;
   text-align: center;
-  color: #EA8E99 !important;
+  color: red !important;
   background-color: transparent !important;
 }
 
