@@ -6,12 +6,12 @@
         Change password
       </p>
       <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
-        <p style="font-size: 20px; color: var(--blue); font-weight: normal;">Old password</p>
+        <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Old password</p>
         <v-text-field outlined clearable background-color=var(--input) label="Enter text..." style="width: 20vw"
           v-model="email"></v-text-field>
       </div>
       <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
-        <p style="font-size: 20px; color: var(--blue); font-weight: normal;">New password</p>
+        <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">New password</p>
         <v-text-field outlined clearable background-color=var(--input) label="Enter text..." style="width: 20vw"
           v-model="email"></v-text-field>
       </div>
@@ -59,6 +59,10 @@ body {
 
 span.signup_button {
   font-size: 20px;
+}
+
+.v-text-field {
+  border-width: 0 !important;
 }
 </style>
 

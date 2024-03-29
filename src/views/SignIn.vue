@@ -11,12 +11,12 @@
         <p style="font-size: 40px; color: var(--blue)">WELCOME TO DIMOVR</p>
         <p style="font-size: 30px; margin: 40px 0; font-weight: normal; color: var(--blue)">Sign In</p>
         <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
-          <p style="font-size: 20px; color: var(--blue); font-weight: normal;">Email</p>
+          <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Email</p>
           <v-text-field outlined clearable background-color=var(--input) label="Enter text..." style="width: 20vw"
             v-model="email"></v-text-field>
         </div>
         <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
-          <p style="font-size: 20px; color: var(--blue)">Password</p>
+          <p style="font-size: 20px; color: var(--blue); margin-bottom: 2px">Password</p>
           <v-text-field outlined clearable background-color=var(--input) label="Enter password"
             style="width: 20vw; margin: auto" v-model="password" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword"></v-text-field>
@@ -32,7 +32,7 @@
       </div>
       <div style="width: fit-content">
         <a href="/sign-up" style="
-            color: var(--nightBlue);
+            color: var(--nightPurple);
             font-weight: bold;
             text-decoration: none;
           ">Create a new account?</a>
@@ -83,16 +83,16 @@ export default {
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             // fetch the user data
             axios.get(`${process.env.VUE_APP_API_URI}/api/fetchUser`)
-                .then((response) => {
-                  console.log("User data: ", response.data);
-                  localStorage.setItem("user", JSON.stringify(response.data));
+              .then((response) => {
+                console.log("User data: ", response.data);
+                localStorage.setItem("user", JSON.stringify(response.data));
 
-                  // Redirect to the dashboard
-                  this.$router.push("/");
-                })
-                .catch((error) => {
-                  console.error("Error while fetching user data: ", error);
-                });
+                // Redirect to the dashboard
+                this.$router.push("/");
+              })
+              .catch((error) => {
+                console.error("Error while fetching user data: ", error);
+              });
 
             console.log("Login successful");
           } else {
@@ -108,7 +108,7 @@ export default {
             this.loginError =
               "Nom d'utilisateur ou mot de passe incorrect. Veuillez réessayer !";
           } else {
-            this.loginError = "LOGIN FAILED.<br>INVALID CREDENTIALS";
+            this.loginError = "LOGIN FAILED.<br>INVALID CREDENTIALS.";
           }
         });
     },
@@ -118,7 +118,7 @@ export default {
 
 <style>
 body {
-  background-color: var(--background);
+  background-color: var(--background) !important;
 }
 
 .success-message {
@@ -147,7 +147,6 @@ body {
 .theme--light.v-label {
   color: grey !important;
   font-weight: normal;
-  font-style: italic;
   font-size: 13px;
 }
 </style>
