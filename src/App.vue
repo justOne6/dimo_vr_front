@@ -1,13 +1,18 @@
 <template>
   <v-main>
-    <router-view></router-view>
+    <AppLayout>
+      <router-view></router-view>
+    </AppLayout>
   </v-main>
 </template>
 
 <script>
 
+import AppLayout from "@/views/AppLayout.vue";
+
 export default {
   components: {
+    AppLayout
   },
 
   data: () => ({
@@ -18,6 +23,7 @@ export default {
 <style>
 body {
   margin: 0 !important;
+  font-family: "Fredoka", sans-serif !important;
 }
 
 .v-main__wrap {
@@ -39,5 +45,16 @@ body {
   --bluePurple: #5271FF;
   --darkPurple: #2E1042;
   --lightPurple: #E1CCFF;
+  --dimoColor1: #2E1042;
+  --dimoColor2: #5271FF;
+  --dimoColor3: #8E68E6;
+  --dimoColor4: #38B6FF;
+  --dimoWhite: #FFFFFF;
+}
+
+.page-restrict-width {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 </style>
