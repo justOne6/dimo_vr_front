@@ -5,9 +5,9 @@
         <div class="introduction">
           <h1>Votre portail vers un monde d'apprentissage immersif et illimité</h1>
           <p>
-            Plongez dans une expérience éducative immersive où les frontières de la salle de classe traditionnelle s'effacent pour laisser place à un univers de possibilités infinies.
+            Plongez dans une expérience éducative immersive où les frontières de la salle de classe traditionnelle s'effacent pour laisser place à un univers de possibilités infinies!
           </p>
-          <a class="register-button" href="/sign-in" >Rejoindre Dimo</a>
+          <DButton href="/sign-up">Je rejoins Dimo !</DButton>
         </div>
         <div class="image-wrap">
           <img src="../assets/Dimo.png"  alt="Logo DimoVr"/>
@@ -18,8 +18,11 @@
 </template>
 
 <script>
+import DButton from "@/components/DButton.vue";
+
 export default {
   name: "AppHero",
+  components: {DButton},
   setup() {
     return {
 
@@ -65,16 +68,4 @@ export default {
   object-fit: cover;
 }
 
-.register-button {
-  padding: 1rem 2rem;
-  display: inline-block;
-  text-decoration: none;
-  background-color: var(--dimoColor2);
-  color: var(--dimoWhite);
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
 </style>

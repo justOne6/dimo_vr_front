@@ -1,43 +1,58 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <nav class="navbar">
-    <router-link to="/"><img src="../assets/Dimo.png" style="width: 35px !important;" /></router-link>
-    <span class="dimo" style="margin-left: 10px">Dimo</span>
-    <span class="vr">VR</span>
-    <div class="links"
-      v-if="$route.path !== '/sign-in' && $route.path !== '/forgotten-password' && $route.path !== '/sign-up'">
-      <router-link to="/" :class="{ 'active-link': $route.path === '/dashboard' }"><span class="material-icons">
-          home
-        </span></router-link>
-      <router-link to="/manage-account"
-        :class="{ 'active-link': $route.path === '/manage-account' }">Account</router-link>
-      <router-link to="/custom" :class="{ 'active-link': $route.path === '/custom' }">Custom</router-link>
-      <!--<router-link to="/forgotten-password">Forgotten Password</router-link>-->
-    </div>
-    <div style="display: flex; flex-direction: row; align-items: center; margin-left: auto !important;"
-      v-if="$route.path !== '/sign-in' && $route.path !== '/sign-up' && $route.path !== '/forgotten-password'">
-      <button @click="clickProfile">
-        <span class="material-icons" style="color: var(--darkPurple)">
-          account_circle
-        </span>
-      </button>
-    </div>
-    <div v-if="this.profileClicked"
-      style="background-color: white; color: black; position: absolute; right: 10px; margin-top: 18vh; width: fit-content">
-      <li class="profile">Edit profile</li>
-      <li class="profile" @click="logOut">Log Out</li>
-    </div>
-
-    <div></div>
-
+    <div class="page-restrict-width flex-center-content">
+      <div class="nav-left">
+        <router-link to="/" class="no-text-decoration flex-center-content"><img src="../assets/Dimo.png" style="width: 35px"/>
+          <span class="dimo" style="margin-left: 10px">Dimo</span>
+          <span class="vr-logo">VR</span>
+        </router-link>
+        <div class="links">
+          <router-link to="/" :class="{ 'active-link': $route.path === '/' }" class="flex-center-content">
+            <span class="material-icons">home</span>
+          </router-link>
+          <div v-if="isStudent" class="flex-center-content">
+            <router-link to="/edt" :class="{ 'active-link': $route.path === '/edt' }" class="flex-center-content">
+              Emploie du temps
+            </router-link>
+            <router-link to="/student-programs" :class="{ 'active-link': $route.path === '/student-programs' }" class="flex-center-content">
+              Mes programmes
+            </router-link>
+          </div>
+          <div v-else-if="isTeacher" class="flex-center-content">
+            <router-link to="/teacher-dashboard" :class="{ 'active-link': $route.path === '/teacher-dashboard' }" class="flex-center-content">
+              Dashboard
+            </router-link>
+          </div>
+          <div v-else-if="isAdmin" class="flex-center-content">
+            <router-link to="/admin/admin-dashboard" :class="{ 'active-link': $route.path === '/admmin-dashboard' }" class="flex-center-content">
+              Dashboard
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div v-if="isAuthenticated">
+          <DropdownAccount/>
+        </div>
+        <div v-else>
+          <router-link to="/sign-in" class="no-text-decoration"><span class="material-icons">login</span>
+          </router-link>
+        </div>
+      </div>
+      </div>
   </nav>
 </template>
 
 <script>
 import axios from "axios";
 
+import {mapGetters, mapState} from "vuex";
+import DropdownAccount from "@/components/DropdownAccount.vue";
+
 export default {
+  name: "AppNavbar",
   components: {
+    DropdownAccount
   },
   data() {
     return {
@@ -55,6 +70,19 @@ export default {
       this.profileClicked = !this.profileClicked;
       console.log("this.profileChecked : " + this.profileClicked)
     }
+  },
+  computed: {
+    ...mapGetters(["isRolePresent"]),
+    ...mapState(["isAuthenticated"]),
+    isStudent() {
+      return this.isRolePresent("student");
+    },
+    isTeacher() {
+      return this.isRolePresent("teacher");
+    },
+    isAdmin() {
+      return this.isRolePresent("admin");
+    },
   },
 };
 </script>
@@ -80,7 +108,7 @@ export default {
   background-color: var(--lightPurple);
 }
 
-.vr {
+.vr-logo {
   font-weight: bold;
   font-size: 26px;
   display: inline-block;
@@ -91,16 +119,27 @@ export default {
 }
 
 .navbar {
+  display: flex;
+  flex-direction: row;
   background-color: #F0F0F0;
   font-family: "Fredoka", sans-serif;
   padding: 10px;
-  display: flex;
   align-items: center;
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   width: 100%;
+}
+
+.nav-left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav-right {
+  margin-left: auto;
 }
 
 .logo {
@@ -138,6 +177,15 @@ export default {
   background-color: var(--lightRed) !important;
   border-radius: 5px;
   margin-left: auto !important;
+}
+
+.nav-profile{
+  background-color: white;
+  color: black;
+  position: absolute;
+  right: 10px;
+  margin-top: 18vh;
+  width: fit-content;
 }
 
 .logout:hover {

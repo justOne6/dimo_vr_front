@@ -1,14 +1,17 @@
 <template>
-  <v-main>
-    <AppLayout>
-      <router-view></router-view>
-    </AppLayout>
-  </v-main>
+  <v-app>
+    <v-main>
+      <AppLayout>
+        <router-view></router-view>
+      </AppLayout>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 
 import AppLayout from "@/views/AppLayout.vue";
+import {mapGetters} from "vuex";
 
 export default {
   components: {
@@ -17,6 +20,12 @@ export default {
 
   data: () => ({
   }),
+  computed: {
+    ...mapGetters(['isRolePresent']),
+    isStudent() {
+      return this.isRolePresent('student');
+    }
+  }
 };
 </script>
 
@@ -30,6 +39,27 @@ body {
   margin-top: 0 !important;
 }
 
+.no-text-decoration{
+  text-decoration: none !important;
+}
+
+.flex-center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page-restrict-width {
+  width: 90%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+.wholePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 96vh;
+  flex-direction: column;
+}
 :root {
   --lightBlue: #B6D0E2;
   --mediumBlue: #219EBC;
@@ -52,9 +82,5 @@ body {
   --dimoWhite: #FFFFFF;
 }
 
-.page-restrict-width {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+
 </style>
