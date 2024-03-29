@@ -1,26 +1,35 @@
 <template>
-  <div>
-    <Navbar />
-    <div class="main">
-      <div class="inputs">
-        <p style="margin-bottom: 5%">
-          Change password
-        </p>
-        <input class="input" type="text" placeholder="Old password" />
-        <input class="input" type="text" placeholder="New password" />
+  <div class="main">
+    <div>
+      <p style="font-size: 40px; color: var(--blue)">WELCOME TO DIMOVR</p>
+      <p style="font-size: 30px; margin: 40px 0; font-weight: normal; color: var(--blue)">
+        Change password
+      </p>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
+        <p style="font-size: 20px; color: var(--blue); font-weight: normal;">Old password</p>
+        <v-text-field outlined clearable background-color=var(--input) label="Enter text..." style="width: 20vw"
+          v-model="email"></v-text-field>
       </div>
-      <div class="signup">
-        <v-btn class="signup_button"><span>Confirm</span></v-btn>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
+        <p style="font-size: 20px; color: var(--blue); font-weight: normal;">New password</p>
+        <v-text-field outlined clearable background-color=var(--input) label="Enter text..." style="width: 20vw"
+          v-model="email"></v-text-field>
       </div>
+    </div>
+    <div class="signup">
+      <v-btn class="signup_button"><span>Confirm</span></v-btn>
+    </div>
+    <div style="margin: 2% auto; width: fit-content">
+      <router-link to="/" style="color: var(--nightPurple); font-weight: bold; text-decoration: none">Return to home
+        page</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
 
 export default {
-  components: { Navbar },
+  components: {},
   data() {
     return {
     };
@@ -34,7 +43,7 @@ body {
 }
 
 .signup {
-  margin: 0 auto;
+  margin: 0px auto;
   width: fit-content;
   border-radius: 5px;
 }
@@ -43,7 +52,9 @@ body {
   padding: 30%;
   color: white !important;
   font-weight: bold;
-  background-color: var(--bluePurple) !important;
+  background-color: var(--button) !important;
+  width: 22vw;
+  font-size: 20px !important;
 }
 
 span.signup_button {
@@ -71,8 +82,6 @@ span.signup_button {
 
 .main {
   font-family: "Fredoka One", sans-serif;
-  margin: 75px auto 0 auto !important;
-  width: 30vw !important;
-  /* the navbar's height is 63px */
+  margin: 10px auto 0 auto !important;
 }
 </style>

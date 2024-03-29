@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Navbar />
     <div class="main">
       <div class="right"></div>
       <h1 class="inputs">Hello {{ email }} !</h1>
@@ -19,7 +20,7 @@
       </div>
     </div>
 
-    <div v-if="createRoomModalOpen" class="modal" style="display: flex; flex-direction: column; margin-left: 10px">
+    <div v-if="createRoomModalOpen" class="modal" style="display: flex; flex-direction: column">
       <div class="modal-content">
         <span class="close" @click="closeCreateRoomModal">&times;</span>
         <h2>Create a Class Room</h2>
@@ -39,9 +40,10 @@
 
 <script>
 import axios from "axios";
+import Navbar from "../components/Navbar.vue"
 
 export default {
-  components: {},
+  components: { Navbar },
   data() {
     return {
       email: "",
@@ -202,7 +204,7 @@ export default {
   z-index: 1;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
@@ -258,7 +260,7 @@ button[type="submit"]:hover {
 
 .pick {
   padding: 30px 40px;
-  border-radius: 0;
+  border-radius: 20px;
   background-color: var(--darkPurple);
   color: white;
   border: none;
