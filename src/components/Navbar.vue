@@ -68,6 +68,9 @@
       "
     >
       <li class="profile">Edit profile</li>
+    <div v-if="this.profileClicked"
+      style="background-color: white; color: black; position: absolute; right: 10px; margin-top: 18vh; width: fit-content">
+      <li class="profile" @click="editProfile">Edit profile</li>
       <li class="profile" @click="logOut">Log Out</li>
     </div>
 
@@ -88,8 +91,12 @@ export default {
   methods: {
     logOut() {
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       delete axios.defaults.headers.common["Authorization"];
       this.$router.push("/sign-in");
+    },
+    editProfile() {
+      this.$router.push("/manage-account");
     },
     clickProfile() {
       this.profileClicked = !this.profileClicked;
@@ -136,8 +143,8 @@ export default {
   padding: 10px;
   display: flex;
   align-items: center;
-  color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: rgb(10, 8, 8);
+  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
   position: fixed;
   top: 0;
   width: 100%;

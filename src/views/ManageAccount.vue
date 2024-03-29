@@ -3,22 +3,24 @@
     <Navbar />
     <div class="main">
       <div class="inputs">
-        <p>Manage your account {{ username }} !</p>
+        <p>Manage your account {{ user.firstname }} !</p>
       </div>
       <div class="container">
         <div class="sections" :class="{ 'with-border': personalInfo || showSecurity || showContact }"
           style="width: 30vw">
           <p class="edits"><i class="mdi mdi-home" />&nbsp;Home</p>
           <v-divider style="color: black; height: 2px"></v-divider>
-          <p class="edits" @click="togglePersonal" :class="{ 'font-bold': personalInfo }"><i
-              class="mdi mdi-account" />&nbsp;Personal informations</p>
+          <p class="edits" @click="togglePersonal" :class="{ 'font-bold': personalInfo }">
+            <i class="mdi mdi-account" />&nbsp;Personal informations
+          </p>
           <v-divider style="color: black; height: 2px"></v-divider>
-
-          <p class="edits" @click="toggleSecurity" :class="{ 'font-bold': showSecurity }"><i
-              class="mdi mdi-lock" />&nbsp;Security and confidentiality</p>
+          <p class="edits" @click="toggleSecurity" :class="{ 'font-bold': showSecurity }">
+            <i class="mdi mdi-lock" />&nbsp;Security and confidentiality
+          </p>
           <v-divider style="color: black; height: 2px"></v-divider>
-          <p class="edits" @click="toggleContact" :class="{ 'font-bold': showContact }"><i
-              class="mdi mdi-phone" />&nbsp;Contact and share</p>
+          <p class="edits" @click="toggleContact" :class="{ 'font-bold': showContact }">
+            <i class="mdi mdi-phone" />&nbsp;Contact and share
+          </p>
           <v-divider style=" color: black; height: 2px"></v-divider>
           <p class="edits"><i class="mdi mdi-information" />&nbsp;About</p>
         </div>
@@ -26,7 +28,7 @@
           <div class="username">
             Your username :
             <a style="font-weight: bold">{{ username }}</a><br />
-            <v-btn style="margin-top: 10px" class="edit_button" @click="toggleUsername"
+            <v-btn style="margin-top: 10px" class="button" @click="toggleUsername"
               v-if="showEditUsername">EDIT</v-btn><br />
             <div v-if="!showEditUsername">
               <input v-model="newUsername" placeholder="Your new username" class="input " />
@@ -36,10 +38,8 @@
           <v-divider style="color: black; height: 2px"></v-divider><br />
           <div class="username">
             Your email address :
-            <!--<a style="font-weight: bold">{{ email }}</a>-->
             <a style="font-weight: bold">your email</a>
-            <v-btn style="margin-top: 10px" class="edit_button" @click="toggleEmail"
-              v-if="showEditEmail">EDIT</v-btn><br />
+            <v-btn style="margin-top: 10px" class="button" @click="toggleEmail" v-if="showEditEmail">EDIT</v-btn><br />
             <div v-if="!showEditEmail" style="margin-top: 10px">
               <input v-model="newEmail" placeholder="Your new email" class="input " /><br />
               <v-btn class="button" @click="saveEmail">SAVE EMAIL</v-btn>
@@ -74,7 +74,7 @@ export default {
   components: { Navbar },
   data() {
     return {
-      username: "",
+      user: [],
       showEditUsername: true, //used to show the "edit password" button
       showEditEmail: true,
       showSecurity: false,
@@ -90,22 +90,11 @@ export default {
   },
   methods: {
     fetchUserData() {
-      const token = localStorage.getItem("token");
-
-      if (token) {
-        const [, payloadBase64] = token.split(".");
-        const payload = JSON.parse(atob(payloadBase64));
-
-        if (payload && payload.username) {
-          console.log("payload : " + JSON.stringify(payload))
-          this.username = payload.username; // Adjust this line based on your token structure
-        } else {
-          console.error(
-            "Token payload does not contain the expected username."
-          );
-        }
+      //Get the user data from the local storage
+      if (localStorage.getItem("user")) {
+        this.user = JSON.parse(localStorage.getItem("user"));
       } else {
-        console.error("No token found.");
+        console.error("No user found.");
       }
     },
     //When message is sent to user
@@ -161,14 +150,7 @@ export default {
   color: white !important;
   font-weight: bold;
   padding: 2% 20% !important;
-  background-color: var(--nightPurple) !important;
-}
-
-.edit_button {
-  color: white !important;
-  font-weight: bold;
-  padding: 2% 20% !important;
-  background-color: grey !important;
+  background-color: var(--button) !important;
 }
 
 .font-bold {
@@ -183,11 +165,11 @@ export default {
 }
 
 body {
-  background-color: var(--lightGrey);
+  background-color: var(--background);
 }
 
 .main {
-  font-family: "Fredoka", sans-serif;
+  font-family: "Fredoka One", sans-serif;
   margin-top: 8px !important;
   margin-bottom: auto;
 }
@@ -206,7 +188,7 @@ body {
   border-radius: 5px;
   margin-bottom: 35px !important;
   font-size: 16px;
-  background-color: #E6E6E6;
+  background-color: var(--input);
   height: 55px !important;
   padding: 10px;
 }

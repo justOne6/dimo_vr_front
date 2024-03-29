@@ -3,7 +3,7 @@
     <Navbar />
     <div class="main">
       <div class="right"></div>
-      <h1 class="inputs">Hello {{ email }} !</h1>
+      <h1 class="inputs">Hello, {{ user.firstname }}</h1>
     </div>
     <div class="container">
       <div>
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div v-if="createRoomModalOpen" class="modal" style="display: flex; flex-direction: column; margin-left: 10px">
+    <div v-if="createRoomModalOpen" class="modal" style="display: flex; flex-direction: column">
       <div class="modal-content">
         <span class="close" @click="closeCreateRoomModal">&times;</span>
         <h2>Create a Class Room</h2>
@@ -39,14 +39,14 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
+import Navbar from "../components/Navbar.vue"
 
 export default {
   components: { Navbar },
   data() {
     return {
-      email: "",
+      user: [],
       active: false,
       roomNumbers: [],
       createRoomModalOpen: false,
@@ -58,39 +58,15 @@ export default {
   },
   async mounted() {
     this.fetchUserData();
-    this.fetchRoomNumbers();
     await this.fetchRoomNumbers();
   },
   methods: {
     toggle() {
       this.active = !this.active;
     },
-    getUserId() {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const [, payloadBase64] = token.split(".");
-        const payload = JSON.parse(atob(payloadBase64));
-        if (payload && payload.userId) {
-          return payload.userId;
-        }
-      }
-      return null;
-    },
     fetchUserData() {
-      const token = localStorage.getItem("token");
-
-      if (token) {
-        const [, payloadBase64] = token.split(".");
-        const payload = JSON.parse(atob(payloadBase64));
-        console.log("Token payload:", payload);
-        if (payload && payload.sub) {
-          this.email = payload.sub;
-        } else {
-          console.error("Token payload does not contain the email.");
-        }
-      } else {
-        console.error("No token found.");
-      }
+      // get the user from the local storage
+      this.user = JSON.parse(localStorage.getItem("user"));
     },
     async fetchRoomNumbers() {
       try {
@@ -195,7 +171,7 @@ export default {
 <style scoped>
 .main {
   margin-top: 80px !important;
-  font-family: "Fredoka", sans-serif !important;
+  font-family: "Fredoka One", sans-serif !important;
 }
 
 .modal {
@@ -204,7 +180,7 @@ export default {
   z-index: 1;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
@@ -220,7 +196,7 @@ export default {
   max-width: 800px;
   max-height: 80vh;
   overflow-y: auto;
-  font-family: "Fredoka", sans-serif;
+  font-family: "Fredoka One", sans-serif;
 }
 
 .close {
@@ -260,7 +236,7 @@ button[type="submit"]:hover {
 
 .pick {
   padding: 30px 40px;
-  border-radius: 0;
+  border-radius: 20px;
   background-color: var(--darkPurple);
   color: white;
   border: none;
@@ -273,7 +249,7 @@ button[type="submit"]:hover {
 }
 
 .room {
-  background-color: var(--mediumGrey);
+  background-color: var(--background);
   padding: 30px 40px;
   border-radius: 0;
   margin-bottom: 10px;
@@ -294,7 +270,7 @@ button[type="submit"]:hover {
   justify-content: center;
   display: flex;
   padding: 0 auto !important;
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Fredoka One', sans-serif;
 }
 
 .room+.room {
