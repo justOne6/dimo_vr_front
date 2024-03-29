@@ -60,7 +60,7 @@ export default {
         email: this.email,
         password: this.password,
       };
-
+      console.log("Login data:", loginData);
       axios
         .post(`${process.env.VUE_APP_API_URI}/auth/authenticate`, loginData, {
           headers: {
@@ -75,9 +75,20 @@ export default {
 
             localStorage.setItem("token", token);
 
+            // Set the default axios authorization header
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            // fetch the user data
+            axios.get(`${process.env.VUE_APP_API_URI}/api/fetchUser`)
+                .then((response) => {
+                  console.log("User data: ", response.data);
+                  localStorage.setItem("user", JSON.stringify(response.data));
 
-            this.$router.push("/");
+                  // Redirect to the dashboard
+                  this.$router.push("/");
+                })
+                .catch((error) => {
+                  console.error("Error while fetching user data: ", error);
+                });
 
             console.log("Login successful");
           } else {

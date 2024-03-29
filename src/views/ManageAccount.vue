@@ -3,7 +3,7 @@
     <Navbar />
     <div class="main">
       <div class="inputs">
-        <p>Manage your account {{ username }} !</p>
+        <p>Manage your account {{ user.firstname }} !</p>
       </div>
       <div class="container">
         <div class="sections" :class="{ 'with-border': personalInfo || showSecurity || showContact }"
@@ -25,7 +25,7 @@
         <div class="personal" v-if="personalInfo" style="width: 30vw; margin: auto 0;">
           <div class="username">
             Your username :
-            <a style="font-weight: bold">{{ username }}</a><br />
+            <a style="font-weight: bold">{{ user.firstname }}</a><br />
             <v-btn style="margin-top: 10px" class="edit_button" @click="toggleUsername"
               v-if="showEditUsername">EDIT</v-btn><br />
             <div v-if="!showEditUsername">
@@ -37,7 +37,7 @@
           <div class="username">
             Your email address :
             <!--<a style="font-weight: bold">{{ email }}</a>-->
-            <a style="font-weight: bold">your email</a>
+            <a style="font-weight: bold">{{ user.email }}</a>
             <v-btn style="margin-top: 10px" class="edit_button" @click="toggleEmail"
               v-if="showEditEmail">EDIT</v-btn><br />
             <div v-if="!showEditEmail" style="margin-top: 10px">
@@ -74,7 +74,7 @@ export default {
   components: { Navbar },
   data() {
     return {
-      username: "",
+      user: [],
       showEditUsername: true, //used to show the "edit password" button
       showEditEmail: true,
       showSecurity: false,
@@ -90,22 +90,11 @@ export default {
   },
   methods: {
     fetchUserData() {
-      const token = localStorage.getItem("token");
-
-      if (token) {
-        const [, payloadBase64] = token.split(".");
-        const payload = JSON.parse(atob(payloadBase64));
-
-        if (payload && payload.username) {
-          console.log("payload : " + JSON.stringify(payload))
-          this.username = payload.username; // Adjust this line based on your token structure
-        } else {
-          console.error(
-            "Token payload does not contain the expected username."
-          );
-        }
+      //Get the user data from the local storage
+      if (localStorage.getItem("user")) {
+        this.user = JSON.parse(localStorage.getItem("user"));
       } else {
-        console.error("No token found.");
+        console.error("No user found.");
       }
     },
     //When message is sent to user

@@ -63,17 +63,26 @@ export default {
 
       axios
         .post(`${process.env.VUE_APP_API_URI}/auth/register`, userData)
-        .then((response) => { //@todo revoir la gestion des erreurs ici ce n'est opti
+        .then((response) => {
           if (response.status === 200) {
             this.registrationSuccess = true;
-
+            // Save the token in the local storage
             const token = response.data.token;
-
             localStorage.setItem("token", token);
-
+            // Set the default axios authorization header
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            // fetch the user data
+            axios.get(`${process.env.VUE_APP_API_URI}/api/fetchUser`)
+              .then((response) => {
+                console.log("User data: ", response.data);
+                localStorage.setItem("user", JSON.stringify(response.data));
 
-            this.$router.push("/");
+                // Redirect to the dashboard
+                this.$router.push("/");
+              })
+              .catch((error) => {
+                console.error("Error while fetching user data: ", error);
+              });
 
             console.log("Login successful");
           }
