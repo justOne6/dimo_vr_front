@@ -1,15 +1,14 @@
 <template>
   <div class="quiz">
     <Navbar />
-
     <div class="content">
       <div v-if="quizzes.length">
         <h2>Quizzes</h2>
         <ul>
           <li v-for="(quiz, index) in quizzes" :key="index">
             <router-link :to="{ name: 'Quiz', params: { id: quiz.id } }">{{
-              quiz.title
-            }}</router-link>
+        quiz.title
+      }}</router-link>
           </li>
         </ul>
       </div>
@@ -17,17 +16,19 @@
         <p>No quizzes available.</p>
       </div>
       <div class="create-quiz">
-        <h2>Create New Quiz</h2>
+        <p style="font-size: 30px; margin: 20px 0 !important; font-weight: normal; color: var(--nightPurple)">
+          Create new
+          quizz</p>
         <form @submit.prevent="createQuiz">
-          <label for="title">Title:</label>
-          <input type="text" id="title" v-model="newQuiz.title" required />
-          <label for="questions">Questions:</label>
-          <textarea
-            id="questions"
-            v-model="newQuiz.questions"
-            required
-          ></textarea>
-          <button type="submit">Create Quiz</button>
+          <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
+            <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Title</p>
+            <input class="input" v-model="newQuiz.title" placeholder="Enter title" required />
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
+            <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Question</p>
+            <input class="input" v-model="newQuiz.questions" placeholder="Enter question" required />
+          </div>
+          <button class="quizz_button" type="submit">CREATE QUIZZ</button>
         </form>
       </div>
     </div>
@@ -94,12 +95,26 @@ export default {
 <style scoped>
 .quiz {
   text-align: center;
-  margin: 20px;
+  margin: 20px 0 0 0;
+  font-family: "Fredoka One", sans-serif;
+}
+
+.quizz_button {
+  padding: 10px 30px;
+  color: white !important;
+  font-weight: bold;
+  background-color: var(--button) !important;
+  width: 20vw;
+  border-radius: 5px;
 }
 
 .content {
   max-width: 600px;
   margin: auto;
+}
+
+.quizz_input {
+  border: solid 1px black;
 }
 
 ul {

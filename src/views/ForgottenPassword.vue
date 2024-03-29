@@ -1,19 +1,18 @@
 <template>
   <div class="main">
     <div>
-      <p style="font-size: 40px; color: var(--blue)">WELCOME TO DIMOVR</p>
-      <p style="font-size: 30px; margin: 40px 0; font-weight: normal; color: var(--blue)">
+      <p class="welcome_message">WELCOME TO DIMOVR</p>
+      <p
+        style="font-size: 30px; margin: 20px 0 30px 0 !important; font-weight: normal; color: var(--blue); text-align:center">
         Change password
       </p>
-      <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
+      <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 auto; width: fit-content">
         <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Old password</p>
-        <v-text-field outlined clearable background-color=var(--input) label="Enter text..." style="width: 20vw"
-          v-model="email"></v-text-field>
+        <input placeholder="Enter text..." class="input" style="width: 20vw" v-model="email" />
       </div>
-      <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
+      <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 auto; width: fit-content">
         <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">New password</p>
-        <v-text-field outlined clearable background-color=var(--input) label="Enter text..." style="width: 20vw"
-          v-model="email"></v-text-field>
+        <input placeholder="Enter text..." class="input" style="width: 20vw" v-model="email" />
       </div>
     </div>
     <div class="signup">
@@ -67,25 +66,8 @@ span.signup_button {
 </style>
 
 <style scoped>
-.inputs {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  margin: 5% auto 3% auto;
-}
-</style>
-
-<style scoped>
-.input {
-  border-radius: 5px;
-  margin: 10px 0 45px 0 !important;
-  font-size: 16px;
-  background-color: #E6E6E6;
-  height: 55px !important
-}
-
 .main {
   font-family: "Fredoka One", sans-serif;
-  margin: 10px auto 0 auto !important;
+  margin: 12px auto 0 auto !important;
 }
 </style>

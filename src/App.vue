@@ -21,6 +21,31 @@ body {
   background: var(--background)
 }
 
+.input {
+  border-radius: 5px;
+  margin-bottom: 20px !important;
+  font-size: 16px;
+  background-color: var(--input);
+  height: 55px !important;
+  padding: 10px;
+  border: solid 1px grey;
+}
+
+.inputs {
+  width: 100% !important;
+  height: fit-content !important;
+  padding: 0 !important;
+  color: var(--nightPurple) !important;
+  font-size: 32px;
+  margin-bottom: 10px !important;
+}
+
+.welcome_message {
+  font-size: 40px;
+  color: var(--blue);
+  text-align: center;
+}
+
 .v-main__wrap {
   margin-top: 0 !important;
 }

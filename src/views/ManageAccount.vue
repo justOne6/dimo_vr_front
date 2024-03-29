@@ -48,9 +48,9 @@
         </div>
         <div class="security" v-if="showSecurity" style="width: 30vw; margin: auto 0;">
           <p style="font-weight: bold">Change your password</p><br />
-          <input placeholder="Current password" class="input " /><br />
-          <input placeholder="New password" class="input " /><br />
-          <input placeholder="Confirm password" class="input " /><br />
+          <input placeholder="Current password" class="input" /><br />
+          <input placeholder="New password" class="input" /><br />
+          <input placeholder="Confirm password" class="input" /><br />
           <v-btn class="button"><span>SAVE</span></v-btn>
         </div>
         <div class="contact" v-if="showContact" style="width: 30vw; margin: auto 0;">
@@ -168,12 +168,6 @@ body {
   background-color: var(--background);
 }
 
-.main {
-  font-family: "Fredoka One", sans-serif;
-  margin-top: 8px !important;
-  margin-bottom: auto;
-}
-
 .edits {
   font-size: 18px;
   padding: 40px 0;
@@ -184,13 +178,12 @@ body {
   color: white;
 }
 
-.input {
-  border-radius: 5px;
-  margin-bottom: 35px !important;
-  font-size: 16px;
-  background-color: var(--input);
-  height: 55px !important;
-  padding: 10px;
+hr {
+  margin: 0 !important;
+}
+
+p {
+  margin-bottom: 0 !important;
 }
 
 .signup {
@@ -210,19 +203,10 @@ span.signup_button {
   font-size: 20px;
 }
 
-.inputs {
-  width: 100% !important;
-  height: fit-content !important;
-  padding: 0 !important;
-  color: var(--nightPurple) !important;
-  font-size: 32px;
-  margin-bottom: 10px !important;
-}
-
 .sections {
   width: fit-content;
-  margin-right: 20px;
   width: 30vw;
+  margin: 0 auto;
 }
 
 .with-border {
@@ -243,6 +227,11 @@ span.signup_button {
 
 <style scoped>
 .main {
-  margin-top: 80px !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: "Fredoka One", sans-serif !important;
+  margin-top: 80px;
 }
 </style>

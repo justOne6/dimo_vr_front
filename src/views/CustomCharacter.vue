@@ -18,20 +18,20 @@ Copy code
 
               <Body :colorBody="headColor" :colorHead="bodyColor" />
             </div>
-            <button class="button" @click="validate">Valider</button>
+            <button class="button" @click="validate">CONFIRM</button>
           </div>
         </div>
         <div class="colors" style="width: 20vw; margin: auto 0 auto 10%;">
           <div class="hair_color" style="margin-bottom: 15%">
-            <label for="hairColor">Hair Color :</label>
+            <label for="hairColor">Hair Color </label>
             <input id="hairColor" v-model="hairColor" type="color" />
           </div>
           <div class="head_color" style="margin-bottom: 15%">
-            <label for="headColor">Head Color :</label>
+            <label for="headColor">Head Color </label>
             <input id="headColor" v-model="headColor" type="color" />
           </div>
           <div class="body_color">
-            <label for="bodyColor">Body Color :</label>
+            <label for="bodyColor">Body Color </label>
             <input id="bodyColor" v-model="bodyColor" type="color" />
           </div>
         </div>
@@ -105,15 +105,16 @@ export default {
   },
 };
 </script>
-
-<style>
+<style scoped>
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  font-family: "Fredoka One", sans-serif !important;
 }
-
+</style>
+<style>
 .main-container {
   display: flex;
   justify-content: space-between;
