@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div v-if="createRoomModalOpen" class="modal" style="display: flex; flex-direction: column; margin-left: 10px">
+    <div v-if="createRoomModalOpen" class="modal" style="display: flex; flex-direction: column">
       <div class="modal-content">
         <span class="close" @click="closeCreateRoomModal">&times;</span>
         <h2>Create a Class Room</h2>
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
+import Navbar from "../components/Navbar.vue"
 
 export default {
   components: { Navbar },
@@ -171,7 +171,7 @@ export default {
 <style scoped>
 .main {
   margin-top: 80px !important;
-  font-family: "Fredoka", sans-serif !important;
+  font-family: "Fredoka One", sans-serif !important;
 }
 
 .modal {
@@ -180,7 +180,7 @@ export default {
   z-index: 1;
   left: 0;
   top: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
@@ -196,7 +196,7 @@ export default {
   max-width: 800px;
   max-height: 80vh;
   overflow-y: auto;
-  font-family: "Fredoka", sans-serif;
+  font-family: "Fredoka One", sans-serif;
 }
 
 .close {
@@ -236,7 +236,7 @@ button[type="submit"]:hover {
 
 .pick {
   padding: 30px 40px;
-  border-radius: 0;
+  border-radius: 20px;
   background-color: var(--darkPurple);
   color: white;
   border: none;
@@ -249,7 +249,7 @@ button[type="submit"]:hover {
 }
 
 .room {
-  background-color: var(--mediumGrey);
+  background-color: var(--background);
   padding: 30px 40px;
   border-radius: 0;
   margin-bottom: 10px;
@@ -270,7 +270,7 @@ button[type="submit"]:hover {
   justify-content: center;
   display: flex;
   padding: 0 auto !important;
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Fredoka One', sans-serif;
 }
 
 .room+.room {

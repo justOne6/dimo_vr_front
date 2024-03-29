@@ -14,6 +14,6 @@ export default { components: { Navbar } };
 <style scoped>
 .main {
   margin-top: 80px !important;
-  font-family: "Fredoka", sans-serif !important;
+  font-family: "Fredoka One", sans-serif !important;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div class="main">
       <div v-if="registrationSuccess" class="success-message">
         Inscription réussie! Vous pouvez maintenant
@@ -9,16 +8,31 @@
       <div v-if="registrationError" class="error-message">
         {{ registrationError }}
       </div>
-      <div style="margin-top:20px">
-        <p class="create">Create Account</p>
-        <v-text-field outlined clearable class="input" label="First Name" v-model="firstname"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Last Name" v-model="lastname"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Email" v-model="email" type="email"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Password" v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"></v-text-field>
+      <div style="margin-top:2px">
+        <p style="font-size: 40px; color: var(--blue)">WELCOME TO DIMOVR</p>
+        <p style="font-size: 30px; margin: 40px 0; font-weight: normal; color: var(--blue)">Create Account</p>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
+          <p style="font-size: 20px; color: var(--blue); font-weight: normal;">First Name</p>
+          <v-text-field outlined clearable background-color=var(--input) lclass="input" label="Enter text"
+            style="width: 20vw" v-model="firstname"></v-text-field>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
+          <p style="font-size: 20px; color: var(--blue); font-weight: normal;">Last Name</p>
+          <v-text-field outlined clearable background-color=var(--input) lclass="input" label="Enter text"
+            style="width: 20vw" v-model="lastname"></v-text-field>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
+          <p style=" font-size: 20px; color: var(--blue); font-weight: normal;">Email</p>
+          <v-text-field outlined clearable background-color=var(--input) lclass="input" label="Enter text"
+            style="width: 20vw" v-model="email" type="email"></v-text-field>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
+          <p style="font-size: 20px; color: var(--blue); font-weight: normal;">Password</p>
+          <v-text-field outlined clearable background-color=var(--input) lclass="input" style="width: 20vw"
+            label="Enter password" v-model="password" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword"></v-text-field>
+        </div>
       </div>
-      <br />
       <div class="signup">
         <v-btn class="signup_button" @click="signUp"><span>SIGN UP</span></v-btn>
       </div>
@@ -34,12 +48,10 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
 
 export default {
   components: {
-    Navbar,
   },
   data() {
     return {
@@ -106,7 +118,7 @@ export default {
 
 <style>
 body {
-  background-color: var(--lightGrey);
+  background-color: var(--background);
 }
 
 .create {
@@ -117,7 +129,7 @@ body {
 }
 
 .signup {
-  margin: 0 auto;
+  margin: 0px auto;
   width: fit-content;
   border-radius: 5px;
 }
@@ -126,9 +138,9 @@ body {
   padding: 30%;
   color: white !important;
   font-weight: bold;
-  background-color: var(--bluePurple) !important;
-  width: 20vw;
-  font-size: 30px;
+  background-color: var(--button) !important;
+  width: 22vw;
+  font-size: 20px !important;
 }
 
 span.signup_button {
@@ -155,8 +167,7 @@ span.signup_button {
 }
 
 .main {
-  font-family: "Fredoka", sans-serif;
-  margin: 75px auto 0 auto !important;
-  /* the navbar's height is 63px */
+  font-family: "Fredoka One", sans-serif;
+  margin: 10px auto 0 auto !important;
 }
 </style>
