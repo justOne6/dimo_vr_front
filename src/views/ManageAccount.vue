@@ -1,11 +1,11 @@
 <template>
   <div>
     <Navbar />
-    <div class="main">
+    <div class="container">
       <div class="inputs">
         <p>Manage your account {{ user.firstname }} !</p>
       </div>
-      <div class="container">
+      <div class="content">
         <div class="sections" :class="{ 'with-border': personalInfo || showSecurity || showContact }"
           style="width: 30vw">
           <p class="edits"><i class="mdi mdi-home" />&nbsp;Home</p>
@@ -46,7 +46,7 @@
             </div>
           </div>
         </div>
-        <div class="security" v-if="showSecurity" style="width: 30vw; margin: auto 0;">
+        <div class="security" v-if="showSecurity" style="width: 30vw; margin: auto 0">
           <p style="font-weight: bold">Change your password</p><br />
           <input placeholder="Current password" class="input" /><br />
           <input placeholder="New password" class="input" /><br />
@@ -146,20 +146,13 @@ export default {
 </script>
 
 <style>
-.button {
-  color: white !important;
-  font-weight: bold;
-  padding: 2% 20% !important;
-  background-color: var(--button) !important;
-}
-
 .font-bold {
   font-weight: bold;
   background-color: var(--nightPurple);
   color: white;
 }
 
-.container {
+.content {
   display: flex;
   justify-content: space-between;
 }
@@ -222,16 +215,5 @@ span.signup_button {
 
 .success.hidden {
   opacity: 0;
-}
-</style>
-
-<style scoped>
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  font-family: "Fredoka One", sans-serif !important;
-  margin-top: 80px;
 }
 </style>

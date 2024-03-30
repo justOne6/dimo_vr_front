@@ -28,14 +28,7 @@
         </span>
       </button>
     </div>
-    <div v-if="this.profileClicked" style="
-         background-color: var(--input) !important;
-         color: black;
-         position: absolute;
-         right: 10px;
-         margin-top: 18vh;
-         width: fit-content;
-         border-radius: 5px">
+    <div v-if="this.profileClicked" class="click_profile">
       <li class="profile" @click="editProfile">Edit profile</li>
       <li class="profile" @click="logOut">Log Out</li>
     </div>
@@ -77,17 +70,22 @@ export default {
   font-weight: bold;
 }
 
-.dimo {
-  color: var(--darkPurple);
-  /*font-weight: bold;*/
-  font-size: 26px;
-}
-
 .profile {
   list-style-type: none;
   padding: 15px 30px;
   cursor: pointer;
   color: grey
+}
+
+/* When account icon is clicked */
+.click_profile {
+  background-color: var(--input) !important;
+  color: black;
+  position: absolute;
+  right: 10px;
+  margin-top: 18vh;
+  width: fit-content;
+  border-radius: 5px
 }
 
 .profile:hover {

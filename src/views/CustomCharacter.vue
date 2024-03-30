@@ -2,7 +2,7 @@ Copy code
 <template>
   <div>
     <Navbar />
-    <div class="main">
+    <div class="container">
       <p class="inputs">Custom your character</p>
       <div class="main-container">
         <div class="character">
@@ -18,7 +18,7 @@ Copy code
 
               <Body :colorBody="headColor" :colorHead="bodyColor" />
             </div>
-            <button class="button" @click="validate">CONFIRM</button>
+            <v-btn class="button" @click="validate">CONFIRM</v-btn>
           </div>
         </div>
         <div class="colors" style="width: 20vw; margin: auto 0 auto 10%;">
@@ -105,15 +105,7 @@ export default {
   },
 };
 </script>
-<style scoped>
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  font-family: "Fredoka One", sans-serif !important;
-}
-</style>
+
 <style>
 .main-container {
   display: flex;
@@ -141,19 +133,6 @@ export default {
   margin: 10px;
 }
 
-.button {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #3565f4;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  margin: 5px;
-  transition: background-color 0.3s;
-}
-
 .button:hover {
   background-color: #0532b5;
 }
@@ -172,11 +151,5 @@ export default {
 
 .button_arrow:hover {
   background-color: #ffc966;
-}
-</style>
-
-<style scoped>
-.main {
-  margin-top: 80px !important;
 }
 </style>

@@ -8,24 +8,20 @@
     </div>
     <div style="margin-top:2px">
       <p class="welcome_message">WELCOME TO DIMOVR</p>
-      <p
-        style="font-size: 30px; margin: 20px 0 30px 0 !important; font-weight: normal; color: var(--blue); text-align: center">
-        Sign In
-      </p>
-      <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 auto; width: fit-content">
-        <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Email</p>
-        <input class="input" label="Enter text..." style="width: 20vw; margin: auto" v-model="email"
-          placeholder="Enter email" />
+      <p class="page_title">Sign In</p>
+      <div class="input_container">
+        <p class="input_title">Email</p>
+        <input class="input" label="Enter text..." v-model="email" placeholder="Enter email" />
       </div>
-      <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 auto; width: fit-content">
-        <p style="font-size: 20px; color: var(--blue); margin-bottom: 2px">Password</p>
-        <input class="input" label="Enter password" style="width: 20vw; margin: auto" v-model="password"
+      <div class="input_container">
+        <p class="input_title">Password</p>
+        <input class="input" label="Enter password" v-model="password"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
           @click:append="showPassword = !showPassword" placeholder="Enter password" />
       </div>
     </div>
     <div class="signin">
-      <v-btn class="signin_button" @click="signIn"><span>LOGIN</span></v-btn>
+      <v-btn class="button" @click="signIn"><span>LOGIN</span></v-btn>
     </div>
     <div style="margin: 2% auto; width: fit-content">
       <router-link to="/forgotten-password"
@@ -155,13 +151,6 @@ body {
 </style>
 
 <style scoped>
-.main {
-  font-family: "Fredoka One", sans-serif;
-  margin: 10px auto 0 auto !important;
-  background: var(--background);
-  /* the navbar's height is 63px */
-}
-
 .signin {
   margin: 0px auto;
   width: fit-content;

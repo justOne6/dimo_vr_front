@@ -1,8 +1,20 @@
 <template>
-  <div class="quiz">
+  <div>
     <Navbar />
-    <div class="content">
-      <div v-if="quizzes.length">
+    <div class="container">
+      <p class="inputs">Create new quizz</p>
+      <form @submit.prevent="createQuiz">
+        <div class="input_container">
+          <p class="input_title">Title</p>
+          <input class="input" v-model="newQuiz.title" placeholder="Enter title" required />
+        </div>
+        <div class="input_container">
+          <p class="input_title">Question</p>
+          <input class="input" v-model="newQuiz.questions" placeholder="Enter question" required />
+        </div>
+        <v-btn class="button" type="submit">CREATE QUIZZ</v-btn>
+      </form>
+      <div v-if="quizzes.length" style="margin-top: 20px">
         <h2>Quizzes</h2>
         <ul>
           <li v-for="(quiz, index) in quizzes" :key="index">
@@ -12,24 +24,8 @@
           </li>
         </ul>
       </div>
-      <div v-else>
+      <div v-else style="margin-top: 20px">
         <p>No quizzes available.</p>
-      </div>
-      <div class="create-quiz">
-        <p style="font-size: 30px; margin: 20px 0 !important; font-weight: normal; color: var(--nightPurple)">
-          Create new
-          quizz</p>
-        <form @submit.prevent="createQuiz">
-          <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
-            <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Title</p>
-            <input class="input" v-model="newQuiz.title" placeholder="Enter title" required />
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
-            <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Question</p>
-            <input class="input" v-model="newQuiz.questions" placeholder="Enter question" required />
-          </div>
-          <button class="quizz_button" type="submit">CREATE QUIZZ</button>
-        </form>
       </div>
     </div>
   </div>
@@ -93,21 +89,6 @@ export default {
 </script>
 
 <style scoped>
-.quiz {
-  text-align: center;
-  margin: 20px 0 0 0;
-  font-family: "Fredoka One", sans-serif;
-}
-
-.quizz_button {
-  padding: 10px 30px;
-  color: white !important;
-  font-weight: bold;
-  background-color: var(--button) !important;
-  width: 20vw;
-  border-radius: 5px;
-}
-
 .content {
   max-width: 600px;
   margin: auto;
@@ -134,9 +115,5 @@ li {
 
 li:hover {
   background-color: #f0f0f0;
-}
-
-.create-quiz {
-  margin-top: 40px;
 }
 </style>

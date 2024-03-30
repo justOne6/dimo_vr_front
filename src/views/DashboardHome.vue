@@ -1,10 +1,9 @@
 <template>
   <div>
     <Navbar />
-    <div class="main">
+    <div class="container">
       <p class="inputs" style="text-align: center">Hello {{ user.firstname }} !</p>
-
-      <div class="container">
+      <div class="content">
         <div>
           <button class="pick square" @click="toggle">Pick a room</button>
           <button class="pick square" @click="openCreateRoomModal">
@@ -18,18 +17,16 @@
           </router-link>
         </div>
       </div>
-
-      <div v-if="createRoomModalOpen" class="modal" style="display: flex; flex-direction: column">
+      <div v-if="createRoomModalOpen" class="modal">
         <div class="modal-content">
           <span class="close" @click="closeCreateRoomModal">&times;</span>
-          <p style="font-size: 30px; margin: 20px 0 !important; font-weight: normal; color: var(--nightPurple)">
+          <p class="inputs">
             Create a class room</p>
           <form @submit.prevent="submitCreateRoom">
-            <div class="form-group">
-              <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Classroom name
+            <div class="input_container">
+              <p class="input_title">Classroom name
               </p>
-              <input class="input" v-model="newRoomLabel" type="text" id="label" placeholder="Enter class name"
-                required />
+              <input class="input" v-model="newRoomLabel" placeholder="Enter class name" required />
             </div>
             <button type="submit">Create room</button>
           </form>
@@ -66,7 +63,6 @@ export default {
       this.active = !this.active;
     },
     fetchUserData() {
-      // get the user from the local storage
       this.user = JSON.parse(localStorage.getItem("user"));
     },
     async fetchRoomNumbers() {
@@ -147,8 +143,7 @@ export default {
         const newRoom = response.data;
 
         // Retrieve existing rooms from local storage
-        const existingRooms =
-          JSON.parse(localStorage.getItem("userRooms")) || [];
+        const existingRooms = JSON.parse(localStorage.getItem("userRooms")) || [];
 
         // Add the new room to the array
         existingRooms.push(newRoom.label);
@@ -169,11 +164,6 @@ export default {
 </script>
 
 <style scoped>
-.main {
-  margin-top: 80px !important;
-  font-family: "Fredoka One", sans-serif !important;
-}
-
 .modal {
   display: none;
   position: fixed;
@@ -184,6 +174,8 @@ export default {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-content {
@@ -211,10 +203,6 @@ export default {
   color: #555;
   text-decoration: none;
   cursor: pointer;
-}
-
-.form-group {
-  margin-bottom: 20px;
 }
 
 /* Adjusted spacing for the submit button */
@@ -262,7 +250,7 @@ button[type="submit"]:hover {
   text-decoration: underline;
 }
 
-.container {
+.content {
   margin-top: 30px;
   justify-content: center;
   display: flex;

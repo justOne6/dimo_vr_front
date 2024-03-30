@@ -11,9 +11,4 @@ import Navbar from "@/components/Navbar.vue";
 export default { components: { Navbar } };
 </script>
 
-<style scoped>
-.main {
-  margin-top: 80px !important;
-  font-family: "Fredoka One", sans-serif !important;
-}
-</style>
+<style></style>

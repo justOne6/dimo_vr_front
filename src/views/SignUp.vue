@@ -10,37 +10,30 @@
       </div>
       <div style="margin-top:2px">
         <p class="welcome_message">WELCOME TO DIMOVR</p>
-        <p
-          style="font-size: 30px; margin: 20px 0 30px 0 !important; font-weight: normal; color: var(--blue); text-align: center">
-          Create
-          Account</p>
+        <p class="page_title">Create Account</p>
         <div style="margin:0 auto">
-          <div
-            style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 auto; width: fit-content">
-            <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">First Name</p>
-            <input class="input" placeholder="Enter text" style="width: 20vw" v-model="firstname" />
+          <div class="input_container">
+            <p class="input_title">First Name</p>
+            <input class="input" placeholder="Enter text" v-model="firstname" />
           </div>
-          <div
-            style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 auto; width: fit-content">
-            <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Last Name</p>
-            <input class="input" placeholder="Enter text" style="width: 20vw" v-model="lastname" />
+          <div class="input_container">
+            <p class="input_title">Last Name</p>
+            <input class="input" placeholder="Enter text" v-model="lastname" />
           </div>
-          <div
-            style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 auto; width: fit-content">
-            <p style=" font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Email</p>
-            <input class="input" placeholder="Enter text" style="width: 20vw" v-model="email" type="email" />
+          <div class="input_container">
+            <p class="input_title">Email</p>
+            <input class="input" placeholder="Enter text" v-model="email" type="email" />
           </div>
-          <div
-            style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 auto; width: fit-content">
-            <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Password</p>
-            <input class="input" style="width: 20vw" placeholder="Enter password" v-model="password"
+          <div class="input_container">
+            <p class="input_title">Password</p>
+            <input class="input" placeholder="Enter password" v-model="password"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword = !showPassword" />
           </div>
         </div>
       </div>
       <div class="signup">
-        <v-btn class="signup_button" @click="signUp"><span>SIGN UP</span></v-btn>
+        <v-btn class="button" @click="signUp"><span>SIGN UP</span></v-btn>
       </div>
       <div style="margin: 2% auto; width: fit-content">
         <a href="/sign-in" style="
@@ -160,12 +153,5 @@ span.signup_button {
   border-radius: 5px;
   margin-top: 20px;
   text-align: center;
-}
-</style>
-
-<style scoped>
-.main {
-  font-family: "Fredoka One", sans-serif;
-  margin: 10px auto 0 auto !important;
 }
 </style>
