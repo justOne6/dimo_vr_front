@@ -50,7 +50,7 @@
           <h2 class="expansion-title">Ajouter un questionnaire</h2>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          Contenu
+          <QuestionnaireForm :subjectId="subjectId"/>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -67,10 +67,11 @@ import axios from "axios";
 import {mapGetters} from "vuex";
 import AddDocument from "@/components/forms/AddDocument.vue";
 import AddCourse from "@/components/forms/AddCourseForm.vue";
+import QuestionnaireForm from "@/components/forms/QuestionnaireForm.vue";
 
 export default {
   name: "SubjectPage",
-  components: {AddCourse, AddDocument},
+  components: {QuestionnaireForm, AddCourse, AddDocument},
   props:["subjectId"],
   data() {
     return {

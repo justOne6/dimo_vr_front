@@ -26,7 +26,7 @@
 
     <v-divider class="mt-5"></v-divider>
     <!-- Add a new subject -->
-    <v-expansion-panels v-if="isTeacher">
+    <v-expansion-panels v-if="isTeacher || isAdmin">
       <v-expansion-panel>
         <v-expansion-panel-header>
           <h2 class="add-subject-title">Ajouter une matière</h2>
