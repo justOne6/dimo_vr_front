@@ -8,6 +8,15 @@ import ManageAccount from "@/views/ManageAccount.vue";
 import CustomCharacter from "@/views/CustomCharacter.vue";
 import NotFound from "@/views/NotFound.vue";
 import AdminDashboard from "@/views/admin/AdminDashboard.vue";
+import TeacherDasboard from "@/views/teacher/TeacherDasboard.vue";
+import AdminLayout from "@/views/admin/AdminLayout.vue";
+import MyPrograms from "@/views/student/MyPrograms.vue";
+import RegisterTeacherForm from "@/components/forms/RegisterTeacherForm.vue";
+import TeacherLayout from "@/views/teacher/TeacherLayout.vue";
+import StudentLayout from "@/views/student/StudentLayout.vue";
+import AddProgramForm from "@/components/forms/AddProgramForm.vue";
+import AddSubjectForm from "@/components/forms/AddSubjectForm.vue";
+import ProgramPage from "@/views/ProgramPage.vue";
 
 Vue.use(VueRouter);
 
@@ -15,27 +24,41 @@ const adminRoutes = [
   {
     path: "admin-dashboard",
     component: AdminDashboard,
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, requiredRoles: ["admin"] },
   },
-  // Ajoutez d'autres routes administratives ici
+  {
+    path: "register-teacher",
+    component: RegisterTeacherForm,
+    meta: { requiresAuth: true, requiredRoles: ["admin"] },
+  },
 ];
 
 const teacherRoutes = [
   {
     path: "teacher-dashboard",
-    component: () => import("../views/teacher/TeacherDasboard.vue"),
+    component: TeacherDasboard,
     meta: { requiresAuth: true, requiredRoles: ["teacher"] },
   },
-  // Ajoutez d'autres routes pour les enseignants ici
+  {
+    path: "add-program",
+    component: AddProgramForm,
+    meta: { requiresAuth: true, requiredRoles: ["teacher"] },
+  },
+  {
+    path: "add-subjects/:programId",
+    component: AddSubjectForm,
+    name: "AddSubjects",
+    props: true,
+    meta: { requiresAuth: true, requiredRoles: ["teacher"] },
+  }
 ];
 
 const studentRoutes = [
   {
     path: "my-programs",
-    component: () => import("../views/student/MyPrograms.vue"),
+    component: MyPrograms,
     meta: { requiresAuth: true, requiredRoles: ["student"] },
   },
-  // Ajoutez d'autres routes pour les étudiants ici
 ];
 
 const routes = [
@@ -58,22 +81,28 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
+    path: "/programs/:programId",
+    component: ProgramPage,
+    name: "ProgramPage",
+    props: true,
+  },
+  {
     path: "/admin",
-    component: () => import("../views/admin/AdminLayout.vue"),
+    component: AdminLayout,
     children: adminRoutes,
-    meta: { requiresAuth: true, requiredRoles:["admin"] }, // Indique que le groupe de routes administratives nécessite une authentification
+    meta: { requiresAuth: true }, // Indique que le groupe de routes administratives nécessite une authentification
   },
   {
     path: "/teacher",
-    component: () => import("../views/AppLayout.vue"),
+    component: TeacherLayout,
     children: teacherRoutes,
-    meta: { requiresAuth: true, requiredRoles: ["teacher"] }, // Indique que le groupe de routes pour les enseignants nécessite une authentification
+    meta: { requiresAuth: true }, // Indique que le groupe de routes pour les enseignants nécessite une authentification
   },
   {
     path: "/student",
-    component: () => import("../views/AppLayout.vue"),
+    component: StudentLayout,
     children: studentRoutes,
-    meta: { requiresAuth: true, requiredRoles: ["student"]}, // Indique que le groupe de routes pour les étudiants nécessite une authentification
+    meta: { requiresAuth: true }, // Indique que le groupe de routes pour les étudiants nécessite une authentification
   },
   // Route pour gérer les pages non trouvées (404)
   { path: "*", component: NotFound }
@@ -87,16 +116,13 @@ const router = new VueRouter({
 // Hook de navigation pour vérifier l'authentification avant chaque changement de route
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    console.log("Authentification requise")
     // Vérifie si la route nécessite une authentification
     if (!store.state.isAuthenticated) {
       // Si l'utilisateur n'est pas authentifié, redirigez-le vers la page de connexion
       next("/sign-in");
     } else {
-      console.log("Authentifié")
       // Si l'utilisateur est authentifié, vérifiez si les rôles nécessaires sont présents
       const requiredRoles = to.meta.requiredRoles;
-      console.log("Roles nécessaires: ", requiredRoles)
       if (requiredRoles && !store.getters.isRolePresent(requiredRoles[0])) {
         // Si les rôles nécessaires ne sont pas présents, redirigez l'utilisateur vers une page d'accès refusé ou une autre page appropriée
         next("/access-denied");

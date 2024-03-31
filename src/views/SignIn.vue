@@ -60,7 +60,6 @@ export default {
         email: this.email,
         password: this.password,
       };
-      console.log("Login data:", loginData);
       axios
         .post(`${process.env.VUE_APP_API_URI}/api/login`, loginData, {
           headers: {
@@ -68,7 +67,6 @@ export default {
           },
         })
         .then((response) => {
-          console.log("Login response:", response);
 
           if (response.status === 200) {
             const token = response.data.token;
@@ -100,7 +98,6 @@ export default {
                 });
             */
 
-            console.log("Login successful");
           } else {
             console.error(
               "Login failed. Server response does not indicate success."

@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     roles: JSON.parse(localStorage.getItem('roles')) || [],
     isAuthenticated: !!localStorage.getItem('token'),
+    subjects: [],
   },
   getters: {
     isRolePresent: (state) => (roleName) => {
@@ -26,7 +27,10 @@ export default new Vuex.Store({
     // Définissez une mutation pour mettre à jour la variable isAuthenticated
     updateIsAuthenticated(state, isAuthenticated) {
       state.isAuthenticated = isAuthenticated;
-    }
+    },
+    SET_SUBJECTS(state, subjects) {
+      state.subjects = subjects; // Mutation pour mettre à jour la liste des matières
+    },
   },
   actions: {
     // Actions pour mettre à jour les rôles

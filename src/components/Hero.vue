@@ -47,7 +47,6 @@ export default {
 
 .introduction{
   width: 60%;
-  padding: 0 2rem;
 }
 
 .introduction p{

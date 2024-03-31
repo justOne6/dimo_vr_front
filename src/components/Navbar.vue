@@ -19,7 +19,7 @@
             </router-link>
           </div>
           <div v-else-if="isTeacher" class="flex-center-content">
-            <router-link to="/teacher-dashboard" :class="{ 'active-link': $route.path === '/teacher-dashboard' }" class="flex-center-content">
+            <router-link to="/teacher/teacher-dashboard" :class="{ 'active-link': $route.path === '/teacher/teacher-dashboard' }" class="flex-center-content">
               Dashboard
             </router-link>
           </div>

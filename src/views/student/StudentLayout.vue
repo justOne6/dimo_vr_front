@@ -1,14 +1,12 @@
 <template>
-  <div class="admin-layout">
-    <main>
-      <router-view></router-view>
-    </main>
-  </div>
+  <main>
+    <router-view></router-view>
+  </main>
 </template>
 
 <script >
 export default {
-  name: "AdminLayout",
+  name: "StudentLayout",
   components: {
   },
   data() {
@@ -22,9 +20,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
-
-
 
 </style>
