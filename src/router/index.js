@@ -17,6 +17,7 @@ import StudentLayout from "@/views/student/StudentLayout.vue";
 import AddProgramForm from "@/components/forms/AddProgramForm.vue";
 import AddSubjectForm from "@/components/forms/AddSubjectForm.vue";
 import ProgramPage from "@/views/ProgramPage.vue";
+import SubjectPage from "@/views/SubjectPage.vue";
 
 Vue.use(VueRouter);
 
@@ -84,6 +85,12 @@ const routes = [
     path: "/programs/:programId",
     component: ProgramPage,
     name: "ProgramPage",
+    props: true,
+  },
+  {
+    path: "/subjects/:subjectId",
+    component: SubjectPage,
+    name: "SubjectPage",
     props: true,
   },
   {

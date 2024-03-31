@@ -56,7 +56,7 @@ export default {
             console.log("Response: ", response);
             if (response.status === 200) {
               // Regiriger vers la création de matières
-              this.$router.push("/teacher/add-subjects/" + response.data.program.id);
+              this.$router.push("/programs/" + response.data.program.id);
             }
           })
           .catch((error) => {

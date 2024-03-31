@@ -39,8 +39,6 @@ export default {
         formData.append('illustration', this.subject.illustration);
         formData.append('program_id', this.subject.program_id);
 
-        console.log('Creating subject for :', this.subject.program_id);
-
         const response = await axios.post(`${process.env.VUE_APP_API_URI}/api/subjects`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -57,7 +55,6 @@ export default {
             illustration: null,
             program_id: this.programId
           };
-          alert('La matière a été ajoutée avec succès !');
         }
       } catch (error) {
         console.error('Erreur lors de la création de la matière :', error);

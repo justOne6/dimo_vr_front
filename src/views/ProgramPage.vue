@@ -29,7 +29,7 @@
     <v-expansion-panels v-if="isTeacher">
       <v-expansion-panel>
         <v-expansion-panel-header>
-          Ajouter une matière
+          <h2 class="add-subject-title">Ajouter une matière</h2>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <AddSubjectForm :programId="this.programId" />
@@ -83,7 +83,6 @@ export default {
     async fetchProgram() {
       try {
         await axios.get(`${process.env.VUE_APP_API_URI}/api/programs/${this.programId}`).then((response) => {
-          console.log("Fetched program:", response.data.program);
           this.program = response.data.program;
         }).catch(
           (error) => {
@@ -101,6 +100,11 @@ export default {
 <style scoped>
 .program-wrapper{
   margin-top: 5rem;
+}
+
+.add-subject-title{
+  font-size: 1.5rem;
+  margin: 0;
 }
 
 </style>

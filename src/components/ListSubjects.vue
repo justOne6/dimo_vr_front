@@ -9,7 +9,7 @@
         <div class="text-wrapper">
           <h2>{{subject.title}}</h2>
           <p>{{subject.description}}</p>
-          <router-link :to="{name: 'SubjectDetail', params: {subjectId: subject.id}}" v-if="isTeacher || isAdmin">Voir détails</router-link>
+          <router-link :to="{name: 'SubjectPage', params: {subjectId: subject.id}}" v-if="isTeacher || isAdmin">Voir détails</router-link>
         </div>
       </div>
     </div>
@@ -54,7 +54,6 @@ export default {
     async fetchSubjects() {
       try {
         await axios.get(`${process.env.VUE_APP_API_URI}/api/programs/${this.programId}/subjects`).then((response) => {
-          console.log("Fetched subjects:", response.data.subjects);
           this.subjects = response.data.subjects;
         }).catch(
             (error) => {
@@ -68,7 +67,6 @@ export default {
   },
   watch: {
     reloadSubjects() {
-      console.log('Reloading subjects...')
       this.fetchSubjects();
     }
   }
