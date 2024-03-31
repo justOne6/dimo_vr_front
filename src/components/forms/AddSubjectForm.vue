@@ -11,6 +11,7 @@
 
 <script>
 import axios from 'axios';
+import {mapActions} from "vuex";
 
 export default {
   name: 'AddSubjectForm',
@@ -25,6 +26,9 @@ export default {
       },
       response: null
     };
+  },
+  computed: {
+    ...mapActions(["updateReloadSubjects"]),
   },
   methods: {
     async createSubject() {
@@ -45,7 +49,15 @@ export default {
         });
 
         if (response.status === 200) {
-          alert('Le sujet a été créé avec succès !');
+          await this.updateReloadSubjects;
+          // Reset the form after successful creation
+          this.subject = {
+            title: '',
+            description: '',
+            illustration: null,
+            program_id: this.programId
+          };
+          alert('La matière a été ajoutée avec succès !');
         }
       } catch (error) {
         console.error('Erreur lors de la création de la matière :', error);

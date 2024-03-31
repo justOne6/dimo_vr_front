@@ -8,7 +8,7 @@ export default new Vuex.Store({
   state: {
     roles: JSON.parse(localStorage.getItem('roles')) || [],
     isAuthenticated: !!localStorage.getItem('token'),
-    subjects: [],
+    reloadSubjects: false,
   },
   getters: {
     isRolePresent: (state) => (roleName) => {
@@ -16,7 +16,8 @@ export default new Vuex.Store({
         return state.roles.some(role => role.name === roleName);
       }
       return false; // Retourne false si la liste des rôles est vide ou non définie
-    }
+    },
+
   },
   mutations: {
     // Définissez une mutation pour mettre à jour la variable roles
@@ -28,9 +29,10 @@ export default new Vuex.Store({
     updateIsAuthenticated(state, isAuthenticated) {
       state.isAuthenticated = isAuthenticated;
     },
-    SET_SUBJECTS(state, subjects) {
-      state.subjects = subjects; // Mutation pour mettre à jour la liste des matières
-    },
+    // Définissez une mutation pour mettre à jour la variable reloadSubjects
+    updateReloadSubjects(state) {
+      state.reloadSubjects = !state.reloadSubjects;
+    }
   },
   actions: {
     // Actions pour mettre à jour les rôles
@@ -53,6 +55,10 @@ export default new Vuex.Store({
       {
         router.push('/');
       }
+    },
+    // Actions pour mettre à jour reloadSubjects
+    updateReloadSubjects({ commit }) {
+      commit('updateReloadSubjects');
     }
   }
 });

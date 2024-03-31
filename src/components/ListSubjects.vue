@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="subjects-wrapper">
     <h1>Matières</h1>
     <div v-for="subject in subjects" :key="subject.id">
       <div class="carte-prez">
@@ -12,13 +12,14 @@
           <router-link :to="{name: 'SubjectDetail', params: {subjectId: subject.id}}" v-if="isTeacher || isAdmin">Voir détails</router-link>
         </div>
       </div>
-  </div>
+    </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapGetters, mapState} from "vuex";
 import axios from "axios";
+
 
 export default {
   name: "ListSubjects",
@@ -37,6 +38,7 @@ export default {
     this.fetchSubjects();
   },
   computed: {
+    ...mapState(["reloadSubjects"]),
     ...mapGetters(["isRolePresent"]),
     isStudent() {
       return this.isRolePresent("student");
@@ -55,41 +57,50 @@ export default {
           console.log("Fetched subjects:", response.data.subjects);
           this.subjects = response.data.subjects;
         }).catch(
-          (error) => {
-            console.error(error);
-          }
+            (error) => {
+              console.error(error);
+            }
         );
       } catch (error) {
         console.error(error);
       }
     }
   },
+  watch: {
+    reloadSubjects() {
+      console.log('Reloading subjects...')
+      this.fetchSubjects();
+    }
+  }
 };
 </script>
 
 <style scoped>
+.subjects-wrapper {
+  margin-top: 40px;
+}
 
-.carte-prez{
+.carte-prez {
   display: flex;
-  margin: 20px;
+  margin: 20px 0;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.carte-prez .image-wrapper{
+.carte-prez .image-wrapper {
   width: 200px;
   height: 200px;
   margin-right: 20px;
 }
 
-.carte-prez .image-wrapper img{
+.carte-prez .image-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.carte-prez .text-wrapper{
+.carte-prez .text-wrapper {
   flex: 1;
 }
 </style>
