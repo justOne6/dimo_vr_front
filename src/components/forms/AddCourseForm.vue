@@ -45,6 +45,7 @@
 
 <script>
 import axios from "axios";
+import {mapActions} from "vuex";
 
 export default {
   name: "AddCourse",
@@ -60,6 +61,9 @@ export default {
         isActive: false,
       },
     };
+  },
+  computed: {
+    ...mapActions(["updateReloadCourses"]),
   },
   methods: {
     async addCourse() {
@@ -77,6 +81,8 @@ export default {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+        // Update the courses list
+        this.$store.commit("updateReloadCourses");
         // Reset the form after successful creation
         this.course.startDate = "";
         this.course.startTime = "";

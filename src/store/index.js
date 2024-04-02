@@ -9,6 +9,11 @@ export default new Vuex.Store({
     roles: JSON.parse(localStorage.getItem('roles')) || [],
     isAuthenticated: !!localStorage.getItem('token'),
     reloadSubjects: false,
+    reloadCourses: false,
+    reloadDocuments: false,
+    reloadQuestionnaires: false,
+    reloadUsers: false,
+
   },
   getters: {
     isRolePresent: (state) => (roleName) => {
@@ -32,6 +37,21 @@ export default new Vuex.Store({
     // Définissez une mutation pour mettre à jour la variable reloadSubjects
     updateReloadSubjects(state) {
       state.reloadSubjects = !state.reloadSubjects;
+    },
+    // Définissez une mutation pour mettre à jour la variable reloadCourses
+    updateReloadCourses(state) {
+      state.reloadCourses = !state.reloadCourses;
+    },
+    // Définissez une mutation pour mettre à jour la variable reloadQuestionnaires
+    updateReloadQuestionnaires(state) {
+      state.reloadQuestionnaires = !state.reloadQuestionnaires;
+    },
+    // Définissez une mutation pour mettre à jour la variable reloadUsers
+    updateReloadUsers(state) {
+      state.reloadUsers = !state.reloadUsers;
+    },
+    updateReloadDocuments(state) {
+      state.reloadDocuments = !state.reloadDocuments;
     }
   },
   actions: {
@@ -59,6 +79,6 @@ export default new Vuex.Store({
     // Actions pour mettre à jour reloadSubjects
     updateReloadSubjects({ commit }) {
       commit('updateReloadSubjects');
-    }
+    },
   }
 });

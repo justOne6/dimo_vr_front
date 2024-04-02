@@ -18,6 +18,7 @@
 
 <script>
 import axios from "axios";
+import {mapActions} from "vuex";
 
 export default {
   name: "AddDocument",
@@ -29,6 +30,9 @@ export default {
         file: null,
       },
     };
+  },
+  computed: {
+    ...mapActions(["updateReloadDocuments"]),
   },
   methods: {
     async addDocument() {
@@ -42,10 +46,18 @@ export default {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+        }).then((response) => {
+          if(response.status === 200) {
+            // Reload the documents list after successful creation
+            this.$store.commit("updateReloadDocuments");
+            // Reset the form after successful creation
+            this.document.title = "";
+            this.document.file = null;
+          }
+        }).catch((error) => {
+          console.error(error);
         });
-        // Reset the form after successful creation
-        this.document.title = "";
-        this.document.file = null;
+
       } catch (error) {
         console.error(error);
       }

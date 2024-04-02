@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import QuestionForm from './QuestionForm.vue';
+import QuestionForm from './AddQuestionForm.vue';
 import axios from "axios";
 
 export default {
@@ -27,7 +27,7 @@ export default {
       questionnaire: {
         title: '',
         description: '',
-        subject_id: this.subjectId,
+        subject_id: parseInt(this.subjectId),
         questions: []
       }
     };
@@ -53,6 +53,7 @@ export default {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+        this.$store.commit("updateReloadQuestionnaires");
         // Reset the form after successful creation
         this.questionnaire.title = "";
         this.questionnaire.description = "";

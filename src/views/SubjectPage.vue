@@ -54,10 +54,16 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-
-    <v-divider class="mt-5"></v-divider>
-
     </div>
+    <v-divider class="mt-5"></v-divider>
+      <!-- Lister les cours, les documents et quetionnaires -->
+    <div class="listes">
+      <ListCourses :subjectId="subjectId"/>
+      <ListDocuments :subject-id="subjectId"/>
+      <ListQuestionnaires :subject-id="subjectId"/>
+    </div>
+
+
 
   </div>
 </template>
@@ -65,13 +71,16 @@
 <script>
 import axios from "axios";
 import {mapGetters} from "vuex";
-import AddDocument from "@/components/forms/AddDocument.vue";
+import AddDocument from "@/components/forms/AddDocumentForm.vue";
 import AddCourse from "@/components/forms/AddCourseForm.vue";
-import QuestionnaireForm from "@/components/forms/QuestionnaireForm.vue";
+import QuestionnaireForm from "@/components/forms/AddQuestionnaireForm.vue";
+import ListCourses from "@/components/ListCourses.vue";
+import ListDocuments from "@/components/ListDocuments.vue";
+import ListQuestionnaires from "@/components/ListQuestionnaires.vue";
 
 export default {
   name: "SubjectPage",
-  components: {QuestionnaireForm, AddCourse, AddDocument},
+  components: {ListQuestionnaires, ListDocuments, ListCourses, QuestionnaireForm, AddCourse, AddDocument},
   props:["subjectId"],
   data() {
     return {
@@ -117,5 +126,11 @@ beforeMount() {
 }
 .expansion-title{
   font-size: 1.5rem;
+}
+.listes{
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 </style>

@@ -41,7 +41,7 @@ export default {
       programs: [],
     };
   },
-  created() {
+  beforeMount() {
     this.fetchPrograms();
   },
   computed: {

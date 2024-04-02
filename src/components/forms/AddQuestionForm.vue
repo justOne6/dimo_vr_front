@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import OptionForm from "@/components/forms/OptionForm.vue";
+import OptionForm from "@/components/forms/AddOptionForm.vue";
 
 export default {
   components: {

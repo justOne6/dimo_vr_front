@@ -18,6 +18,7 @@ import AddProgramForm from "@/components/forms/AddProgramForm.vue";
 import AddSubjectForm from "@/components/forms/AddSubjectForm.vue";
 import ProgramPage from "@/views/ProgramPage.vue";
 import SubjectPage from "@/views/SubjectPage.vue";
+import TimeTable from "@/components/TimeTable.vue";
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,11 @@ const studentRoutes = [
     component: MyPrograms,
     meta: { requiresAuth: true, requiredRoles: ["student"] },
   },
+  {
+    path: "my-timetable",
+    component: TimeTable,
+    meta: { requiresAuth: true, requiredRoles: ["student"] },
+  }
 ];
 
 const routes = [

@@ -11,10 +11,10 @@
             <span class="material-icons">home</span>
           </router-link>
           <div v-if="isStudent" class="flex-center-content">
-            <router-link to="/edt" :class="{ 'active-link': $route.path === '/edt' }" class="flex-center-content">
+            <router-link to="/student/my-timetable" :class="{ 'active-link': $route.path === '/edt' }" class="flex-center-content">
               Emploie du temps
             </router-link>
-            <router-link to="/student-programs" :class="{ 'active-link': $route.path === '/student-programs' }" class="flex-center-content">
+            <router-link to="/student/my-programs" :class="{ 'active-link': $route.path === '/student-programs' }" class="flex-center-content">
               Mes programmes
             </router-link>
           </div>

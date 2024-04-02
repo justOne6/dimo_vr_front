@@ -9,7 +9,7 @@
         <div class="text-wrapper">
           <h2>{{subject.title}}</h2>
           <p>{{subject.description}}</p>
-          <router-link :to="{name: 'SubjectPage', params: {subjectId: subject.id}}" v-if="isTeacher || isAdmin">Voir détails</router-link>
+          <router-link :to="{name: 'SubjectPage', params: {subjectId: subject.id}}" v-if="showSubjectLink">Voir détails</router-link>
         </div>
       </div>
     </div>
@@ -19,7 +19,6 @@
 <script>
 import {mapGetters, mapState} from "vuex";
 import axios from "axios";
-
 
 export default {
   name: "ListSubjects",
@@ -32,10 +31,13 @@ export default {
   data() {
     return {
       subjects: [],
+      programs: [],
+      isStudentRegistered: false,
     };
   },
   beforeMount() {
     this.fetchSubjects();
+    this.checkIfStudentProgram();
   },
   computed: {
     ...mapState(["reloadSubjects"]),
@@ -48,6 +50,9 @@ export default {
     },
     isAdmin() {
       return this.isRolePresent("admin");
+    },
+    showSubjectLink() {
+      return (this.isStudentRegistered || this.isTeacher || this.isAdmin);
     },
   },
   methods: {
@@ -62,6 +67,25 @@ export default {
         );
       } catch (error) {
         console.error(error);
+      }
+    },
+    async checkIfStudentProgram() {
+      if(this.isStudent){
+        try {
+          await axios.get(`${process.env.VUE_APP_API_URI}/api/student-programs`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }).then((response) => {
+            this.isStudentRegistered = response.data.programs.some((program) => program.id === parseInt(this.programId)); // false
+          }).catch(
+              (error) => {
+                console.error(error);
+              }
+          );
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
   },
