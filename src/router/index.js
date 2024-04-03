@@ -65,6 +65,13 @@ const studentRoutes = [
     path: "my-timetable",
     component: TimeTable,
     meta: { requiresAuth: true, requiredRoles: ["student"] },
+  },
+  {
+    path: "questionnaire-details/:questionnaireId",
+    props: true,
+    name: "QuestionnaireDetails",
+    component: () => import("../views/student/QuestionnaireDetails.vue"),
+    meta: { requiresAuth: true, requiredRoles: ["student"] },
   }
 ];
 

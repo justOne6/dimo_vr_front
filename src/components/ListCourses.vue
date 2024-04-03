@@ -3,10 +3,10 @@
     <h1>Courses</h1>
     <div v-for="course in courses" :key="course.id" class="course">
       <p> De {{course.start_date}} à {{course.end_date}}</p>
-      <div>
+      <div v-if="isAdmin || isTeacher">
         <v-btn color="primary" @click="startCourse(course.id)" v-if="!course.is_active">Lancer le cours</v-btn>
         <v-btn color="primary" @click="endCourse(course.id)" v-else>Terminer le cours</v-btn>
-        <v-btn @click="deleteCourse(course.id)" color="error" class="deleteButton" v-if="isAdmin || isTeacher">Supprimer</v-btn>
+        <v-btn @click="deleteCourse(course.id)" color="error" class="deleteButton" >Supprimer</v-btn>
       </div>
 
     </div>

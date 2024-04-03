@@ -48,14 +48,13 @@ export default {
     async fetchQuestionnaires() {
       if (this.isStudent) {
         try {
-          const response = await axios.get(`${process.env.VUE_APP_API_URI}/api/student-questionnaires`, {
+          const response = await axios.get(`${process.env.VUE_APP_API_URI}/api/student-questionnaires/${this.subjectId}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           });
           // Filter questionnaires related to the subject
-          this.questionnaires = response.data.questionnaires.filter(questionnaire => questionnaire.subject_id === parseInt(this.subjectId));
-          console.log(' Q stu:', this.questionnaires);
+          this.questionnaires = response.data.questionnaires;
         } catch (error) {
           console.error('Error fetching questionnaires:', error);
         }
