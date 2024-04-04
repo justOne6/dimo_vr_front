@@ -117,7 +117,7 @@ body {
   --bluePurple: #5271FF;
   --darkPurple: #2E1042;
   --lightPurple: #E1CCFF;
-  --background: #C6D4FF;
+  --background: #FFFFFF;
   --blue: #668FFF;
   --button: #2485CF;
   --input: #D6E6FB;
