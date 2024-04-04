@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div class="main">
-      <div v-if="registrationSuccess" class="success-message">
-        Inscription réussie! Vous pouvez maintenant
-        <router-link to="/sign-in">vous connecter</router-link>.
-      </div>
+    <div class="main page-restrict-width">
       <div v-if="registrationError" class="error-message">
         {{ registrationError }}
       </div>
@@ -48,6 +44,7 @@
 
 <script>
 import axios from "axios";
+import {mapActions} from "vuex";
 
 export default {
   components: {
@@ -64,6 +61,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["updateRoles", "updateIsAuthenticated"]),
     signUp() {
       const userData = {
         lastname: this.lastname,
@@ -73,15 +71,25 @@ export default {
       };
 
       axios
-        .post(`${process.env.VUE_APP_API_URI}/auth/register`, userData)
+        .post(`${process.env.VUE_APP_API_URI}/api/register`, userData)
         .then((response) => {
+          console.log("Response: ", response);
           if (response.status === 200) {
             this.registrationSuccess = true;
             // Save the token in the local storage
             const token = response.data.token;
             localStorage.setItem("token", token);
+            // TODO: Comment for Spring Boot backend
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            localStorage.setItem("roles", JSON.stringify(response.data.user.roles));
+            this.updateRoles(response.data.user.roles);
+            this.updateIsAuthenticated(true);
             // Set the default axios authorization header
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+            // Redirect to Landing page
+            this.$router.push("/");
+            /* TODO: Decomment for Spring Boot backend
             // fetch the user data
             axios.get(`${process.env.VUE_APP_API_URI}/api/fetchUser`)
               .then((response) => {
@@ -94,7 +102,7 @@ export default {
               .catch((error) => {
                 console.error("Error while fetching user data: ", error);
               });
-
+            */
             console.log("Login successful");
           }
         })

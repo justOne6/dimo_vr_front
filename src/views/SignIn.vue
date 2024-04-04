@@ -1,10 +1,11 @@
 <template>
-  <div class="main">
-    <div v-if="loginSuccess" class="success-message">
-      <p class="success-text">
-        Connexion réussie! Vous pouvez maintenant accéder à votre tableau de
-        bord.
-      </p>
+  <div>
+    <div class="main page-restrict-width">
+      <div v-if="loginSuccess" class="success-message">
+        <p class="success-text">
+          Connexion réussie! Vous pouvez maintenant accéder à votre tableau de
+          bord.
+        </p>
     </div>
     <div style="margin-top:2px">
       <p class="welcome_message">WELCOME TO DIMOVR</p>
@@ -41,13 +42,15 @@
       <span v-html="loginError"></span>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
 
+import{ mapActions } from 'vuex';
+
 export default {
-  components: {},
   data() {
     return {
       email: "",
@@ -58,42 +61,48 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["updateRoles", "updateIsAuthenticated"]),
     signIn() {
       const loginData = {
         email: this.email,
         password: this.password,
       };
-      console.log("Login data:", loginData);
       axios
-        .post(`${process.env.VUE_APP_API_URI}/auth/authenticate`, loginData, {
+        .post(`${process.env.VUE_APP_API_URI}/api/login`, loginData, {
           headers: {
             "Content-Type": "application/json",
           },
         })
         .then((response) => {
-          console.log("Login response:", response);
 
           if (response.status === 200) {
             const token = response.data.token;
 
             localStorage.setItem("token", token);
+            // TODO: Comment for Spring Boot backend
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            localStorage.setItem("roles", JSON.stringify(response.data.user.roles));
+            this.updateRoles(response.data.user.roles);
+            this.updateIsAuthenticated(true);
 
             // Set the default axios authorization header
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
             // fetch the user data
+            // Redirect to Landing page
+            this.$router.push("/");
+
+            /* TODO: Decomment for Spring Boot backend
             axios.get(`${process.env.VUE_APP_API_URI}/api/fetchUser`)
               .then((response) => {
                 console.log("User data: ", response.data);
                 localStorage.setItem("user", JSON.stringify(response.data));
-
-                // Redirect to the dashboard
-                this.$router.push("/");
-              })
-              .catch((error) => {
-                console.error("Error while fetching user data: ", error);
-              });
-
-            console.log("Login successful");
+                  // Redirect to the dashboard
+                  this.$router.push("/");
+                })
+                .catch((error) => {
+                  console.error("Error while fetching user data: ", error);
+                });
+            */
           } else {
             console.error(
               "Login failed. Server response does not indicate success."

@@ -1,23 +1,38 @@
 <template>
-  <v-main>
-    <router-view></router-view>
-  </v-main>
+  <v-app>
+    <v-main>
+      <AppLayout>
+        <router-view></router-view>
+      </AppLayout>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 
+import AppLayout from "@/views/AppLayout.vue";
+import {mapGetters} from "vuex";
+
 export default {
   components: {
+    AppLayout
   },
 
   data: () => ({
   }),
+  computed: {
+    ...mapGetters(['isRolePresent']),
+    isStudent() {
+      return this.isRolePresent('student');
+    }
+  }
 };
 </script>
 
 <style>
 body {
   margin: 0 !important;
+  font-family: "Fredoka", sans-serif !important;
   background: var(--background)
 }
 
@@ -104,6 +119,27 @@ body {
   margin-top: 0 !important;
 }
 
+.no-text-decoration{
+  text-decoration: none !important;
+}
+
+.flex-center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page-restrict-width {
+  width: 90%;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+.wholePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 96vh;
+  flex-direction: column;
+}
 :root {
   --lightBlue: #B6D0E2;
   --mediumBlue: #219EBC;
@@ -117,9 +153,16 @@ body {
   --bluePurple: #5271FF;
   --darkPurple: #2E1042;
   --lightPurple: #E1CCFF;
-  --background: #FFFFFF;
+  --dimoColor1: #2E1042;
+  --dimoColor2: #5271FF;
+  --dimoColor3: #8E68E6;
+  --dimoColor4: #38B6FF;
+  --dimoWhite: #FFFFFF;
+  --background: #C6D4FF;
   --blue: #668FFF;
   --button: #2485CF;
   --input: #D6E6FB;
 }
+
+
 </style>
