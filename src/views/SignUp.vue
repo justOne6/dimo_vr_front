@@ -4,18 +4,32 @@
       <div v-if="registrationError" class="error-message">
         {{ registrationError }}
       </div>
-      <div style="margin-top:20px">
-        <p class="create">Create Account</p>
-        <v-text-field outlined clearable class="input" label="First Name" v-model="firstname"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Last Name" v-model="lastname"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Email" v-model="email" type="email"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Password" v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"></v-text-field>
+      <div style="margin-top:2px">
+        <p class="welcome_message">WELCOME TO DIMOVR</p>
+        <p class="page_title">Create Account</p>
+        <div style="margin:0 auto">
+          <div class="input_container">
+            <p class="input_title">First Name</p>
+            <input class="input" placeholder="Enter text" v-model="firstname" />
+          </div>
+          <div class="input_container">
+            <p class="input_title">Last Name</p>
+            <input class="input" placeholder="Enter text" v-model="lastname" />
+          </div>
+          <div class="input_container">
+            <p class="input_title">Email</p>
+            <input class="input" placeholder="Enter text" v-model="email" type="email" />
+          </div>
+          <div class="input_container">
+            <p class="input_title">Password</p>
+            <input class="input" placeholder="Enter password" v-model="password"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword" />
+          </div>
+        </div>
       </div>
-      <br />
       <div class="signup">
-        <v-btn class="signup_button" @click="signUp"><span>SIGN UP</span></v-btn>
+        <v-btn class="button" @click="signUp"><span>SIGN UP</span></v-btn>
       </div>
       <div style="margin: 2% auto; width: fit-content">
         <a href="/sign-in" style="
@@ -111,7 +125,7 @@ export default {
 
 <style>
 body {
-  background-color: var(--lightGrey);
+  background-color: var(--background);
 }
 
 .create {
@@ -122,7 +136,7 @@ body {
 }
 
 .signup {
-  margin: 0 auto;
+  margin: 0px auto;
   width: fit-content;
   border-radius: 5px;
 }
@@ -131,9 +145,9 @@ body {
   padding: 30%;
   color: white !important;
   font-weight: bold;
-  background-color: var(--bluePurple) !important;
-  width: 20vw;
-  font-size: 30px;
+  background-color: var(--button) !important;
+  width: 22vw;
+  font-size: 20px !important;
 }
 
 span.signup_button {
@@ -147,21 +161,5 @@ span.signup_button {
   border-radius: 5px;
   margin-top: 20px;
   text-align: center;
-}
-</style>
-
-<style scoped>
-.input {
-  border-radius: 5px;
-  margin-bottom: 20px !important;
-  font-size: 16px;
-  background-color: #e6e6e6;
-  height: 55px !important;
-}
-
-.main {
-  font-family: "Fredoka", sans-serif;
-  margin: 75px auto 0 auto !important;
-  /* the navbar's height is 63px */
 }
 </style>

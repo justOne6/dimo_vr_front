@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       profileClicked: false,
-    }
+    };
   },
   methods: {
     logOut() {
@@ -66,10 +66,13 @@ export default {
       delete axios.defaults.headers.common["Authorization"];
       this.$router.push("/sign-in");
     },
+    editProfile() {
+      this.$router.push("/manage-account");
+    },
     clickProfile() {
       this.profileClicked = !this.profileClicked;
-      console.log("this.profileChecked : " + this.profileClicked)
-    }
+      console.log("this.profileChecked : " + this.profileClicked);
+    },
   },
   computed: {
     ...mapGetters(["isRolePresent"]),
@@ -92,20 +95,27 @@ export default {
   font-weight: bold;
 }
 
-.dimo {
-  color: var(--darkPurple);
-  /*font-weight: bold;*/
-  font-size: 26px;
-}
-
 .profile {
   list-style-type: none;
   padding: 15px 30px;
   cursor: pointer;
+  color: grey
+}
+
+/* When account icon is clicked */
+.click_profile {
+  background-color: var(--input) !important;
+  color: black;
+  position: absolute;
+  right: 10px;
+  margin-top: 18vh;
+  width: fit-content;
+  border-radius: 5px
 }
 
 .profile:hover {
   background-color: var(--lightPurple);
+  color: white
 }
 
 .vr-logo {
@@ -121,13 +131,12 @@ export default {
 .navbar {
   display: flex;
   flex-direction: row;
-  background-color: #F0F0F0;
-  font-family: "Fredoka", sans-serif;
+  background-color: var(--background);
+  font-family: "Fredoka One", sans-serif;
   padding: 10px;
   align-items: center;
-  color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: fixed;
+  color: rgb(10, 8, 8);
+  position: fixed !important;
   top: 0;
   width: 100%;
   z-index: 1000;
@@ -141,6 +150,7 @@ export default {
 
 .nav-right {
   margin-left: auto;
+  margin-bottom: 20px !important;
 }
 
 .logo {
@@ -152,14 +162,14 @@ export default {
 .links {
   width: fit-content;
   margin-left: 10px;
-  border-left: solid 1px white;
+  border-left: solid 1px var(--bluePurple);
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
 .links a {
-  color: var(--darkPurple);
+  color: var(--bluePurple);
   text-decoration: none;
   font-size: 16px;
   padding: 10px;

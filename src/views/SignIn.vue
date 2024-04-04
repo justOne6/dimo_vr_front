@@ -6,33 +6,42 @@
           Connexion réussie! Vous pouvez maintenant accéder à votre tableau de
           bord.
         </p>
+    </div>
+    <div style="margin-top:2px">
+      <p class="welcome_message">WELCOME TO DIMOVR</p>
+      <p class="page_title">Sign In</p>
+      <div class="input_container">
+        <p class="input_title">Email</p>
+        <input class="input" label="Enter text..." v-model="email" placeholder="Enter email" />
       </div>
-      <div v-if="loginError" class="error-message">
-        {{ loginError }}
-      </div>
-      <div style="margin-top:20px">
-        <p class="create">Sign In</p>
-        <v-text-field outlined clearable class="input" label="Email" v-model="email"></v-text-field>
-        <v-text-field outlined clearable class="input" label="Password" v-model="password"
+      <div class="input_container">
+        <p class="input_title">Password</p>
+        <input class="input" label="Enter password" v-model="password"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword"></v-text-field>
-      </div>
-      <div class="signin">
-        <v-btn class="signin_button" @click="signIn"><span>SIGN IN</span></v-btn>
-      </div>
-      <div style="margin: 2% auto; width: fit-content">
-        <router-link to="/forgotten-password"
-          style="color: var(--nightPurple); font-weight: bold; text-decoration: none">Forgot
-          password?</router-link>
-      </div>
-      <div style="margin: 2% auto; width: fit-content">
-        <a href="/sign-up" style="
-            color: var(--nightBlue);
-            font-weight: bold;
-            text-decoration: none;
-          ">Create a new account?</a>
+          @click:append="showPassword = !showPassword" placeholder="Enter password" />
       </div>
     </div>
+    <div class="signin">
+      <v-btn class="button" @click="signIn"><span>LOGIN</span></v-btn>
+    </div>
+    <div style="margin: 2% auto; width: fit-content">
+      <router-link to="/forgotten-password"
+        style="color: var(--nightPurple); font-weight: bold; text-decoration: none">Forgot
+        password ?</router-link>
+    </div>
+    <div style="width: fit-content; margin: auto">
+      <a href="/sign-up" style="
+            color: var(--nightPurple);
+            font-weight: bold;
+            text-decoration: none;
+          ">
+        Create a new account ?
+      </a>
+    </div>
+    <div v-if="loginError" class="error-message">
+      <span v-html="loginError"></span>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -42,8 +51,6 @@ import axios from "axios";
 import{ mapActions } from 'vuex';
 
 export default {
-  components: {
-  },
   data() {
     return {
       email: "",
@@ -86,10 +93,9 @@ export default {
 
             /* TODO: Decomment for Spring Boot backend
             axios.get(`${process.env.VUE_APP_API_URI}/api/fetchUser`)
-                .then((response) => {
-                  console.log("User data: ", response.data);
-                  localStorage.setItem("user", JSON.stringify(response.data));
-
+              .then((response) => {
+                console.log("User data: ", response.data);
+                localStorage.setItem("user", JSON.stringify(response.data));
                   // Redirect to the dashboard
                   this.$router.push("/");
                 })
@@ -97,7 +103,6 @@ export default {
                   console.error("Error while fetching user data: ", error);
                 });
             */
-
           } else {
             console.error(
               "Login failed. Server response does not indicate success."
@@ -111,7 +116,7 @@ export default {
             this.loginError =
               "Nom d'utilisateur ou mot de passe incorrect. Veuillez réessayer !";
           } else {
-            this.loginError = "Erreur lors de la connexion.";
+            this.loginError = "LOGIN FAILED.<br>INVALID CREDENTIALS.";
           }
         });
     },
@@ -121,26 +126,7 @@ export default {
 
 <style>
 body {
-  background-color: #f0f0f0;
-}
-
-.signin {
-  margin: 20px auto;
-  width: fit-content;
-  border-radius: 5px;
-}
-
-.signin_button {
-  padding: 30%;
-  color: white !important;
-  font-weight: bold;
-  background-color: var(--bluePurple) !important;
-  width: 20vw;
-  font-size: 30px;
-}
-
-span.signin_button {
-  font-size: 20px;
+  background-color: var(--background) !important;
 }
 
 .success-message {
@@ -152,33 +138,44 @@ span.signin_button {
 }
 
 .success-text {
-  font-family: "Fredoka", sans-serif;
+  font-family: "Fredoka One", sans-serif;
   color: white;
   font-size: 18px;
 }
 
 .error-message {
-  background-color: #d9534f;
-  padding: 20px;
   border-radius: 5px;
-  margin-top: 20px;
+  font-size: 20px !important;
   text-align: center;
-  color: white;
+  color: red !important;
+  background-color: transparent !important;
+}
+
+/* Placeholder */
+.theme--light.v-label {
+  color: grey !important;
+  font-weight: normal;
+  font-size: 13px;
 }
 </style>
 
 <style scoped>
-.main {
-  font-family: "Fredoka", sans-serif;
-  margin: 75px auto 0 auto !important;
-  /* the navbar's height is 63px */
+.signin {
+  margin: 0px auto;
+  width: fit-content;
+  border-radius: 5px;
 }
 
-.input {
-  border-radius: 5px;
-  margin-bottom: 20px !important;
-  font-size: 16px;
-  background-color: #e6e6e6;
-  height: 55px !important;
+.signin_button {
+  padding: 30%;
+  color: white !important;
+  font-weight: bold;
+  background-color: var(--button) !important;
+  width: 22vw;
+  font-size: 20px !important;
+}
+
+span.signin_button {
+  font-size: 20px;
 }
 </style>

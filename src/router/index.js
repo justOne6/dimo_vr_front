@@ -19,6 +19,10 @@ import AddSubjectForm from "@/components/forms/AddSubjectForm.vue";
 import ProgramPage from "@/views/ProgramPage.vue";
 import SubjectPage from "@/views/SubjectPage.vue";
 import TimeTable from "@/components/TimeTable.vue";
+// import ForgottenPassword from "../views/ForgottenPassword";
+// import Dashboard from "../views/DashboardHome";
+import ClassRoom from "../views/ClassRoom";
+import Quizz from "../views/QuizzCustom"
 
 Vue.use(VueRouter);
 
@@ -124,8 +128,19 @@ const routes = [
     children: studentRoutes,
     meta: { requiresAuth: true }, // Indique que le groupe de routes pour les étudiants nécessite une authentification
   },
+  {
+    path: "/classroom/:label",
+    name: "classroom",
+    component: ClassRoom,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/quizz",
+    component: Quizz,
+    meta: { requiresAuth: true },
+  },
   // Route pour gérer les pages non trouvées (404)
-  { path: "*", component: NotFound }
+  { path: "*", component: NotFound },
 ];
 
 const router = new VueRouter({
