@@ -33,6 +33,7 @@ const adminRoutes = [
     meta: { requiresAuth: true, requiredRoles: ["admin"] },
   },
   {
+    name: "register-teacher",
     path: "register-teacher",
     component: RegisterTeacherForm,
     meta: { requiresAuth: true, requiredRoles: ["admin"] },
@@ -46,6 +47,7 @@ const teacherRoutes = [
     meta: { requiresAuth: true, requiredRoles: ["teacher"] },
   },
   {
+    name: "add-program",
     path: "add-program",
     component: AddProgramForm,
     meta: { requiresAuth: true, requiredRoles: ["teacher"] },

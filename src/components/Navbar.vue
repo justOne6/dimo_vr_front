@@ -19,13 +19,13 @@
             </router-link>
           </div>
           <div v-else-if="isTeacher" class="flex-center-content">
-            <router-link to="/teacher/teacher-dashboard" :class="{ 'active-link': $route.path === '/teacher/teacher-dashboard' }" class="flex-center-content">
-              Dashboard
+            <router-link to="/teacher/add-program" :class="{ 'active-link': $route.path === '/teacher/add-program' }" class="flex-center-content">
+              Nouveau Programme
             </router-link>
           </div>
           <div v-else-if="isAdmin" class="flex-center-content">
-            <router-link to="/admin/admin-dashboard" :class="{ 'active-link': $route.path === '/admmin-dashboard' }" class="flex-center-content">
-              Dashboard
+            <router-link to="/admin/register-teacher" :class="{ 'active-link': $route.path === '/register-teacher' }" class="flex-center-content">
+              Ajouter un professseur
             </router-link>
           </div>
         </div>
