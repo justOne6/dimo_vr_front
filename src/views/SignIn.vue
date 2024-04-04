@@ -1,45 +1,44 @@
 <template>
-  <div>
-    <div class="main">
-      <div v-if="loginSuccess" class="success-message">
-        <p class="success-text">
-          Connexion réussie! Vous pouvez maintenant accéder à votre tableau de
-          bord.
-        </p>
+  <div class="main">
+    <div v-if="loginSuccess" class="success-message">
+      <p class="success-text">
+        Connexion réussie! Vous pouvez maintenant accéder à votre tableau de
+        bord.
+      </p>
+    </div>
+    <div style="margin-top:2px">
+      <p class="welcome_message">WELCOME TO DIMOVR</p>
+      <p class="page_title">Sign In</p>
+      <div class="input_container">
+        <p class="input_title">Email</p>
+        <input class="input" label="Enter text..." v-model="email" placeholder="Enter email" />
       </div>
-      <div style="margin-top:2px">
-        <p style="font-size: 40px; color: var(--blue)">WELCOME TO DIMOVR</p>
-        <p style="font-size: 30px; margin: 40px 0; font-weight: normal; color: var(--blue)">Sign In</p>
-        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
-          <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Email</p>
-          <v-text-field outlined clearable background-color=var(--input) label="Enter text..." style="width: 20vw"
-            v-model="email"></v-text-field>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
-          <p style="font-size: 20px; color: var(--blue); margin-bottom: 2px">Password</p>
-          <v-text-field outlined clearable background-color=var(--input) label="Enter password"
-            style="width: 20vw; margin: auto" v-model="password" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword"></v-text-field>
-        </div>
+      <div class="input_container">
+        <p class="input_title">Password</p>
+        <input class="input" label="Enter password" v-model="password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+          @click:append="showPassword = !showPassword" placeholder="Enter password" />
       </div>
-      <div class="signin">
-        <v-btn class="signin_button" @click="signIn"><span>LOGIN</span></v-btn>
-      </div>
-      <div style="margin: 2% auto; width: fit-content">
-        <router-link to="/forgotten-password"
-          style="color: var(--nightPurple); font-weight: bold; text-decoration: none">Forgot
-          password?</router-link>
-      </div>
-      <div style="width: fit-content">
-        <a href="/sign-up" style="
+    </div>
+    <div class="signin">
+      <v-btn class="button" @click="signIn"><span>LOGIN</span></v-btn>
+    </div>
+    <div style="margin: 2% auto; width: fit-content">
+      <router-link to="/forgotten-password"
+        style="color: var(--nightPurple); font-weight: bold; text-decoration: none">Forgot
+        password ?</router-link>
+    </div>
+    <div style="width: fit-content; margin: auto">
+      <a href="/sign-up" style="
             color: var(--nightPurple);
             font-weight: bold;
             text-decoration: none;
-          ">Create a new account?</a>
-      </div>
-      <div v-if="loginError" class="error-message">
-        <span v-html="loginError"></span>
-      </div>
+          ">
+        Create a new account ?
+      </a>
+    </div>
+    <div v-if="loginError" class="error-message">
+      <span v-html="loginError"></span>
     </div>
   </div>
 </template>
@@ -152,21 +151,6 @@ body {
 </style>
 
 <style scoped>
-.main {
-  font-family: "Fredoka One", sans-serif;
-  margin: 10px auto 0 auto !important;
-  background: var(--background);
-  /* the navbar's height is 63px */
-}
-
-.input {
-  border-radius: 5px;
-  margin-bottom: 20px !important;
-  font-size: 16px;
-  background-color: #e6e6e6;
-  height: 55px !important;
-}
-
 .signin {
   margin: 0px auto;
   width: fit-content;

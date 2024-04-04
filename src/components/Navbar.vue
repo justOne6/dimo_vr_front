@@ -2,20 +2,16 @@
 <template>
   <nav class="navbar">
     <router-link to="/"><img src="../assets/Dimo.png" style="width: 35px !important" /></router-link>
-    <span class="dimo" style="margin-left: 10px">Dimo</span>
-    <span class="vr">VR</span>
     <div class="links" v-if="$route.path !== '/sign-in' &&
       $route.path !== '/forgotten-password' &&
       $route.path !== '/sign-up'
       ">
-      <router-link to="/" :class="{ 'active-link': $route.path === '/dashboard' }"><span class="material-icons"> home
+      <router-link to="/" :class="{ 'active-link': $route.path === '/dashboard' }"><span class="material-icons">home
         </span></router-link>
       <router-link to="/manage-account"
         :class="{ 'active-link': $route.path === '/manage-account' }">Account</router-link>
       <router-link to="/custom" :class="{ 'active-link': $route.path === '/custom' }">Custom</router-link>
       <router-link to="/quizz" :class="{ 'active-link': $route.path === '/quizz' }">Quizz</router-link>
-
-      <!--<router-link to="/forgotten-password">Forgotten Password</router-link>-->
     </div>
     <div style="
         display: flex;
@@ -27,27 +23,16 @@
       $route.path !== '/forgotten-password'
       ">
       <button @click="clickProfile">
-        <span class="material-icons" style="color: var(--darkPurple)">
+        <span class="material-icons" style="color: var(--bluePurple)">
           account_circle
         </span>
       </button>
     </div>
-    <div v-if="this.profileClicked" style="
-        background-color: white;
-        color: black;
-        position: absolute;
-        right: 10px;
-        margin-top: 18vh;
-        width: fit-content;
-      ">
-      <li class="profile">Edit profile</li>
-      <div v-if="this.profileClicked"
-        style="background-color: white; color: black; position: absolute; right: 10px; margin-top: 18vh; width: fit-content">
-        <li class="profile" @click="editProfile">Edit profile</li>
-        <li class="profile" @click="logOut">Log Out</li>
-      </div>
-
-      <div></div>
+    <div v-if="this.profileClicked" class="click_profile">
+      <li class="profile" @click="editProfile">Edit profile</li>
+      <li class="profile" @click="logOut">Log Out</li>
+    </div>
+    <div>
     </div>
   </nav>
 </template>
@@ -85,20 +70,27 @@ export default {
   font-weight: bold;
 }
 
-.dimo {
-  color: var(--darkPurple);
-  /*font-weight: bold;*/
-  font-size: 26px;
-}
-
 .profile {
   list-style-type: none;
   padding: 15px 30px;
   cursor: pointer;
+  color: grey
+}
+
+/* When account icon is clicked */
+.click_profile {
+  background-color: var(--input) !important;
+  color: black;
+  position: absolute;
+  right: 10px;
+  margin-top: 18vh;
+  width: fit-content;
+  border-radius: 5px
 }
 
 .profile:hover {
   background-color: var(--lightPurple);
+  color: white
 }
 
 .vr {
@@ -112,16 +104,16 @@ export default {
 }
 
 .navbar {
-  background-color: #f0f0f0;
-  font-family: "Fredoka", sans-serif;
+  background-color: var(--background);
+  font-family: "Fredoka One", sans-serif;
   padding: 10px;
   display: flex;
   align-items: center;
   color: rgb(10, 8, 8);
-  /*box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
-  position: fixed;
+  position: fixed !important;
   top: 0;
   width: 100%;
+  margin-bottom: 20px !important;
 }
 
 .logo {
@@ -133,14 +125,14 @@ export default {
 .links {
   width: fit-content;
   margin-left: 10px;
-  border-left: solid 1px white;
+  border-left: solid 1px var(--bluePurple);
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
 .links a {
-  color: var(--darkPurple);
+  color: var(--bluePurple);
   text-decoration: none;
   font-size: 16px;
   padding: 10px;

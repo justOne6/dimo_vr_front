@@ -1,38 +1,36 @@
 <template>
   <div>
     <Navbar />
-    <div class="main">
-      <div class="right"></div>
-      <h1 class="inputs">Hello, {{ user.firstname }}</h1>
-    </div>
     <div class="container">
-      <div>
-        <button class="pick square" @click="toggle">Pick a room</button>
-        <button class="pick square" @click="openCreateRoomModal">
-          Create a room
-        </button>
+      <p class="inputs" style="text-align: center">Hello {{ user.firstname }} !</p>
+      <div class="content">
+        <div>
+          <button class="pick square" @click="toggle">Pick a room</button>
+          <button class="pick square" @click="openCreateRoomModal">
+            Create a room
+          </button>
+        </div>
+        <div v-if="active" style="display: flex; flex-direction: column; margin-left: 10px">
+          <router-link v-for="roomNumber in roomNumbers" :key="roomNumber"
+            :to="{ name: 'classroom', params: { label: roomNumber } }" class="room">
+            {{ roomNumber }}
+          </router-link>
+        </div>
       </div>
-      <div v-if="active" style="display: flex; flex-direction: column; margin-left: 10px">
-        <router-link v-for="roomNumber in roomNumbers" :key="roomNumber"
-          :to="{ name: 'classroom', params: { label: roomNumber } }" class="room">
-          {{ roomNumber }}
-        </router-link>
-      </div>
-    </div>
-
-    <div v-if="createRoomModalOpen" class="modal" style="display: flex; flex-direction: column">
-      <div class="modal-content">
-        <span class="close" @click="closeCreateRoomModal">&times;</span>
-        <h2>Create a Class Room</h2>
-
-        <form @submit.prevent="submitCreateRoom">
-          <div class="form-group">
-            <label for="label">Classroom Name : </label>
-            <input v-model="newRoomLabel" type="text" id="label" placeholder="Enter Class Name" required />
-          </div>
-
-          <button type="submit">Create Room</button>
-        </form>
+      <div v-if="createRoomModalOpen" class="modal">
+        <div class="modal-content">
+          <span class="close" @click="closeCreateRoomModal">&times;</span>
+          <p class="inputs">
+            Create a class room</p>
+          <form @submit.prevent="submitCreateRoom">
+            <div class="input_container">
+              <p class="input_title">Classroom name
+              </p>
+              <input class="input" v-model="newRoomLabel" placeholder="Enter class name" required />
+            </div>
+            <button type="submit">Create room</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -65,7 +63,6 @@ export default {
       this.active = !this.active;
     },
     fetchUserData() {
-      // get the user from the local storage
       this.user = JSON.parse(localStorage.getItem("user"));
     },
     async fetchRoomNumbers() {
@@ -116,7 +113,6 @@ export default {
       this.activeRoom = roomNumber;
     },
     openCreateRoomModal() {
-      // console.log("Open Create Room Modal clicked!");
       this.createRoomModalOpen = true;
     },
     closeCreateRoomModal() {
@@ -147,8 +143,7 @@ export default {
         const newRoom = response.data;
 
         // Retrieve existing rooms from local storage
-        const existingRooms =
-          JSON.parse(localStorage.getItem("userRooms")) || [];
+        const existingRooms = JSON.parse(localStorage.getItem("userRooms")) || [];
 
         // Add the new room to the array
         existingRooms.push(newRoom.label);
@@ -169,11 +164,6 @@ export default {
 </script>
 
 <style scoped>
-.main {
-  margin-top: 80px !important;
-  font-family: "Fredoka One", sans-serif !important;
-}
-
 .modal {
   display: none;
   position: fixed;
@@ -184,13 +174,14 @@ export default {
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-content {
   background-color: var(--lightPurple);
   margin: 5% auto;
   padding: 40px;
-  /* Increased padding for more space */
   border: 1px solid var(--darkPurple);
   width: 70%;
   max-width: 800px;
@@ -201,11 +192,10 @@ export default {
 
 .close {
   color: var(--darkPurple);
-  float: right;
+  text-align: right;
   font-size: 28px;
   font-weight: bold;
   margin-top: -10px;
-  /* Adjusted margin for better alignment */
 }
 
 .close:hover,
@@ -213,11 +203,6 @@ export default {
   color: #555;
   text-decoration: none;
   cursor: pointer;
-}
-
-.form-group {
-  margin-bottom: 20px;
-  /* Increased margin between form elements */
 }
 
 /* Adjusted spacing for the submit button */
@@ -265,7 +250,7 @@ button[type="submit"]:hover {
   text-decoration: underline;
 }
 
-.container {
+.content {
   margin-top: 30px;
   justify-content: center;
   display: flex;

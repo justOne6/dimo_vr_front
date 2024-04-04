@@ -9,32 +9,31 @@
         {{ registrationError }}
       </div>
       <div style="margin-top:2px">
-        <p style="font-size: 40px; color: var(--blue)">WELCOME TO DIMOVR</p>
-        <p style="font-size: 30px; margin: 40px 0; font-weight: normal; color: var(--blue)">Create Account</p>
-        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: 0 200px">
-          <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">First Name</p>
-          <v-text-field outlined clearable background-color=var(--input) lclass="input" label="Enter text"
-            style="width: 20vw" v-model="firstname"></v-text-field>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
-          <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Last Name</p>
-          <v-text-field outlined clearable background-color=var(--input) lclass="input" label="Enter text"
-            style="width: 20vw" v-model="lastname"></v-text-field>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
-          <p style=" font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Email</p>
-          <v-text-field outlined clearable background-color=var(--input) lclass="input" label="Enter text"
-            style="width: 20vw" v-model="email" type="email"></v-text-field>
-        </div>
-        <div style="display: flex; flex-direction: column; align-items: flex-start; margin: -20px 200px 0 200px">
-          <p style="font-size: 20px; color: var(--blue); font-weight: normal; margin-bottom: 2px">Password</p>
-          <v-text-field outlined clearable background-color=var(--input) lclass="input" style="width: 20vw"
-            label="Enter password" v-model="password" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'" @click:append="showPassword = !showPassword"></v-text-field>
+        <p class="welcome_message">WELCOME TO DIMOVR</p>
+        <p class="page_title">Create Account</p>
+        <div style="margin:0 auto">
+          <div class="input_container">
+            <p class="input_title">First Name</p>
+            <input class="input" placeholder="Enter text" v-model="firstname" />
+          </div>
+          <div class="input_container">
+            <p class="input_title">Last Name</p>
+            <input class="input" placeholder="Enter text" v-model="lastname" />
+          </div>
+          <div class="input_container">
+            <p class="input_title">Email</p>
+            <input class="input" placeholder="Enter text" v-model="email" type="email" />
+          </div>
+          <div class="input_container">
+            <p class="input_title">Password</p>
+            <input class="input" placeholder="Enter password" v-model="password"
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+              @click:append="showPassword = !showPassword" />
+          </div>
         </div>
       </div>
       <div class="signup">
-        <v-btn class="signup_button" @click="signUp"><span>SIGN UP</span></v-btn>
+        <v-btn class="button" @click="signUp"><span>SIGN UP</span></v-btn>
       </div>
       <div style="margin: 2% auto; width: fit-content">
         <a href="/sign-in" style="
@@ -154,20 +153,5 @@ span.signup_button {
   border-radius: 5px;
   margin-top: 20px;
   text-align: center;
-}
-</style>
-
-<style scoped>
-.input {
-  border-radius: 5px;
-  margin-bottom: 20px !important;
-  font-size: 16px;
-  background-color: #e6e6e6;
-  height: 55px !important;
-}
-
-.main {
-  font-family: "Fredoka One", sans-serif;
-  margin: 10px auto 0 auto !important;
 }
 </style>

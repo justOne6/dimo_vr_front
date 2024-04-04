@@ -1,34 +1,31 @@
 <template>
-  <div class="quiz">
+  <div>
     <Navbar />
-
-    <div class="content">
-      <div v-if="quizzes.length">
+    <div class="container">
+      <p class="inputs">Create new quizz</p>
+      <form @submit.prevent="createQuiz">
+        <div class="input_container">
+          <p class="input_title">Title</p>
+          <input class="input" v-model="newQuiz.title" placeholder="Enter title" required />
+        </div>
+        <div class="input_container">
+          <p class="input_title">Question</p>
+          <input class="input" v-model="newQuiz.questions" placeholder="Enter question" required />
+        </div>
+        <v-btn class="button" type="submit">CREATE QUIZZ</v-btn>
+      </form>
+      <div v-if="quizzes.length" style="margin-top: 20px">
         <h2>Quizzes</h2>
         <ul>
           <li v-for="(quiz, index) in quizzes" :key="index">
             <router-link :to="{ name: 'Quiz', params: { id: quiz.id } }">{{
-              quiz.title
-            }}</router-link>
+        quiz.title
+      }}</router-link>
           </li>
         </ul>
       </div>
-      <div v-else>
+      <div v-else style="margin-top: 20px">
         <p>No quizzes available.</p>
-      </div>
-      <div class="create-quiz">
-        <h2>Create New Quiz</h2>
-        <form @submit.prevent="createQuiz">
-          <label for="title">Title:</label>
-          <input type="text" id="title" v-model="newQuiz.title" required />
-          <label for="questions">Questions:</label>
-          <textarea
-            id="questions"
-            v-model="newQuiz.questions"
-            required
-          ></textarea>
-          <button type="submit">Create Quiz</button>
-        </form>
       </div>
     </div>
   </div>
@@ -92,14 +89,13 @@ export default {
 </script>
 
 <style scoped>
-.quiz {
-  text-align: center;
-  margin: 20px;
-}
-
 .content {
   max-width: 600px;
   margin: auto;
+}
+
+.quizz_input {
+  border: solid 1px black;
 }
 
 ul {
@@ -119,9 +115,5 @@ li {
 
 li:hover {
   background-color: #f0f0f0;
-}
-
-.create-quiz {
-  margin-top: 40px;
 }
 </style>

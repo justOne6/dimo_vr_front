@@ -1,11 +1,11 @@
 <template>
   <div>
     <Navbar />
-    <div class="main">
+    <div class="container">
       <div class="inputs">
         <p>Manage your account {{ user.firstname }} !</p>
       </div>
-      <div class="container">
+      <div class="content">
         <div class="sections" :class="{ 'with-border': personalInfo || showSecurity || showContact }"
           style="width: 30vw">
           <p class="edits"><i class="mdi mdi-home" />&nbsp;Home</p>
@@ -46,11 +46,11 @@
             </div>
           </div>
         </div>
-        <div class="security" v-if="showSecurity" style="width: 30vw; margin: auto 0;">
+        <div class="security" v-if="showSecurity" style="width: 30vw; margin: auto 0">
           <p style="font-weight: bold">Change your password</p><br />
-          <input placeholder="Current password" class="input " /><br />
-          <input placeholder="New password" class="input " /><br />
-          <input placeholder="Confirm password" class="input " /><br />
+          <input placeholder="Current password" class="input" /><br />
+          <input placeholder="New password" class="input" /><br />
+          <input placeholder="Confirm password" class="input" /><br />
           <v-btn class="button"><span>SAVE</span></v-btn>
         </div>
         <div class="contact" v-if="showContact" style="width: 30vw; margin: auto 0;">
@@ -146,32 +146,19 @@ export default {
 </script>
 
 <style>
-.button {
-  color: white !important;
-  font-weight: bold;
-  padding: 2% 20% !important;
-  background-color: var(--button) !important;
-}
-
 .font-bold {
   font-weight: bold;
   background-color: var(--nightPurple);
   color: white;
 }
 
-.container {
+.content {
   display: flex;
   justify-content: space-between;
 }
 
 body {
   background-color: var(--background);
-}
-
-.main {
-  font-family: "Fredoka One", sans-serif;
-  margin-top: 8px !important;
-  margin-bottom: auto;
 }
 
 .edits {
@@ -184,13 +171,12 @@ body {
   color: white;
 }
 
-.input {
-  border-radius: 5px;
-  margin-bottom: 35px !important;
-  font-size: 16px;
-  background-color: var(--input);
-  height: 55px !important;
-  padding: 10px;
+hr {
+  margin: 0 !important;
+}
+
+p {
+  margin-bottom: 0 !important;
 }
 
 .signup {
@@ -210,19 +196,10 @@ span.signup_button {
   font-size: 20px;
 }
 
-.inputs {
-  width: 100% !important;
-  height: fit-content !important;
-  padding: 0 !important;
-  color: var(--nightPurple) !important;
-  font-size: 32px;
-  margin-bottom: 10px !important;
-}
-
 .sections {
   width: fit-content;
-  margin-right: 20px;
   width: 30vw;
+  margin: 0 auto;
 }
 
 .with-border {
@@ -238,11 +215,5 @@ span.signup_button {
 
 .success.hidden {
   opacity: 0;
-}
-</style>
-
-<style scoped>
-.main {
-  margin-top: 80px !important;
 }
 </style>
