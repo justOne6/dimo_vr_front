@@ -23,6 +23,8 @@ import TimeTable from "@/components/TimeTable.vue";
 // import Dashboard from "../views/DashboardHome";
 import ClassRoom from "../views/ClassRoom";
 import Quizz from "../views/QuizzCustom"
+import MyMarks from "@/views/student/MyMarks.vue";
+import QuestionnaireDetails from "@/views/student/QuestionnaireDetails.vue";
 
 Vue.use(VueRouter);
 
@@ -76,7 +78,14 @@ const studentRoutes = [
     path: "questionnaire-details/:questionnaireId",
     props: true,
     name: "QuestionnaireDetails",
-    component: () => import("../views/student/QuestionnaireDetails.vue"),
+    component: QuestionnaireDetails,
+    meta: { requiresAuth: true, requiredRoles: ["student"] },
+  },
+  {
+    path: "my-marks",
+    props: true,
+    name: "MyMarks",
+    component: MyMarks,
     meta: { requiresAuth: true, requiredRoles: ["student"] },
   }
 ];

@@ -79,14 +79,42 @@ export default {
     },
     validate() {
       const customData = {
-        hairId: this.currentHairIndex,
-        hairColor: this.hairColor,
-        headColor: this.headColor,
-        bodyColor: this.bodyColor
+        skinColor: this.headColor,
+        hair: {
+          item: {
+            id: this.currentHairIndex,
+            type: "HAIR",
+            variant: "string"
+          },
+          color: this.hairColor
+        },
+        lowerBody: {
+          item: {
+            id: 0,
+            type: "LOWER_BODY",
+            variant: "string"
+          },
+          color: this.bodyColor
+        },
+        upperBody: {
+          item: {
+            id: 0,
+            type: "UPPER_BODY",
+            variant: "string"
+          },
+          color: this.headColor
+        }
       }
 
+      console.log(customData);
       axios
-        .post("http://127.0.0.1:8000/api/custom", customData)
+        .put(`${process.env.VUE_APP_API_URI}/api/updateSkin`, customData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
         .then((response) => {
           if (response.status === 201) {
             console.log("Data send", response.data);

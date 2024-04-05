@@ -17,6 +17,9 @@
             <router-link to="/student/my-programs" :class="{ 'active-link': $route.path === '/student-programs' }" class="flex-center-content">
               Mes programmes
             </router-link>
+            <router-link to="/student/my-marks" :class="{ 'active-link': $route.path === '/my-marks' }" class="flex-center-content">
+              Mes notes
+            </router-link>
           </div>
           <div v-else-if="isTeacher" class="flex-center-content">
             <router-link to="/teacher/add-program" :class="{ 'active-link': $route.path === '/teacher/add-program' }" class="flex-center-content">
