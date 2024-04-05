@@ -108,7 +108,13 @@ export default {
 
       console.log(customData);
       axios
-        .put(`${process.env.VUE_APP_API_URI}/api/updateSkin`, customData)
+        .put(`${process.env.VUE_APP_API_URI}/api/updateSkin`, customData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
         .then((response) => {
           if (response.status === 201) {
             console.log("Data send", response.data);
