@@ -39,11 +39,7 @@
           </div>
         </div>
         <div class="security" v-if="showSecurity" style="width: 30vw; margin: auto 0">
-          <p style="font-weight: bold">Change your password</p><br />
-          <input placeholder="Current password" class="input" /><br />
-          <input placeholder="New password" class="input" /><br />
-          <input placeholder="Confirm password" class="input" /><br />
-          <v-btn class="button"><span>SAVE</span></v-btn>
+          <ChangePasswordForm/>
         </div>
       </div>
     </div>
@@ -53,8 +49,9 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
 import axios from "axios";
+import ChangePasswordForm from "@/components/forms/ChangePasswordForm.vue";
 export default {
-  components: { Navbar },
+  components: {ChangePasswordForm, Navbar },
   data() {
     return {
       user: [],
