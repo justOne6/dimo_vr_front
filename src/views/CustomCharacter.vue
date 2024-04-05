@@ -108,7 +108,7 @@ export default {
 
       console.log(customData);
       axios
-        .put("http://127.0.0.1:8000/api/updateSkin", customData)
+        .put(`${process.env.VUE_APP_API_URI}/api/updateSkin`, customData)
         .then((response) => {
           if (response.status === 201) {
             console.log("Data send", response.data);
