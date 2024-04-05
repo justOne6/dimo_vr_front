@@ -1,7 +1,6 @@
 Copy code
 <template>
   <div>
-    <Navbar />
     <div class="container">
       <p class="inputs">Custom your character</p>
       <div class="main-container">
@@ -67,7 +66,33 @@ export default {
       return this.availableHairComponents[this.currentHairIndex];
     },
   },
+  beforeMount() {
+    this.fetchCurrentSkin();
+  },
   methods: {
+    async fetchCurrentSkin() {
+      await axios
+        .get(`${process.env.VUE_APP_API_URI}/api/skin`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            this.currentHairIndex = response.data.skin.hair_version;
+            this.hairColor = response.data.skin.hair_color;
+            this.headColor = response.data.skin.skin_color;
+            this.bodyColor = response.data.skin.lower_body_color;
+          } else {
+            console.error(
+              " Status :",
+              response.status
+            );
+          }
+        }).catch((error) => {
+          console.error("Error on customization", error);
+        });
+    },
     changeHairLeft() {
       this.currentHairIndex =
         (this.currentHairIndex - 1 + this.availableHairComponents.length) %
@@ -79,36 +104,16 @@ export default {
     },
     validate() {
       const customData = {
-        skinColor: this.headColor,
-        hair: {
-          item: {
-            id: this.currentHairIndex,
-            type: "HAIR",
-            variant: "string"
-          },
-          color: this.hairColor
-        },
-        lowerBody: {
-          item: {
-            id: 0,
-            type: "LOWER_BODY",
-            variant: "string"
-          },
-          color: this.bodyColor
-        },
-        upperBody: {
-          item: {
-            id: 0,
-            type: "UPPER_BODY",
-            variant: "string"
-          },
-          color: this.headColor
-        }
-      }
+          hair_version: this.currentHairIndex,
+          hair_color: this.hairColor,
+          upper_body_color: this.bodyColor,
+          lower_body_color: this.bodyColor,
+          skin_color: this.headColor,
+      };
 
       console.log(customData);
       axios
-        .put(`${process.env.VUE_APP_API_URI}/api/updateSkin`, customData,
+        .put(`${process.env.VUE_APP_API_URI}/api/skin`, customData,
           {
             headers: {
               "Content-Type": "application/json",
@@ -116,9 +121,8 @@ export default {
             },
           })
         .then((response) => {
-          if (response.status === 201) {
-            console.log("Data send", response.data);
-            this.registrationSuccess = true;
+          if (response.status === 200) {
+            alert("La customisation a bien été enregistrée");
           } else {
             console.error(
               " Status :",
