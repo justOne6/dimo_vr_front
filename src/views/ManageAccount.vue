@@ -3,47 +3,39 @@
     <Navbar />
     <div class="container">
       <div class="inputs">
-        <p>Manage your account {{ user.firstname }} !</p>
+        <p>Gère ton compte {{ user.firstname }} !</p>
       </div>
       <div class="content">
-        <div class="sections" :class="{ 'with-border': personalInfo || showSecurity || showContact }"
+        <div class="sections" :class="{ 'with-border': personalInfo || showSecurity }"
           style="width: 30vw">
-          <p class="edits"><i class="mdi mdi-home" />&nbsp;Home</p>
           <v-divider style="color: black; height: 2px"></v-divider>
           <p class="edits" @click="togglePersonal" :class="{ 'font-bold': personalInfo }">
-            <i class="mdi mdi-account" />&nbsp;Personal informations
+            <i class="mdi mdi-account" />&nbsp;Informations personnelles
           </p>
           <v-divider style="color: black; height: 2px"></v-divider>
           <p class="edits" @click="toggleSecurity" :class="{ 'font-bold': showSecurity }">
-            <i class="mdi mdi-lock" />&nbsp;Security and confidentiality
+            <i class="mdi mdi-lock" />&nbsp;Modifier le mot de passe
           </p>
-          <v-divider style="color: black; height: 2px"></v-divider>
-          <p class="edits" @click="toggleContact" :class="{ 'font-bold': showContact }">
-            <i class="mdi mdi-phone" />&nbsp;Contact and share
-          </p>
-          <v-divider style=" color: black; height: 2px"></v-divider>
-          <p class="edits"><i class="mdi mdi-information" />&nbsp;About</p>
+
         </div>
         <div class="personal" v-if="personalInfo" style="width: 30vw; margin: auto 0;">
-          <div class="username">
-            Your username :
-            <a style="font-weight: bold">{{ username }}</a><br />
-            <v-btn style="margin-top: 10px" class="button" @click="toggleUsername"
-              v-if="showEditUsername">EDIT</v-btn><br />
-            <div v-if="!showEditUsername">
-              <input v-model="newUsername" placeholder="Your new username" class="input " />
-              <v-btn class="button" @click="saveUsername">SAVE USERNAME</v-btn>
-            </div>
-          </div><br />
-          <v-divider style="color: black; height: 2px"></v-divider><br />
-          <div class="username">
-            Your email address :
-            <a style="font-weight: bold">your email</a>
-            <v-btn style="margin-top: 10px" class="button" @click="toggleEmail" v-if="showEditEmail">EDIT</v-btn><br />
-            <div v-if="!showEditEmail" style="margin-top: 10px">
-              <input v-model="newEmail" placeholder="Your new email" class="input " /><br />
-              <v-btn class="button" @click="saveEmail">SAVE EMAIL</v-btn>
-            </div>
+          <div>
+            <v-form @submit.prevent="submitPersonalInfos">
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field v-model="user['lastname']" value="user['lastname']" label="Nom" outlined required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field v-model="user['firstname']" value="user['firstname']" label="Prénom" outlined required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field v-model="user['email']" label="Email" value="user['email']" outlined required></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-btn type="submit" color="primary">Enregistrer</v-btn>
+                </v-col>
+              </v-row>
+            </v-form>
           </div>
         </div>
         <div class="security" v-if="showSecurity" style="width: 30vw; margin: auto 0">
@@ -53,16 +45,6 @@
           <input placeholder="Confirm password" class="input" /><br />
           <v-btn class="button"><span>SAVE</span></v-btn>
         </div>
-        <div class="contact" v-if="showContact" style="width: 30vw; margin: auto 0;">
-          <p style="font-weight: bold">Contact form</p><br />
-          <input placeholder="Receiver's email" class="input" /><br />
-          <input placeholder="Message" class="input" style="height: 30vh !important" /><br />
-          <v-btn @click="sendForm" class="button">SEND</v-btn><br /><br />
-          <div v-if="messageSent" class="success" :class="{ 'hidden': !messageSent }"
-            style="color:green; font-weight: bold">
-            Message successfully sent !
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -70,76 +52,61 @@
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import axios from "axios";
 export default {
   components: { Navbar },
   data() {
     return {
       user: [],
-      showEditUsername: true, //used to show the "edit password" button
-      showEditEmail: true,
       showSecurity: false,
-      showContact: false,
-      editPassword: false, //used to know whether we can edit the password or not
-      newUsername: "", //used to change the username
       personalInfo: false, //toggle to show the "Personal Informations" section
-      messageSent: false,
     };
   },
-  mounted() {
+  beforeMount() {
     this.fetchUserData();
   },
   methods: {
-    fetchUserData() {
-      //Get the user data from the local storage
-      if (localStorage.getItem("user")) {
-        this.user = JSON.parse(localStorage.getItem("user"));
-      } else {
-        console.error("No user found.");
-      }
+    // Récupérer fraichement les infos du user pour préremplir les champs
+    async fetchUserData() {
+      await axios.get(`${process.env.VUE_APP_API_URI}/api/fetchUser`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }).then((response) => {
+        console.log(response.data.user);
+        this.user = response.data.user;
+      }).catch((error) => {
+        console.error("Error while fetching user data: ", error);
+      });
     },
-    //When message is sent to user
-    sendForm() {
-      this.messageSent = true;
-      setTimeout(() => {
-        this.messageSent = false;
-      }, 3000);
+    // Envoie des infos du compte
+    async submitPersonalInfos(){
+      const data = {
+        lastname: this.user.lastname,
+        firstname: this.user.firstname,
+        email: this.user.email
+      }
+      await axios.put( `${process.env.VUE_APP_API_URI}/api/updateUser`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }).then((response)=>{
+        // Mettre à jour le localStorage
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        alert("Informations mises à jour avec succès !");
+      }).catch((error)=>{
+        console.error("Error while updating user data: ", error);
+      });
     },
     //Show the "Security" section
     toggleSecurity() {
       this.showSecurity = !this.showSecurity;
-      this.personalInfo = false;
-      this.showContact = false;
-    },
-    //Show the "Contact" section
-    toggleContact() {
-      this.showContact = !this.showContact;
-      this.showSecurity = false;
       this.personalInfo = false;
     },
     //Show the "Personal Informations" section
     togglePersonal() {
       this.personalInfo = !this.personalInfo;
       this.showSecurity = false;
-      this.showContact = false;
-    },
-    togglePassword() {
-      this.editPassword = true;
-    },
-    toggleUsername() {
-      this.newUsername = this.username;
-      this.showEditUsername = false;
-    },
-    toggleEmail() {
-      this.newEmail = this.email;
-      this.showEditEmail = false;
-    },
-    saveUsername() {
-      this.username = this.newUsername;
-      this.showEditUsername = true;
-    },
-    saveEmail() {
-      this.email = this.newEmail;
-      this.showEditEmail = true;
     },
   },
 };
