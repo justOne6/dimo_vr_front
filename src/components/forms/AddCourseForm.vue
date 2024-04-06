@@ -4,7 +4,8 @@
       <!-- Message d'erreur -->
       <v-row v-if="error">
         <v-col>
-          <v-alert type="error">{{ error }}</v-alert>
+          <v-alert type="error" v-if="error">{{ error }}</v-alert>
+          <v-alert type="success" v-if="success">{{ success }}</v-alert>
         </v-col>
       </v-row>
       <v-row>
@@ -53,6 +54,7 @@ export default {
   data() {
     return {
       error: "",
+      success: "",
       course: {
         startDate: "",
         startTime: "",
@@ -81,6 +83,7 @@ export default {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
+        this.error = "";
         // Update the courses list
         this.$store.commit("updateReloadCourses");
         // Reset the form after successful creation
@@ -89,9 +92,11 @@ export default {
         this.course.endDate = "";
         this.course.endTime = "";
         this.course.isActive = false;
+        this.success = "Cours ajouté avec succès";
       } catch (error) {
         // si le code d'erreur est 400, on affiche les erreurs de validation
         if (error.response.status === 400) {
+          this.success = null;
           this.error = error.response.data.message;
         } else {
           console.error(error);

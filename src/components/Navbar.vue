@@ -27,8 +27,11 @@
             </router-link>
           </div>
           <div v-else-if="isAdmin" class="flex-center-content">
-            <router-link to="/admin/register-teacher" :class="{ 'active-link': $route.path === '/register-teacher' }" class="flex-center-content">
+            <router-link to="/admin/register-teacher" :class="{ 'active-link': $route.path === '/admin/register-teacher' }" class="flex-center-content">
               Ajouter un professseur
+            </router-link>
+            <router-link to="/admin/manage-lobbies" :class="{ 'active-link': $route.path === '/admin/manage-lobbies' }" class="flex-center-content">
+              Gérer les salles
             </router-link>
           </div>
         </div>
