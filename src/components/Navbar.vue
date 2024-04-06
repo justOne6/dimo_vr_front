@@ -1,58 +1,53 @@
 <template>
   <nav class="navbar">
-    <div class="page-restrict-width flex-center-content">
-      <div class="nav-left">
-        <router-link to="/" class="no-text-decoration flex-center-content"><img src="../assets/Dimo.png" style="width: 35px"/>
-          <span class="dimo" style="margin-left: 10px">Dimo</span>
-          <span class="vr-logo">VR</span>
+    <div class="navbar-left">
+      <router-link to="/" class="no-text-decoration flex-center-content"><img src="../assets/Dimo.png"
+          style="width: 35px" />
+      </router-link>
+      <div class="links">
+        <router-link to="/" :class="{ 'active-link': $route.path === '/' }" class="flex-center-content">
+          <span class="material-icons home-navbar">home</span>
         </router-link>
-        <div class="links">
-          <router-link to="/" :class="{ 'active-link': $route.path === '/' }" class="flex-center-content">
-            <span class="material-icons">home</span>
+        <div v-if="isStudent" class="flex-center-content">
+          <router-link to="/student/my-timetable" :class="{ 'active-link': $route.path === '/edt' }"
+            class="flex-center-content">
+            Emploi du temps
           </router-link>
-          <div v-if="isStudent" class="flex-center-content">
-            <router-link to="/student/my-timetable" :class="{ 'active-link': $route.path === '/edt' }" class="flex-center-content">
-              Emploie du temps
-            </router-link>
-            <router-link to="/student/my-programs" :class="{ 'active-link': $route.path === '/student-programs' }" class="flex-center-content">
-              Mes programmes
-            </router-link>
-            <router-link to="/student/my-marks" :class="{ 'active-link': $route.path === '/my-marks' }" class="flex-center-content">
-              Mes notes
-            </router-link>
-          </div>
-          <div v-else-if="isTeacher" class="flex-center-content">
-            <router-link to="/teacher/add-program" :class="{ 'active-link': $route.path === '/teacher/add-program' }" class="flex-center-content">
-              Nouveau Programme
-            </router-link>
-          </div>
-          <div v-else-if="isAdmin" class="flex-center-content">
-            <router-link to="/admin/register-teacher" :class="{ 'active-link': $route.path === '/admin/register-teacher' }" class="flex-center-content">
-              Ajouter un professseur
-            </router-link>
-            <router-link to="/admin/manage-lobbies" :class="{ 'active-link': $route.path === '/admin/manage-lobbies' }" class="flex-center-content">
-              Gérer les salles
-            </router-link>
-          </div>
+          <router-link to="/student/my-programs" :class="{ 'active-link': $route.path === '/student-programs' }"
+            class="flex-center-content">
+            Mes programmes
+          </router-link>
         </div>
-      </div>
-      <div class="nav-right">
-        <div v-if="isAuthenticated">
-          <DropdownAccount/>
+        <div v-else-if="isTeacher" class="flex-center-content">
+          <router-link to="/teacher/add-program" :class="{ 'active-link': $route.path === '/teacher/add-program' }"
+            class="flex-center-content">
+            Nouveau programme
+          </router-link>
         </div>
-        <div v-else>
-          <router-link to="/sign-in" class="no-text-decoration"><span class="material-icons">login</span>
+        <div v-else-if="isAdmin" class="flex-center-content">
+          <router-link to="/admin/register-teacher" :class="{ 'active-link': $route.path === '/register-teacher' }"
+            class="flex-center-content">
+            Ajouter un professseur
           </router-link>
         </div>
       </div>
+    </div>
+    <div class="navbar-right" v-if="$route.path !== '/sign-in' && $route.path !== '/sign-up'">
+      <div v-if="isAuthenticated">
+        <DropdownAccount />
       </div>
+      <div v-else>
+        <router-link to="/sign-in" class="no-text-decoration"><span class="material-icons">login</span>
+        </router-link>
+      </div>
+    </div>
   </nav>
 </template>
 
 <script>
 import axios from "axios";
 
-import {mapGetters, mapState} from "vuex";
+import { mapGetters, mapState } from "vuex";
 import DropdownAccount from "@/components/DropdownAccount.vue";
 
 export default {
@@ -101,6 +96,20 @@ export default {
   font-weight: bold;
 }
 
+.navbar-left {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+}
+
+.navbar-right {
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: right;
+}
+
 .profile {
   list-style-type: none;
   padding: 15px 30px;
@@ -139,7 +148,7 @@ export default {
   flex-direction: row;
   background-color: var(--background);
   font-family: "Fredoka One", sans-serif;
-  padding: 10px;
+  padding: 10px 20px;
   align-items: center;
   color: rgb(10, 8, 8);
   position: fixed !important;
@@ -148,7 +157,7 @@ export default {
   z-index: 1000;
 }
 
-.nav-left{
+.nav-left {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -196,7 +205,7 @@ export default {
   margin-left: auto !important;
 }
 
-.nav-profile{
+.nav-profile {
   background-color: white;
   color: black;
   position: absolute;

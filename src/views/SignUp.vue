@@ -4,7 +4,7 @@
       <div v-if="registrationError" class="error-message">
         {{ registrationError }}
       </div>
-      <div style="margin-top:2px">
+      <div class="container-with-navbar">
         <p class="welcome_message">WELCOME TO DIMOVR</p>
         <p class="page_title">Create Account</p>
         <div style="margin:0 auto">
@@ -44,7 +44,7 @@
 
 <script>
 import axios from "axios";
-import {mapActions} from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   components: {

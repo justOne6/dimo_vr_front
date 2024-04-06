@@ -6,49 +6,49 @@
           Connexion réussie! Vous pouvez maintenant accéder à votre tableau de
           bord.
         </p>
-    </div>
-    <div style="margin-top:2px">
-      <p class="welcome_message">WELCOME TO DIMOVR</p>
-      <p class="page_title">Sign In</p>
-      <div class="input_container">
-        <p class="input_title">Email</p>
-        <input class="input" label="Enter text..." v-model="email" placeholder="Enter email" />
       </div>
-      <div class="input_container">
-        <p class="input_title">Password</p>
-        <input class="input" label="Enter password" v-model="password"
-          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-          @click:append="showPassword = !showPassword" placeholder="Enter password" />
+      <div class="container-with-navbar">
+        <p class="welcome_message">WELCOME TO DIMOVR</p>
+        <p class="page_title">Sign In</p>
+        <div class="input_container">
+          <p class="input_title">Email</p>
+          <input class="input" label="Enter text..." v-model="email" placeholder="Enter email" />
+        </div>
+        <div class="input_container">
+          <p class="input_title">Password</p>
+          <input class="input" label="Enter password" v-model="password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
+            @click:append="showPassword = !showPassword" placeholder="Enter password" />
+        </div>
       </div>
-    </div>
-    <div class="signin">
-      <v-btn class="button" @click="signIn"><span>LOGIN</span></v-btn>
-    </div>
-    <div style="margin: 2% auto; width: fit-content">
-      <router-link to="/forgotten-password"
-        style="color: var(--nightPurple); font-weight: bold; text-decoration: none">Forgot
-        password ?</router-link>
-    </div>
-    <div style="width: fit-content; margin: auto">
-      <a href="/sign-up" style="
+      <div class="signin">
+        <v-btn class="button" @click="signIn"><span>LOGIN</span></v-btn>
+      </div>
+      <div style="margin: 2% auto; width: fit-content">
+        <router-link to="/forgotten-password"
+          style="color: var(--nightPurple); font-weight: bold; text-decoration: none">Forgot
+          password ?</router-link>
+      </div>
+      <div style="width: fit-content; margin: auto">
+        <a href="/sign-up" style="
             color: var(--nightPurple);
             font-weight: bold;
             text-decoration: none;
           ">
-        Create a new account ?
-      </a>
+          Create a new account ?
+        </a>
+      </div>
+      <div v-if="loginError" class="error-message">
+        <span v-html="loginError"></span>
+      </div>
     </div>
-    <div v-if="loginError" class="error-message">
-      <span v-html="loginError"></span>
-    </div>
-  </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 
-import{ mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   data() {

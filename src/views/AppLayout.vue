@@ -2,20 +2,16 @@
   <div>
     <Navbar />
     <slot></slot>
-    <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/Navbar.vue";
-import Footer from "@/components/Footer.vue";
 
 export default {
-  components: { Navbar, Footer } };
+  components: { Navbar }
+};
 
 </script>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>

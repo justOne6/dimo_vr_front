@@ -5,24 +5,24 @@
         <div class="introduction">
           <h1>Votre portail vers un monde d'apprentissage immersif et illimité</h1>
           <p>
-            Plongez dans une expérience éducative immersive où les frontières de la salle de classe traditionnelle s'effacent pour laisser place à un univers de possibilités infinies!
+            Plongez dans une expérience éducative immersive où les frontières de la salle de classe traditionnelle
+            s'effacent pour laisser place à un univers de possibilités infinies!
           </p>
-          <DButton href="/sign-up">Je rejoins Dimo !</DButton>
+          <v-btn class="button" style="margin-top: 30px" href="/sign-up">Je rejoins Dimo !</v-btn>
         </div>
         <div class="image-wrap">
-          <img src="../assets/Dimo.png"  alt="Logo DimoVr"/>
+          <img src="../assets/Dimo.png" alt="Logo DimoVr" />
         </div>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
-import DButton from "@/components/DButton.vue";
 
 export default {
   name: "AppHero",
-  components: {DButton},
+  components: {},
   setup() {
     return {
 
@@ -32,12 +32,13 @@ export default {
 </script>
 
 <style scoped>
-.hero-wrapper{
-  background: linear-gradient(to bottom, var(--dimoColor4), var(--dimoWhite));
+.hero-wrapper {
+  background: linear-gradient(to bottom, var(--babyBlue), var(--dimoWhite));
   color: var(--dimoColor1);
   margin: 3rem 0;
 }
-.hero-content-wrapper{
+
+.hero-content-wrapper {
   padding: 4rem 0;
   display: flex;
   flex-direction: row;
@@ -45,26 +46,26 @@ export default {
   align-items: center;
 }
 
-.introduction{
+.introduction {
   width: 60%;
 }
 
-.introduction p{
+.introduction p {
   font-size: 1.2rem;
   font-weight: bold;
   margin: 2rem 0;
 }
-.image-wrap{
+
+.image-wrap {
   width: 30%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
 
-.image-wrap img{
+.image-wrap img {
   width: 100%;
   height: auto;
   object-fit: cover;
 }
-
 </style>
