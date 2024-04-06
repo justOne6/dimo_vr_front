@@ -11,7 +11,7 @@
 <script>
 
 import AppLayout from "@/views/AppLayout.vue";
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -119,7 +119,7 @@ body {
   margin-top: 0 !important;
 }
 
-.no-text-decoration{
+.no-text-decoration {
   text-decoration: none !important;
 }
 
@@ -128,11 +128,13 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .page-restrict-width {
   width: 90%;
   max-width: 1800px;
   margin: 0 auto;
 }
+
 .wholePage {
   display: flex;
   justify-content: center;
@@ -140,6 +142,11 @@ body {
   height: 96vh;
   flex-direction: column;
 }
+
+.container-with-navbar {
+  margin-top: 50px;
+}
+
 :root {
   --lightBlue: #B6D0E2;
   --mediumBlue: #219EBC;
@@ -158,11 +165,9 @@ body {
   --dimoColor3: #8E68E6;
   --dimoColor4: #38B6FF;
   --dimoWhite: #FFFFFF;
-  --background: #C6D4FF;
+  --background: #FFFFFF;
   --blue: #668FFF;
   --button: #2485CF;
   --input: #D6E6FB;
 }
-
-
 </style>
