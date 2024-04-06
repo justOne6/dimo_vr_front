@@ -11,7 +11,6 @@
 
 <script>
 import axios from 'axios';
-import {mapActions} from "vuex";
 
 export default {
   name: 'AddSubjectForm',
@@ -28,7 +27,6 @@ export default {
     };
   },
   computed: {
-    ...mapActions(["updateReloadSubjects"]),
   },
   methods: {
     async createSubject() {
@@ -47,7 +45,7 @@ export default {
         });
 
         if (response.status === 200) {
-          await this.updateReloadSubjects;
+          this.$store.commit('updateReloadSubjects');
           // Reset the form after successful creation
           this.subject = {
             title: '',

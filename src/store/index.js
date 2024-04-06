@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import router from "@/router";
+import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -63,7 +64,13 @@ export default new Vuex.Store({
     updateIsAuthenticated({ commit }, isAuthenticated) {
       commit('updateIsAuthenticated', isAuthenticated);
     },
-    logout({ commit }) {
+    async logout({ commit }) {
+      // Déconnecter l'utilisateur de l'API
+      await axios.post(`${process.env.VUE_APP_API_URI}/api/logout`, null, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       // Supprimer les données de l'utilisateur de localStorage
       localStorage.removeItem('token');
       localStorage.removeItem('user');
@@ -75,10 +82,6 @@ export default new Vuex.Store({
       {
         router.push('/');
       }
-    },
-    // Actions pour mettre à jour reloadSubjects
-    updateReloadSubjects({ commit }) {
-      commit('updateReloadSubjects');
     },
   }
 });

@@ -1,9 +1,8 @@
 <template>
-  <div
-    style="margin-bottom: 0px !important; margin: auto !important;color: black; text-align: center; border:solid 1px red">
-    <p style="font-weight: bold !important; font-size: 12px; font-family: 'Fredoka-One', sans-serif !important;">&copy;
-      2024 DimoVR. Tous
-      droits réservés.</p>
+  <div class="footer">
+    <p class="footer_text">
+      &copy;2024 DimoVR. Tous droits réservés.
+    </p>
   </div>
 </template>
 
@@ -18,4 +17,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.footer {
+  margin-bottom: 0px !important;
+  margin: auto !important;
+  color: black;
+  text-align: center;
+}
+
+.footer_text {
+  font-weight: bold !important;
+  font-size: 12px;
+  font-family: "Fredoka-One", sans-serif !important;
+}
+</style>

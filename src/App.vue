@@ -5,17 +5,19 @@
         <router-view></router-view>
       </AppLayout>
     </v-main>
+    <Footer />
   </v-app>
 </template>
 
 <script>
 
 import AppLayout from "@/views/AppLayout.vue";
+import Footer from "@/components/Footer.vue"
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    AppLayout
+    AppLayout, Footer
   },
 
   data: () => ({
@@ -169,5 +171,6 @@ body {
   --blue: #668FFF;
   --button: #2485CF;
   --input: #D6E6FB;
+  --babyBlue: #C6D4FF;
 }
 </style>

@@ -10,8 +10,10 @@
     </div>
 
     <!-- Call-to-action section -->
+    <div style="text-align:center; margin-bottom: 20px">
+      <v-btn class="button" href="/sign-up">Je rejoins Dimo !</v-btn>
+    </div>
 
-    <v-btn class="button" href="/sign-up">Je rejoins Dimo !</v-btn>
 
 
   </div>
