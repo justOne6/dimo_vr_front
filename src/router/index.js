@@ -25,6 +25,7 @@ import ClassRoom from "../views/ClassRoom";
 import Quizz from "../views/QuizzCustom"
 import MyMarks from "@/views/student/MyMarks.vue";
 import QuestionnaireDetails from "@/views/student/QuestionnaireDetails.vue";
+import ManageLobbies from "@/views/admin/ManageLobbies.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,11 @@ const adminRoutes = [
     component: RegisterTeacherForm,
     meta: { requiresAuth: true, requiredRoles: ["admin"] },
   },
+  {
+    path: "manage-lobbies",
+    component: ManageLobbies,
+    meta: { requiresAuth: true, requiredRoles: ["admin"] },
+  }
 ];
 
 const teacherRoutes = [
