@@ -22,10 +22,11 @@ import TimeTable from "@/components/TimeTable.vue";
 // import ForgottenPassword from "../views/ForgottenPassword";
 // import Dashboard from "../views/DashboardHome";
 import ClassRoom from "../views/ClassRoom";
-import Quizz from "../views/QuizzCustom"
+import Quizz from "../views/QuizzCustom";
 import MyMarks from "@/views/student/MyMarks.vue";
 import QuestionnaireDetails from "@/views/student/QuestionnaireDetails.vue";
 import ManageLobbies from "@/views/admin/ManageLobbies.vue";
+import QuestionnairePage from "@/views/QuestionnairePage.vue";
 
 Vue.use(VueRouter);
 
@@ -45,7 +46,14 @@ const adminRoutes = [
     path: "manage-lobbies",
     component: ManageLobbies,
     meta: { requiresAuth: true, requiredRoles: ["admin"] },
-  }
+  },
+  {
+    path: "questionnaire-details/:questionnaireId",
+    props: true,
+    name: "AdminQuestionnairePage",
+    component: QuestionnairePage,
+    meta: { requiresAuth: true, requiredRoles: ["admin"] },
+  },
 ];
 
 const teacherRoutes = [
@@ -66,7 +74,14 @@ const teacherRoutes = [
     name: "AddSubjects",
     props: true,
     meta: { requiresAuth: true, requiredRoles: ["teacher"] },
-  }
+  },
+  {
+    path: "questionnaire-details/:questionnaireId",
+    props: true,
+    name: "TeacherQuestionnairePage",
+    component: QuestionnairePage,
+    meta: { requiresAuth: true, requiredRoles: ["teacher"] },
+  },
 ];
 
 const studentRoutes = [
@@ -93,18 +108,21 @@ const studentRoutes = [
     name: "MyMarks",
     component: MyMarks,
     meta: { requiresAuth: true, requiredRoles: ["student"] },
-  }
+  },
 ];
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: Home,
   },
   { path: "/sign-in", component: SignIn },
   { path: "/sign-up", component: SignUp },
-  { path: "/access-denied", component: () => import("../views/AccessDenied.vue")},
+  {
+    path: "/access-denied",
+    component: () => import("../views/AccessDenied.vue"),
+  },
   {
     path: "/manage-account",
     component: ManageAccount,
@@ -167,7 +185,7 @@ const router = new VueRouter({
 
 // Hook de navigation pour vérifier l'authentification avant chaque changement de route
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
     // Vérifie si la route nécessite une authentification
     if (!store.state.isAuthenticated) {
       // Si l'utilisateur n'est pas authentifié, redirigez-le vers la page de connexion
