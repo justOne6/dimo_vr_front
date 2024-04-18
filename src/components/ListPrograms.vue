@@ -48,7 +48,7 @@ export default {
     ...mapGetters(['isRolePresent']),
     isStudent() {
       return this.isRolePresent('student');
-    },
+    }
   },
   methods: {
     async fetchPrograms() {

@@ -194,8 +194,6 @@ export default {
       const max = new Date(`${end.date}T23:59:59`)
       const days = (max.getTime() - min.getTime()) / 86400000
 
-
-
       // Random event generation
       const eventCount = this.rnd(days, days + 20)
 
@@ -215,7 +213,6 @@ export default {
         })
       }
       // End of random event generation
-
       this.events = events
     },
     rnd (a, b) {
