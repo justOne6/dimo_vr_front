@@ -21,7 +21,7 @@
           <v-card-actions>
             <v-btn width="100%"  color="primary" :to="{ name: 'ProgramPage', params: { programId: program.id }}">Voir détails</v-btn>
           </v-card-actions>
-          <v-card-actions v-if="isStudent" >
+          <v-card-actions v-if="isStudent  && !studentIsRegisteredToPrograms.includes(program.id)">
             <v-btn width="100%" color="primary" @click="handleSignup(program.id)">S'inscrire</v-btn>
           </v-card-actions>
         </v-card>
@@ -39,6 +39,7 @@ export default {
   data() {
     return {
       programs: [],
+      studentIsRegisteredToPrograms: [] ,
     };
   },
   beforeMount() {
@@ -54,12 +55,21 @@ export default {
     async fetchPrograms() {
       try {
         const response = await axios.get(`${process.env.VUE_APP_API_URI}/api/programs`);
-        this.programs = response.data.programs;
+        this.programs = response.data.programs
+        // Créer un tableau contenant les id des programmes auxquels l'élève est inscrit
+        if (this.isStudent) {
+          const registeredPrograms = await axios.get(`${process.env.VUE_APP_API_URI}/api/student-programs`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          });
+          this.studentIsRegisteredToPrograms = registeredPrograms.data.programs.map(program => program.id);
+          console.log("Student programs: ", this.studentIsRegisteredToPrograms);
+        }
       } catch (error) {
         console.error('Erreur lors de la récupération des programmes :', error);
       }
     },
-
     async handleSignup(programId) {
       const formData = new FormData();
       formData.append('program_id', programId);
