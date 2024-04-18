@@ -3,12 +3,20 @@
     <div class="page-restrict-width">
       <div class="hero-content-wrapper">
         <div class="introduction">
-          <h1>Votre portail vers un monde d'apprentissage immersif et illimité</h1>
+          <h1>
+            Votre portail vers un monde d'apprentissage immersif et illimité
+          </h1>
           <p>
-            Plongez dans une expérience éducative immersive où les frontières de la salle de classe traditionnelle
-            s'effacent pour laisser place à un univers de possibilités infinies!
+            Plongez dans une expérience éducative immersive où les frontières de
+            la salle de classe traditionnelle s'effacent pour laisser place à un
+            univers de possibilités infinies!
           </p>
-          <v-btn class="button" style="margin-top: 30px" href="/sign-up">Je rejoins Dimo !</v-btn>
+          <v-btn
+            v-if="!isAuthenticated"
+            color="var(--bluePurple)"
+            href="/sign-up"
+            ><span style="color: var(--dimoWhite)">Je rejoins Dimo</span></v-btn
+          >
         </div>
         <div class="image-wrap">
           <img src="../assets/Dimo.png" alt="Logo DimoVr" />
@@ -19,14 +27,13 @@
 </template>
 
 <script>
-
+import { mapState } from "vuex";
 export default {
   name: "AppHero",
   components: {},
+  computed: { ...mapState(["isAuthenticated"]) },
   setup() {
-    return {
-
-    };
+    return {};
   },
 };
 </script>
