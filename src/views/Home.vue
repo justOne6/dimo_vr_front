@@ -10,12 +10,15 @@
     </div>
 
     <!-- Call-to-action section -->
-    <div style="text-align:center; margin-bottom: 20px">
-      <v-btn class="button" href="/sign-up">Je rejoins Dimo !</v-btn>
+    <div style="display: flex; justify-content: center">
+      <v-btn
+        v-if="!isAuthenticated"
+        width="20%"
+        color="var(--bluePurple)"
+        href="/sign-up"
+        ><span style="color: var(--dimoWhite)">Je rejoins Dimo</span></v-btn
+      >
     </div>
-
-
-
   </div>
 </template>
 
@@ -23,28 +26,27 @@
 import Hero from "@/components/Hero.vue";
 import ProgramList from "@/components/ListPrograms.vue";
 import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 
 export default {
-  name: 'AppHome',
+  name: "AppHome",
   components: { ProgramList, Hero },
   computed: {
-    ...mapGetters(['isRolePresent']),
+    ...mapState(["isAuthenticated"]),
+    ...mapGetters(["isRolePresent"]),
     isStudent() {
-      return this.isRolePresent('student');
+      return this.isRolePresent("student");
     },
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     handleSignup() {
       // Handle signup action
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style scoped>
-/* Ajoutez vos styles personnalisés ici si nécessaire */
-</style>
+<style scoped></style>
