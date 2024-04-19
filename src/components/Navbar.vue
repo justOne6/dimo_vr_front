@@ -41,8 +41,12 @@
         <DropdownAccount />
       </div>
       <div v-else>
-        <router-link to="/sign-in" class="no-text-decoration"><span class="material-icons" title="logout">login</span>
+        <router-link to="/sign-in" class="no-text-decoration"><span class="material-icons" title="logout"
+            @mouseover="showSignInTooltip = true" @mouseout="showSignInTooltip = false">login</span>
         </router-link>
+        <div class="logout_tooltip" v-if="showSignInTooltip">
+          <p class="tooltip_text">Sign in</p>
+        </div>
       </div>
     </div>
   </nav>
@@ -62,6 +66,7 @@ export default {
   data() {
     return {
       profileClicked: false,
+      showSignInTooltip: false,
     };
   },
   methods: {
@@ -119,6 +124,20 @@ export default {
   padding: 15px 30px;
   cursor: pointer;
   color: grey
+}
+
+.logout_tooltip {
+  position: absolute;
+  margin-left: -30px !important;
+  padding: 5px !important;
+  width: 70px;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.tooltip_text {
+  margin: 0 auto !important;
+  width: fit-content;
 }
 
 /* When account icon is clicked */
