@@ -23,8 +23,8 @@
             class="flex-center-content">
             Nouveau programme
           </router-link>
-          <router-link to="/teacher/register-student" :class="{ 'active-link': $route.path === '/teacher/register-student' }"
-                       class="flex-center-content">
+          <router-link to="/teacher/register-student"
+            :class="{ 'active-link': $route.path === '/teacher/register-student' }" class="flex-center-content">
             Ajouter un étudiant
           </router-link>
         </div>
@@ -41,7 +41,7 @@
         <DropdownAccount />
       </div>
       <div v-else>
-        <router-link to="/sign-in" class="no-text-decoration"><span class="material-icons">login</span>
+        <router-link to="/sign-in" class="no-text-decoration"><span class="material-icons" title="logout">login</span>
         </router-link>
       </div>
     </div>
