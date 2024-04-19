@@ -5,17 +5,17 @@
         {{ registrationError }}
       </div>
       <div v-if="registrationSuccess" class="success-message">
-        Le nouveau professeur a bien été enregistré.
+        Le nouvel étudiant a bien été enregistré.
       </div>
       <div style="margin-top:20px">
-        <p class="create">Add a new teacher</p>
+        <p class="create">Add a new student</p>
         <v-text-field outlined clearable class="input" label="First Name" v-model="firstname"></v-text-field>
         <v-text-field outlined clearable class="input" label="Last Name" v-model="lastname"></v-text-field>
         <v-text-field outlined clearable class="input" label="Email" v-model="email" type="email"></v-text-field>
       </div>
       <br />
       <div class="signup">
-        <v-btn class="signup_button" @click="signUp"><span>Create teacher account</span></v-btn>
+        <v-btn class="signup_button" @click="signUp"><span>Create student account</span></v-btn>
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@ export default {
       };
 
       axios
-          .post(`${process.env.VUE_APP_API_URI}/api/admin/register-teacher`, userData, {
+          .post(`${process.env.VUE_APP_API_URI}/api/register-student`, userData, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

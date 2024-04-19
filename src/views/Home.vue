@@ -10,15 +10,15 @@
     </div>
 
     <!-- Call-to-action section -->
-    <div style="display: flex; justify-content: center">
+<!--    <div style="display: flex; justify-content: center">
       <v-btn
         v-if="!isAuthenticated"
         width="20%"
-        color="var(--bluePurple)"
+        color="var(&#45;&#45;bluePurple)"
         href="/sign-up"
-        ><span style="color: var(--dimoWhite)">Je rejoins Dimo</span></v-btn
+        ><span style="color: var(&#45;&#45;dimoWhite)">Je rejoins Dimo</span></v-btn
       >
-    </div>
+    </div>-->
   </div>
 </template>
 
