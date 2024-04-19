@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store";
 import SignIn from "../views/SignIn.vue";
-import SignUp from "../views/SignUp.vue";
 import Home from "@/views/Home.vue";
 import ManageAccount from "@/views/ManageAccount.vue";
 import CustomCharacter from "@/views/CustomCharacter.vue";
@@ -27,6 +26,7 @@ import MyMarks from "@/views/student/MyMarks.vue";
 import QuestionnaireDetails from "@/views/student/QuestionnaireDetails.vue";
 import ManageLobbies from "@/views/admin/ManageLobbies.vue";
 import QuestionnairePage from "@/views/QuestionnairePage.vue";
+import RegisterStudentForm from "@/components/forms/RegisterStudentForm.vue";
 
 Vue.use(VueRouter);
 
@@ -82,6 +82,12 @@ const teacherRoutes = [
     component: QuestionnairePage,
     meta: { requiresAuth: true, requiredRoles: ["teacher"] },
   },
+  {
+    name: "register-student",
+    path: "register-student",
+    component: RegisterStudentForm,
+    meta: { requiresAuth: true, requiredRoles: ["teacher"] },
+  },
 ];
 
 const studentRoutes = [
@@ -118,7 +124,6 @@ const routes = [
     component: Home,
   },
   { path: "/sign-in", component: SignIn },
-  { path: "/sign-up", component: SignUp },
   {
     path: "/access-denied",
     component: () => import("../views/AccessDenied.vue"),

@@ -4,6 +4,9 @@
       <div v-if="registrationError" class="error-message">
         {{ registrationError }}
       </div>
+      <div v-if="registrationSuccess" class="success-message">
+        Le nouveau professeur a bien été enregistré.
+      </div>
       <div>
         <p class="page_title">Add a new teacher</p>
         <div class="input_container">
@@ -17,12 +20,6 @@
         <div class="input_container">
           <p class="input_title">Email</p>
           <input class="input" label="Enter text..." v-model="email" placeholder="Enter email" />
-        </div>
-        <div class="input_container">
-          <p class="input_title">Password</p>
-          <input class="input" label="Enter text..." v-model="password" placeholder="Enter password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" :type="showPassword ? 'text' : 'password'"
-            @click:append="showPassword = !showPassword" />
         </div>
       </div>
       <br />
@@ -46,8 +43,6 @@ export default {
       lastname: "",
       firstname: "",
       email: "",
-      password: "",
-      showPassword: false,
       registrationSuccess: false,
       registrationError: null,
     };
@@ -59,7 +54,6 @@ export default {
         lastname: this.lastname,
         firstname: this.firstname,
         email: this.email,
-        password: this.password,
       };
 
       axios
@@ -72,6 +66,13 @@ export default {
           console.log("Response: ", response);
           if (response.status === 200) {
             this.registrationSuccess = true;
+            // efface les champs
+            this.lastname = "";
+            this.firstname = "";
+            this.email = "";
+            setTimeout(() => {
+              this.registrationSuccess = false;
+            }, 5000);
           }
         })
         .catch((error) => {
