@@ -47,17 +47,16 @@ import Body from "@/assets/custom/body/BodySVG.vue";
 import HairMale1SVG from "@/assets/custom/hair/HairMale1SVG.vue";
 import HairFemale1SVG from "@/assets/custom/hair/HairFemale1SVG.vue";
 import HairMale2SVG from "@/assets/custom/hair/HairMale2SVG.vue";
-import HairFemale2SVG from "@/assets/custom/hair/HairFemale2SVG.vue";
 import axios from "axios";
 
 export default {
-  components: { Body, HairMale1SVG, HairFemale1SVG, HairMale2SVG, HairFemale2SVG, Navbar },
+  components: { Body, HairMale1SVG, HairFemale1SVG, HairMale2SVG, Navbar },
   data() {
     return {
       hairColor: "#5286FF",
       bodyColor: "#F96C9D",
       headColor: "#D37878",
-      availableHairComponents: [HairMale1SVG, HairFemale1SVG, HairMale2SVG, HairFemale2SVG],
+      availableHairComponents: [HairMale1SVG, HairFemale1SVG, HairMale2SVG],
       currentHairIndex: 0,
     };
   },

@@ -11,12 +11,12 @@
             la salle de classe traditionnelle s'effacent pour laisser place à un
             univers de possibilités infinies!
           </p>
-          <v-btn
+<!--          <v-btn
             v-if="!isAuthenticated"
-            color="var(--bluePurple)"
+            color="var(&#45;&#45;bluePurple)"
             href="/sign-up"
-            ><span style="color: var(--dimoWhite)">Je rejoins Dimo</span></v-btn
-          >
+            ><span style="color: var(&#45;&#45;dimoWhite)">Je rejoins Dimo</span></v-btn
+          >-->
         </div>
         <div class="image-wrap">
           <img src="../assets/Dimo.png" alt="Logo DimoVr" />

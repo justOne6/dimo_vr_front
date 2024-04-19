@@ -23,6 +23,10 @@
             class="flex-center-content">
             Nouveau programme
           </router-link>
+          <router-link to="/teacher/register-student" :class="{ 'active-link': $route.path === '/teacher/register-student' }"
+                       class="flex-center-content">
+            Ajouter un étudiant
+          </router-link>
         </div>
         <div v-else-if="isAdmin" class="flex-center-content">
           <router-link to="/admin/register-teacher" :class="{ 'active-link': $route.path === '/register-teacher' }"
