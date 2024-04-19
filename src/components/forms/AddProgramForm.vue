@@ -1,6 +1,6 @@
 <template>
-  <div class="wholePage">
-    <h2 class="headline">Create Program</h2>
+  <div class="wholePage main" style="margin-top:-10px">
+    <p class="page_title">Create Program</p>
     <v-form @submit.prevent="createProgram">
       <v-text-field v-model="program.name" label="Nom" required></v-text-field>
       <v-textarea v-model="program.description" label="Description" required></v-textarea>
@@ -13,7 +13,7 @@
           <v-text-field v-model="program.end_date" label="Date de fin" type="date" required></v-text-field>
         </v-col>
       </v-row>
-      <v-btn type="submit" color="primary">Créer un nouveau programme</v-btn>
+      <div class="signup"> <v-btn type="submit" color="primary">CREATE</v-btn></div>
     </v-form>
   </div>
 </template>
@@ -46,30 +46,30 @@ export default {
       formData.append('end_date', this.program.end_date);
 
       axios
-          .post(`${process.env.VUE_APP_API_URI}/api/programs`, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .then((response) => {
-            console.log("Response: ", response);
-            if (response.status === 200) {
-              // Regiriger vers la création de matières
-              this.$router.push("/programs/" + response.data.program.id);
+        .post(`${process.env.VUE_APP_API_URI}/api/programs`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          console.log("Response: ", response);
+          if (response.status === 200) {
+            // Regiriger vers la création de matières
+            this.$router.push("/programs/" + response.data.program.id);
+          }
+        })
+        .catch((error) => {
+          console.error("Error while registering new teacher: ", error)
+          if (error.response) {
+            if (error.response.status === 500) {
+              this.registrationError = error?.response?.data.message;
             }
-          })
-          .catch((error) => {
-            console.error("Error while registering new teacher: ", error)
-            if (error.response) {
-              if (error.response.status === 500) {
-                this.registrationError = error?.response?.data.message;
-              }
-            }
-            setTimeout(() => {
-              this.registrationError = null;
-            }, 5000);
-          });
+          }
+          setTimeout(() => {
+            this.registrationError = null;
+          }, 5000);
+        });
     }
   }
 };
