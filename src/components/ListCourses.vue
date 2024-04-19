@@ -168,6 +168,8 @@ export default {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }).then(() => {
+          // Refresh the courses list
+          console.log('Vous avez rejoint le cours');
           this.$store.commit('updateReloadCourses', !this.reloadCourses);
         });
       }catch (error) {
