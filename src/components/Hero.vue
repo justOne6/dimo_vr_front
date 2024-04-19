@@ -3,6 +3,7 @@
     <div class="page-restrict-width">
       <div class="hero-content-wrapper">
         <div class="introduction">
+          <h1>Bienvenue {{ user.firstname }}</h1>
           <h1>
             Votre portail vers un monde d'apprentissage immersif et illimité
           </h1>
@@ -11,7 +12,7 @@
             la salle de classe traditionnelle s'effacent pour laisser place à un
             univers de possibilités infinies!
           </p>
-<!--          <v-btn
+          <!--          <v-btn
             v-if="!isAuthenticated"
             color="var(&#45;&#45;bluePurple)"
             href="/sign-up"
@@ -34,6 +35,18 @@ export default {
   computed: { ...mapState(["isAuthenticated"]) },
   setup() {
     return {};
+  },
+  data() {
+    return { user: [] };
+  },
+  async mounted() {
+    this.fetchUserData();
+  },
+  methods: {
+    fetchUserData() {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      console.log("helloooo");
+    },
   },
 };
 </script>
