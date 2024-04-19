@@ -22,7 +22,8 @@
         </div>
       </div>
       <div class="signin">
-        <v-btn class="button" @click="signIn"><span>LOGIN</span></v-btn>
+        <v-row>
+          <v-col cols="12" md="6"><v-btn class="button" @click="signIn"><span>LOGIN</span></v-btn></v-col></v-row>
       </div>
       <div style="margin: 2% auto; width: fit-content">
         <router-link to="/forgotten-password"
