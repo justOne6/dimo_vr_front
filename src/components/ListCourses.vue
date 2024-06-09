@@ -20,34 +20,26 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-    <!-- Dialog to show when the user wants to delete a course -->
-    <v-dialog
-        v-model="dialog"
-        width="auto"
-    >
-      <v-card
-          max-width="400"
-          prepend-icon="mdi-update"
-          :text="text"
-          title="Liste des participants"
-      >
+
+    <v-dialog v-model="dialog" width="auto">
+      <v-card max-width="400" prepend-icon="mdi-update" :text="text" title="Liste des participants">
         <template v-slot:actions>
-          <v-btn
-              class="ms-auto"
-              text="Ok"
-              @click="dialog = false"
-          ></v-btn>
+          <v-btn class="ms-auto" text="Ok" @click="dialog = false"></v-btn>
         </template>
       </v-card>
     </v-dialog>
+
+    <v-snackbar v-model="snackbar" :timeout="snackbarTimeout" color="error" top>
+      {{ snackbarText }}
+    </v-snackbar>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import { mapGetters, mapState} from "vuex";
+import { mapGetters, mapState } from "vuex";
 import { format } from 'date-fns';
-import {fr} from "date-fns/locale";
+import { fr } from "date-fns/locale";
 
 export default {
   name: 'ListCourses',
@@ -56,7 +48,10 @@ export default {
     return {
       courses: [],
       dialog: false,
-      text: ""
+      text: "",
+      snackbar: false,
+      snackbarText: "",
+      snackbarTimeout: 6000,
     };
   },
   props: {
@@ -80,31 +75,19 @@ export default {
   },
   methods: {
     async fetchCourses() {
-      if(this.isStudent) {
-        try {
-          const response = await axios.get(`${process.env.VUE_APP_API_URI}/api/courses/subject/${this.subjectId}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          // Need to filter the courses to only show the ones that are related to the subject
-          this.courses = response.data.courses.filter(course => course.subject_id === parseInt(this.subjectId));
-        } catch (error) {
-          console.error('Erreur lors de la récupération des programmes :', error);
-        }
-      }
-      else if(this.isTeacher || this.isAdmin) {
-        try {
-          const response = await axios.get(`${process.env.VUE_APP_API_URI}/api/courses`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          });
-          // Need to filter the courses to only show the ones that are related to the subject
-          this.courses = response.data.courses.filter(course => course.subject_id === parseInt(this.subjectId));
-        } catch (error) {
-          console.error('Erreur lors de la récupération des programmes :', error);
-        }
+      try {
+        const url = this.isStudent
+            ? `${process.env.VUE_APP_API_URI}/api/courses/subject/${this.subjectId}`
+            : `${process.env.VUE_APP_API_URI}/api/courses`;
+
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        this.courses = response.data.courses.filter(course => course.subject_id === parseInt(this.subjectId));
+      } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la récupération des programmes : ' + error.message);
       }
     },
     async deleteCourse(courseId) {
@@ -113,14 +96,10 @@ export default {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }).then(() => {
-          this.$store.commit('updateReloadCourses', !this.reloadCourses);
-        }).catch((error) => {
-          console.error('Erreur lors de la suppression du cours :', error);
         });
-
+        this.$store.commit('updateReloadCourses', !this.reloadCourses);
       } catch (error) {
-        console.error('Erreur lors de la suppression du cours :', error);
+        this.showErrorSnackbar('Erreur lors de la suppression du cours : ' + error.message);
       }
     },
     async startCourse(courseId) {
@@ -129,14 +108,14 @@ export default {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }).then(() => {
-          this.$store.commit('updateReloadCourses', !this.reloadCourses);
         });
+        this.$store.commit('updateReloadCourses', !this.reloadCourses);
       } catch (error) {
-        if(error.response.status === 400)
+        if (error.response && error.response.status === 400) {
           alert(error.response.data.message);
-        else
-        console.error('Erreur lors du démarrage du cours :', error);
+        } else {
+          this.showErrorSnackbar('Erreur lors du démarrage du cours : ' + error.message);
+        }
       }
     },
     async endCourse(courseId) {
@@ -145,49 +124,37 @@ export default {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }).then(() => {
-          this.$store.commit('updateReloadCourses');
         });
-        } catch (error) {
-          console.error('Erreur lors de la fin du cours :', error);
+        this.$store.commit('updateReloadCourses');
+      } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la fin du cours : ' + error.message);
       }
     },
-    isPassed(end_date) {
-      const currentDate = new Date();
-      const endDate = new Date(end_date);
-      return currentDate > endDate;
-    },
     formatDate(date) {
-      // Formater en français
-      return format(new Date(date),'EEEE d MMMM yyyy à HH:mm', {locale: fr});
+      return format(new Date(date), 'EEEE d MMMM yyyy à HH:mm', {locale: fr});
     },
     async joinCourse(courseId) {
       try {
-        await axios.post(`${process.env.VUE_APP_API_URI}/api/join-course`, {"course_id":courseId}, {
+        await axios.post(`${process.env.VUE_APP_API_URI}/api/join-course`, {"course_id": courseId}, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }).then(() => {
-          // Refresh the courses list
-          console.log('Vous avez rejoint le cours');
-          this.$store.commit('updateReloadCourses', !this.reloadCourses);
         });
-      }catch (error) {
-        console.error('Erreur lors de la participation au cours :', error);
+        this.$store.commit('updateReloadCourses', !this.reloadCourses);
+      } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la participation au cours : ' + error.message);
       }
     },
     async leaveCourse(courseId) {
       try {
-        await axios.post(`${process.env.VUE_APP_API_URI}/api/leave-course`, {"course_id":courseId}, {
+        await axios.post(`${process.env.VUE_APP_API_URI}/api/leave-course`, {"course_id": courseId}, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }).then(() => {
-          this.$store.commit('updateReloadCourses', !this.reloadCourses);
         });
-      }
-      catch (error) {
-        console.error('Erreur lors de la sortie du cours :', error);
+        this.$store.commit('updateReloadCourses', !this.reloadCourses);
+      } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la sortie du cours : ' + error.message);
       }
     },
     async fetchParticipants(courseId) {
@@ -198,15 +165,17 @@ export default {
           },
         });
         this.dialog = true;
-        console.log(response.data);
         this.text = response.data.countActiveParticipants;
       } catch (error) {
-        console.error('Erreur lors de la récupération des participants :', error);
+        this.showErrorSnackbar('Erreur lors de la récupération des participants : ' + error.message);
       }
+    },
+    showErrorSnackbar(message) {
+      this.snackbarText = message;
+      this.snackbar = true;
     }
   },
   watch: {
-    // Call the fetchCourses method when the reloadCourses state changes
     reloadCourses() {
       this.fetchCourses();
     }
@@ -215,9 +184,7 @@ export default {
 </script>
 
 <style scoped>
-
-.courses-titles{
+.courses-titles {
   font-size: 1.5rem;
 }
-
 </style>
