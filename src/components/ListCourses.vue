@@ -37,7 +37,7 @@
         </v-expansion-panel-content>
         <v-expansion-panel-content v-if="isStudent && course.is_active">
           <v-btn
-            v-if="!isJoined(course.id)"
+            v-if="!isJoined(course.id) && !isPassed(course.end_date)"
             color="primary"
             @click="joinCourse(course.id)"
             >Rejoindre le cours</v-btn
@@ -51,7 +51,6 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-    <!-- Dialog to show when the user wants to delete a course -->
     <v-dialog v-model="dialog" width="auto">
       <v-card
         max-width="400"
@@ -75,7 +74,6 @@ import { fr } from "date-fns/locale";
 
 export default {
   name: "ListCourses",
-  components: {},
   data() {
     return {
       joinedCourses: [],
@@ -118,7 +116,6 @@ export default {
               },
             }
           );
-          // Need to filter the courses to only show the ones that are related to the subject
           this.courses = response.data.courses.filter(
             (course) => course.subject_id === parseInt(this.subjectId)
           );
@@ -138,7 +135,6 @@ export default {
               },
             }
           );
-          // Need to filter the courses to only show the ones that are related to the subject
           this.courses = response.data.courses.filter(
             (course) => course.subject_id === parseInt(this.subjectId)
           );
@@ -152,37 +148,31 @@ export default {
     },
     async deleteCourse(courseId) {
       try {
-        await axios
-          .delete(`${process.env.VUE_APP_API_URI}/api/courses/${courseId}`, {
+        await axios.delete(
+          `${process.env.VUE_APP_API_URI}/api/courses/${courseId}`,
+          {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
-          })
-          .then(() => {
-            this.$store.commit("updateReloadCourses", !this.reloadCourses);
-          })
-          .catch((error) => {
-            console.error("Erreur lors de la suppression du cours :", error);
-          });
+          }
+        );
+        this.$store.commit("updateReloadCourses", !this.reloadCourses);
       } catch (error) {
         console.error("Erreur lors de la suppression du cours :", error);
       }
     },
     async startCourse(courseId) {
       try {
-        await axios
-          .put(
-            `${process.env.VUE_APP_API_URI}/api/courses/${courseId}/start`,
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          )
-          .then(() => {
-            this.$store.commit("updateReloadCourses", !this.reloadCourses);
-          });
+        await axios.put(
+          `${process.env.VUE_APP_API_URI}/api/courses/${courseId}/start`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        this.$store.commit("updateReloadCourses", !this.reloadCourses);
       } catch (error) {
         if (error.response.status === 400) alert(error.response.data.message);
         else console.error("Erreur lors du démarrage du cours :", error);
@@ -190,19 +180,16 @@ export default {
     },
     async endCourse(courseId) {
       try {
-        await axios
-          .put(
-            `${process.env.VUE_APP_API_URI}/api/courses/${courseId}/end`,
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          )
-          .then(() => {
-            this.$store.commit("updateReloadCourses");
-          });
+        await axios.put(
+          `${process.env.VUE_APP_API_URI}/api/courses/${courseId}/end`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        this.$store.commit("updateReloadCourses");
       } catch (error) {
         console.error("Erreur lors de la fin du cours :", error);
       }
@@ -213,47 +200,38 @@ export default {
       return currentDate > endDate;
     },
     formatDate(date) {
-      // Formater en français
       return format(new Date(date), "EEEE d MMMM yyyy à HH:mm", { locale: fr });
     },
-
     async joinCourse(courseId) {
       try {
-        await axios
-          .post(
-            `${process.env.VUE_APP_API_URI}/api/join-course`,
-            { course_id: courseId },
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          )
-          .then(() => {
-            this.joinedCourses.push(courseId);
-            alert("Vous avez bien rejoint le cours !");
-            this.$store.commit("updateReloadCourses", !this.reloadCourses);
-          });
+        await axios.post(
+          `${process.env.VUE_APP_API_URI}/api/join-course`,
+          { course_id: courseId },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        this.joinedCourses.push(courseId);
+        alert("Vous avez bien rejoint le cours !");
+        this.$store.commit("updateReloadCourses", !this.reloadCourses);
       } catch (error) {
         console.error("Erreur lors de la participation au cours :", error);
       }
     },
-
     async leaveCourse(courseId) {
       try {
-        await axios
-          .post(
-            `${process.env.VUE_APP_API_URI}/api/leave-course`,
-            { course_id: courseId },
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          )
-          .then(() => {
-            this.$store.commit("updateReloadCourses", !this.reloadCourses);
-          });
+        await axios.post(
+          `${process.env.VUE_APP_API_URI}/api/leave-course`,
+          { course_id: courseId },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        this.$store.commit("updateReloadCourses", !this.reloadCourses);
       } catch (error) {
         console.error("Erreur lors de la sortie du cours :", error);
       }
@@ -269,7 +247,6 @@ export default {
           }
         );
         this.dialog = true;
-        console.log(response.data);
         this.text = response.data.countActiveParticipants;
       } catch (error) {
         console.error(
@@ -280,7 +257,6 @@ export default {
     },
   },
   watch: {
-    // Call the fetchCourses method when the reloadCourses state changes
     reloadCourses() {
       this.fetchCourses();
     },
