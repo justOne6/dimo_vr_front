@@ -51,6 +51,15 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+    
+    <v-dialog v-model="dialog" width="auto">
+      <v-card max-width="400" prepend-icon="mdi-update" :text="text" title="Liste des participants">
+        <template v-slot:actions>
+          <v-btn class="ms-auto" text="Ok" @click="dialog = false"></v-btn>
+        </template>
+      </v-card>
+    </v-dialog>
+    
     <!-- Dialog to show when the user wants to delete a course -->
     <v-dialog v-model="dialog" width="auto">
       <v-card
@@ -59,11 +68,15 @@
         :text="text"
         title="Liste des participants"
       >
-        <template v-slot:actions>
+      <template v-slot:actions>
           <v-btn class="ms-auto" text="Ok" @click="dialog = false"></v-btn>
         </template>
       </v-card>
     </v-dialog>
+
+    <v-snackbar v-model="snackbar" :timeout="snackbarTimeout" color="error" top>
+      {{ snackbarText }}
+    </v-snackbar>
   </div>
 </template>
 
@@ -82,6 +95,9 @@ export default {
       courses: [],
       dialog: false,
       text: "",
+      snackbar: false,
+      snackbarText: "",
+      snackbarTimeout: 6000,
     };
   },
   props: {
@@ -123,6 +139,7 @@ export default {
             (course) => course.subject_id === parseInt(this.subjectId)
           );
         } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la récupération des programmes : ' + error.message);
           console.error(
             "Erreur lors de la récupération des programmes :",
             error
@@ -143,6 +160,7 @@ export default {
             (course) => course.subject_id === parseInt(this.subjectId)
           );
         } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la récupération des programmes : ' + error.message);
           console.error(
             "Erreur lors de la récupération des programmes :",
             error
@@ -162,9 +180,11 @@ export default {
             this.$store.commit("updateReloadCourses", !this.reloadCourses);
           })
           .catch((error) => {
+            this.showErrorSnackbar('Erreur lors de la suppression du cours : ' + error.message);
             console.error("Erreur lors de la suppression du cours :", error);
           });
       } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la suppression du cours : ' + error.message);
         console.error("Erreur lors de la suppression du cours :", error);
       }
     },
@@ -185,7 +205,7 @@ export default {
           });
       } catch (error) {
         if (error.response.status === 400) alert(error.response.data.message);
-        else console.error("Erreur lors du démarrage du cours :", error);
+        else this.showErrorSnackbar('Erreur lors du démarrage du cours : ' + error.message);
       }
     },
     async endCourse(courseId) {
@@ -204,13 +224,9 @@ export default {
             this.$store.commit("updateReloadCourses");
           });
       } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la fin du cours : ' + error.message);
         console.error("Erreur lors de la fin du cours :", error);
       }
-    },
-    isPassed(end_date) {
-      const currentDate = new Date();
-      const endDate = new Date(end_date);
-      return currentDate > endDate;
     },
     formatDate(date) {
       // Formater en français
@@ -235,6 +251,7 @@ export default {
             this.$store.commit("updateReloadCourses", !this.reloadCourses);
           });
       } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la participation au cours : ' + error.message);
         console.error("Erreur lors de la participation au cours :", error);
       }
     },
@@ -255,6 +272,7 @@ export default {
             this.$store.commit("updateReloadCourses", !this.reloadCourses);
           });
       } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la sortie du cours : ' + error.message);
         console.error("Erreur lors de la sortie du cours :", error);
       }
     },
@@ -269,18 +287,21 @@ export default {
           }
         );
         this.dialog = true;
-        console.log(response.data);
         this.text = response.data.countActiveParticipants;
       } catch (error) {
+        this.showErrorSnackbar('Erreur lors de la récupération des participants : ' + error.message);
         console.error(
           "Erreur lors de la récupération des participants :",
           error
         );
       }
     },
+    showErrorSnackbar(message) {
+      this.snackbarText = message;
+      this.snackbar = true;
+    }
   },
   watch: {
-    // Call the fetchCourses method when the reloadCourses state changes
     reloadCourses() {
       this.fetchCourses();
     },
