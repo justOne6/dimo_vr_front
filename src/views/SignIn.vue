@@ -30,15 +30,6 @@
           style="color: var(--nightPurple); font-weight: bold; text-decoration: none">Forgot
           password ?</router-link>
       </div>
-      <div style="width: fit-content; margin: auto">
-        <a href="/sign-up" style="
-            color: var(--nightPurple);
-            font-weight: bold;
-            text-decoration: none;
-          ">
-          Create a new account ?
-        </a>
-      </div>
       <div v-if="loginError" class="error-message">
         <span v-html="loginError"></span>
       </div>
