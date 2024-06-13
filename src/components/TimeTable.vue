@@ -86,7 +86,7 @@ export default {
   methods: {
     fetchCourses() {
       // Fetch the courses data from the API
-      axios.get('http://localhost:8000/api/student-courses', { headers: {
+      axios.get(`${process.env.VUE_APP_API_URI}/api/student-courses`, { headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         }})
@@ -116,7 +116,7 @@ export default {
         return Promise.resolve(this.subjects[subject_id]);
       }
       // Fetch the subject data from the API
-      return axios.get(`http://localhost:8000/api/subjects/${subject_id}`)
+      return axios.get(`${process.env.VUE_APP_API_URI}/api/subjects/${subject_id}`)
           .then(response => {
             const subject = response.data.subject;
             this.subjects[subject_id] = subject; // Cache the subject
