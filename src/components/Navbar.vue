@@ -41,7 +41,7 @@
         <DropdownAccount />
       </div>
       <div v-else>
-        <router-link to="/sign-in" class="no-text-decoration"><span class="material-icons" title="logout"
+        <router-link to="/sign-in" class="no-text-decoration"><span class="material-icons"
             @mouseover="showSignInTooltip = true" @mouseout="showSignInTooltip = false">login</span>
         </router-link>
         <div class="logout_tooltip" v-if="showSignInTooltip">
