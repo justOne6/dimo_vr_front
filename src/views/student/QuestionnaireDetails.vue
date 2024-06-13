@@ -1,12 +1,15 @@
 <template>
   <div class="page-restrict-width questionnaire-wrapper">
     <p v-if="!isAlreadyTreated">
-      Toute bonne réponse vous rapporte 1 point.<br>
-      Toute mauvaise réponse vous enlève 1 point.<br>
-      Vous pouvez donc obtenir un score négatif.<br>
+      Toute bonne réponse vous rapporte 1 point.<br/>
+      Toute mauvaise réponse vous enlève 1 point.<br/>
+      Vous pouvez donc obtenir un score négatif.<br/>
       Votre résultat sera affiché à la fin du questionnaire en pourcentage.
     </p>
-    <h5 class="resultat" v-if="isAlreadyTreated">Vous avez obtenu un score de {{this.score}}% à ce questionnaire. </h5>
+    <h5 class="resultat" v-if="isAlreadyTreated">Toute bonne réponse vous rapporte 1 point.<br/>
+      Toute mauvaise réponse vous enlève 1 point.<br/>
+      Le score est rapporté en pourcentage.<br/>
+      Vous avez obtenu un score de {{this.score}}% à ce questionnaire.</h5>
     <v-card>
       <v-card-title class="text-h2" v-text="questionnaire.title"></v-card-title>
       <v-card-text v-text="questionnaire.description"></v-card-text>
